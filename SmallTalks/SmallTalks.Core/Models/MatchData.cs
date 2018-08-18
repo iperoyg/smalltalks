@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SmallTalks.Core.Model
+namespace SmallTalks.Core.Models
 {
     public class MatchData
     {

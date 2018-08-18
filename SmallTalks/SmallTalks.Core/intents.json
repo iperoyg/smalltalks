@@ -1,0 +1,74 @@
+﻿{
+  "intents": [
+    {
+      "name": "Confirmation",
+      "rules": [
+        "sim",
+        "claro",
+        "pode ser"
+      ]
+    },
+    {
+      "name": "Confusion",
+      "rules": [
+        "^\\?+$",
+        "como assim",
+        "não sei",
+        "não entendi"
+      ]
+    },
+    {
+      "name": "Consent",
+      "rules": [
+        "ok",
+		"(?!n[ãÃa]+o) concordo",
+		"blz",
+		"beleza"
+      ]
+    },
+    {
+      "name": "Disagreement",
+      "rules": [
+        "não concordo",
+		"discordo"
+      ]
+    },
+    {
+      "name": "Greeting",
+      "rules": [
+        "oi",
+        "ol[aáÁ]+"
+      ]
+    },
+    {
+      "name": "GoodMorning",
+      "rules": [
+        "bom\\s*dia"
+      ]
+    },
+    {
+      "name": "GoodEvening",
+      "rules": [
+        "boa\\s*tarde"
+      ]
+    },
+    {
+      "name": "GoodNight",
+      "rules": [
+        "boa\\s*noite"
+      ]
+    },
+    {
+      "name": "Negation",
+      "rules": [
+        "^n[ãÃa]o$"
+      ]
+    },
+    {
+      "name": "Surprise",
+      "rules": [
+        "eita!"
+      ]
+    }
+  ]
+}

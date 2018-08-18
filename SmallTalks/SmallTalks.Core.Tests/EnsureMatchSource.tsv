@@ -1,0 +1,38 @@
+﻿sim	Confirmation:1
+pode ser...	Confirmation:1
+claro!!	Confirmation:1
+não sei...	Confusion:1
+não entendi	Confusion:1
+como assim	Confusion:1
+como assim cara???	Confusion:1
+ok	Consent:1
+ok ok...	Consent:2
+concordo	Consent:1
+blz	Consent:1
+beleza	Consent:1
+discordo	Disagreement:1
+não concordo	Disagreement:1
+oi	Greeting:1
+oi, boa noite	Greeting:1, GoodNight:1
+olaáááá	Greeting:1
+ois	Greeting:1
+oiê	Greeting:1
+opa	Greeting:1
+opa, colé?	Greeting:2
+blz?	Greeting:1
+dia!!!	GoodMorning:1
+então, bom dia, estou com um problema	GoodMorning:1
+bomdia	GoodMorning:1
+boatarde	GoodEvening:1
+boa noite	GoodNight:1
+não	Negation:1
+nunca	Negation:1
+jamais	Negation:1
+naum	Negation:1
+nop	Negation:1
+oia!	Surprise:1
+eita!	Surprise:1
+olha só	Surprise:1
+oi, bom dia	GoodMorning:1, Gretting:1
+bom dia dia! hoje estou feliz	GoodMorning:1
+opa! blz? To precisando falar com alguem...	Greeting:2 
