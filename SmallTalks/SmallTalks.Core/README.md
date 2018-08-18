@@ -1,11 +1,9 @@
-﻿#SmallTalks Detector
+# SmallTalks Detector
 
-##A simple regex solution for many portuguese smalltalks
-
-
-SmallTalks types
+**_A simple regex solution for many portuguese smalltalks_**
 
 
+## SmallTalks types
 - Confirmation / Confirmação
 - Confusion / Confus
 - Consent / Anuência
