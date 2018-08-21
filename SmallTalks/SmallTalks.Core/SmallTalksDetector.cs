@@ -2,6 +2,7 @@
 using SmallTalks.Core.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -34,14 +35,18 @@ namespace SmallTalks.Core
                 Matches = new List<MatchData>()
             };
 
+            DectectorData.SmallTalksIntents = DectectorData.SmallTalksIntents.OrderBy(i => i.Priority).ToList();
+
+            var parsedInput = input;
             foreach (var intent in DectectorData.SmallTalksIntents)
             {
-                var matches = intent.Regex.Matches(input);
+                var matches = intent.Regex.Matches(parsedInput);
 
                 if (matches.Count > 0)
                 {
                     foreach (Match m in matches)
                     {
+                        parsedInput = parsedInput.Replace(index: m.Index, length: m.Length, replacement: '_');
                         analysis.Matches.Add(new MatchData
                         {
                             SmallTalk = intent.Name,
@@ -52,6 +57,8 @@ namespace SmallTalks.Core
                     }
                 }
             }
+
+            analysis.AnalysedInput = parsedInput;
 
             return analysis;
         }

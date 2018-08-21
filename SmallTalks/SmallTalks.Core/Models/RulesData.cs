@@ -19,5 +19,7 @@ namespace SmallTalks.Core.Models
         public string Name { get; set; }
         [DataMember(Name = "rules")]
         public List<string> Patterns { get; set; }
+        [DataMember(Name = "priority")]
+        public int Priority { get; set; }
     }
 }

@@ -23,6 +23,7 @@ namespace SmallTalks.Core.Services
             var regexPattern = string.Join('|', patters);
 
             stIntent.Regex = new Regex(regexPattern, Configuration.ST_REGEX_OPTIONS);
+            stIntent.Priority = rule.Priority;
 
             return stIntent;
         }

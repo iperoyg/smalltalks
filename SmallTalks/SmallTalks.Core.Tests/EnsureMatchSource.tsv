@@ -1,4 +1,8 @@
-﻿sim	Confirmation:1
+﻿oi, bom dia	GoodMorning:1, Greeting:1
+opa! blz? To precisando falar com alguem...	Greeting:1, Surprise:1
+colé fi?	Greeting:1
+cole meu bom!	Greeting:1
+sim	Confirmation:1
 pode ser...	Confirmation:1
 claro!!	Confirmation:1
 não sei...	Confusion:1
@@ -17,8 +21,8 @@ oi, boa noite	Greeting:1, GoodNight:1
 olaáááá	Greeting:1
 ois	Greeting:1
 oiê	Greeting:1
-opa	Greeting:1
-opa, colé?	Greeting:2
+opa	Surprise:1
+opa, colé?	Greeting:1, Surprise:1
 blz?	Greeting:1
 dia!!!	GoodMorning:1
 então, bom dia, estou com um problema	GoodMorning:1
@@ -33,6 +37,4 @@ nop	Negation:1
 oia!	Surprise:1
 eita!	Surprise:1
 olha só	Surprise:1
-oi, bom dia	GoodMorning:1, Gretting:1
 bom dia dia! hoje estou feliz	GoodMorning:1
-opa! blz? To precisando falar com alguem...	Greeting:2 
