@@ -28,10 +28,15 @@ namespace SmallTalks.Core
 
         public Analysis Detect(string input)
         {
+            var preProcess = new PreProcess
+            {
+                Input = input
+            }.RemoveRepeteadChars();
+
             Init();
             var analysis = new Analysis
             {
-                Input = input,
+                Input = preProcess.Output,
                 Matches = new List<MatchData>()
             };
 
