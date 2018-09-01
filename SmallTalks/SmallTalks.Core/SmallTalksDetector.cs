@@ -31,7 +31,9 @@ namespace SmallTalks.Core
             var preProcess = new PreProcess
             {
                 Input = input
-            }.RemoveRepeteadChars();
+            }
+            .RemoveRepeteadChars()
+            .ToLower();
 
             Init();
             var analysis = new Analysis

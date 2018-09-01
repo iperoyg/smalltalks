@@ -8,11 +8,9 @@ namespace SmallTalks.Core.Services
 {
     public static class PreProcessorBuilder
     {
-
-
         public static PreProcess RemoveRepeteadChars(this PreProcess preProcessor)
         {
-            var input = preProcessor.Input.ToCharArray();
+            var input = preProcessor.Data;
             var builder = new StringBuilder();
             char firstLastChar = (char)0;
             char secondLastChar = (char)0;
@@ -30,20 +28,25 @@ namespace SmallTalks.Core.Services
                     builder.Append(currentChar);
                 }
 
-
             }
 
             preProcessor.Output = builder.ToString();
 
             return preProcessor;
-            
+        }
 
+        public static PreProcess ToLower(this PreProcess preProcessor)
+        {
+            var input = preProcessor.Data;
+            preProcessor.Output = input.ToLowerInvariant();
+            return preProcessor;
         }
 
         private static bool MatchesSingleCharRule(char currentChar)
         {
             return string.IsNullOrWhiteSpace(currentChar.ToString()) ||
-                Regex.IsMatch(currentChar.ToString(), "[^\\w\\s]");
+                Regex.IsMatch(currentChar.ToString(), "[^\\w\\s]") ||
+                PreProcess.Non_Duplicable_Consonants.Contains(currentChar);
         }
     }
 }

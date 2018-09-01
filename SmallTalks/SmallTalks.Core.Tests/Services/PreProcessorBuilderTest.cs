@@ -14,6 +14,7 @@ namespace SmallTalks.Core.Tests.Services
         [TestCase("oiiiiiiiii!!!! bom diiia", "oii! bom diia")]
         [TestCase("olááá!!!!!         tudo beeeeeeeem?", "oláá! tudo beem?")]
         [TestCase("ooooia", "ooia")]
+        [TestCase("tttuddo bbbaum ayyy? ççe tta okkkk? ffffllllaaaaa cmmgggg jjjow", "tudo bbaum ay? çe ta okk? flaa cmmg jow")]
         public void When_PreProcess_RepeteadChar_ShouldRemoveThen(string input, string expectedOutput)
         {
             var preprocessor = new PreProcess
