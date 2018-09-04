@@ -12,7 +12,7 @@ namespace SmallTalks.Core.Services
 
         public static InputProcess RemoveRepeteadChars(this InputProcess inputProcess)
         {
-            var input = inputProcess.Input.ToCharArray();
+            var input = inputProcess.Data;
             var builder = new StringBuilder();
             char firstLastChar = (char)0;
             char secondLastChar = (char)0;
@@ -35,15 +35,32 @@ namespace SmallTalks.Core.Services
             return inputProcess;
         }
 
+        public static InputProcess ToLower(this InputProcess inputProcess)
+        {
+            var input = inputProcess.Data;
+            inputProcess.Output = input.ToLowerInvariant();
+            return inputProcess;
+        }
+
         public static InputProcess RemovePunctuation(this InputProcess inputProcess)
         {
-            return null;
+            var input = inputProcess.Data;
+            inputProcess.Output = PunctuationRegex.Replace(input, string.Empty);
+            return inputProcess;
+        }
+
+        public static InputProcess RemovePlaceholder(this InputProcess inputProcess)
+        {
+            var input = inputProcess.Data;
+            inputProcess.Output = input.Replace(InputProcess.Placeholder.ToString(), string.Empty).Trim();
+            return inputProcess;
         }
 
         private static bool MatchesSingleCharRule(char currentChar)
         {
             return string.IsNullOrWhiteSpace(currentChar.ToString()) ||
-                Regex.IsMatch(currentChar.ToString(), "[^\\w\\s]");
+                Regex.IsMatch(currentChar.ToString(), "[^\\w\\s]") ||
+                InputProcess.Non_Duplicable_Consonants.Contains(currentChar);
         }
     }
 }

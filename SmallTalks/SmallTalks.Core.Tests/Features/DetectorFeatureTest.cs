@@ -11,16 +11,6 @@ namespace SmallTalks.Core.Tests.Features
     [TestFixture]
     public class DetectorFeatureTest
     {
-        public static IEnumerable<TestCaseData> DataSources
-        {
-            get
-            {
-                yield return new TestCaseData("bom dia", 1);
-                yield return new TestCaseData("boa tarde", 1);
-                yield return new TestCaseData("boa noite", 1);
-            }
-        }
-
         public static IEnumerable<TestCaseData> GetEnsureMatchData()
         {
             List<TestCaseData> testCaseList = new List<TestCaseData>();
@@ -70,7 +60,7 @@ namespace SmallTalks.Core.Tests.Features
             var analysis = st.Detect(matchData.Input);
 
             var count = matchData.ExpectedMatches.Sum(m => m.Count);
-            
+
             foreach (ExpectedSmallTalkMatch expectedMatch in matchData.ExpectedMatches)
             {
                 var stMatchesCount = analysis.Matches.Where(m => m.SmallTalk.Equals(expectedMatch.Name, StringComparison.OrdinalIgnoreCase)).Count();

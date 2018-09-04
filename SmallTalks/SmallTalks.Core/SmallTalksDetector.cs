@@ -36,7 +36,9 @@ namespace SmallTalks.Core
             var preProcess = new InputProcess
             {
                 Input = input
-            }.RemoveRepeteadChars();
+            }
+            .RemoveRepeteadChars()
+            .ToLower();
 
             Init();
             var analysis = new Analysis
@@ -56,7 +58,7 @@ namespace SmallTalks.Core
                 {
                     foreach (Match m in matches)
                     {
-                        parsedInput = parsedInput.Replace(index: m.Index, length: m.Length, replacement: '_');
+                        parsedInput = parsedInput.Replace(index: m.Index, length: m.Length, replacement: InputProcess.Placeholder);
                         analysis.Matches.Add(new MatchData
                         {
                             SmallTalk = intent.Name,
@@ -69,7 +71,10 @@ namespace SmallTalks.Core
             }
 
             analysis.AnalysedInput = parsedInput;
-            analysis.CleanedInput = parsedInput.Replace("_", string.Empty).Trim();
+            analysis.CleanedInput = InputProcess.FromString(parsedInput)
+                .RemovePlaceholder()
+                .RemovePunctuation()
+                .Output;
             analysis.RelevantInput = _stopWordsDetector.RemoveStopWords(analysis.CleanedInput);
 
             return analysis;

@@ -27,7 +27,7 @@ blz?	Greeting:1
 dia!!!	GoodMorning:1
 então, bom dia, estou com um problema	GoodMorning:1
 bomdia	GoodMorning:1
-boatarde	GoodEvening:1
+boatarde	GoodAfternoon:1
 boa noite	GoodNight:1
 não	Negation:1
 nunca	Negation:1
@@ -38,3 +38,49 @@ oia!	Surprise:1
 eita!	Surprise:1
 olha só	Surprise:1
 bom dia dia! hoje estou feliz	GoodMorning:1
+oi	Greeting:1
+alguém em casa?	Greeting:1
+alguem em casa?	Greeting:1
+alo	Greeting:1
+alô	Greeting:1
+boa tarde	GoodAfternoon:1
+bom dia	GoodMorning:1
+abraço!	GoodBye:1
+ABRAÇOS E BEIJOS	GoodBye:1
+ATE A PROXIMA	GoodBye:1
+ATE A PROXIMA VEZ	GoodBye:1
+ATE LOGO	GoodBye:1
+ATE MAIS	GoodBye:1
+ATE MAIS TARDE	GoodBye:1
+TCHAU	GoodBye:1
+TCHAU TCHAU	GoodBye:1
+B NOITE	GoodNight:1
+BOA NOITE A TODOS	GoodNight:1
+OBRIGADO	Thank:1
+OBRIGADO POR	Thank:1
+OBRIGADA	Thank:1
+OBRIGADA POR	Thank:1
+Valeu!	Thank:1
+vlw por tudo!	Thank:1
+vlw demais	Thank:1
+MUITO OBRIGADO	Thank:1
+MUITO OBRIGADA	Thank:1
+MUITO OBRIGADA por isso	Thank:1
+MUITO OBRIGADA por tudo	Thank:1
+DESCULPA	Sorry:1
+DESCULPE	Sorry:1
+foi mal	Sorry:1
+me desculpa	Sorry:1
+eu amo voce	Compliment:1
+eu te amo	Compliment:1
+vc e linda	Compliment:1
+voce e linda	Compliment:1
+a minha duvida e que vc e linda	Compliment:1
+a minha duvida e que voce e linda	Compliment:1
+acho vc bonita	Compliment:1
+acho voce bonita	Compliment:1
+que massa	Compliment:1
+muito legal	Compliment:1
+nossa, parabéns!	Compliment:1
+ficou incrível!	Compliment:1
+muito bom	Compliment:1
