@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SmallTalks.Core.Models
 {
-    public class PreProcess
+    public class InputProcess
     {
         public string Input { get; set; }
         public string Output { get; set; }

@@ -18,7 +18,7 @@ namespace SmallTalks.Core.Services
 
         public SmallTalksDectectorData GetSmallTalksDetectorDataFromSource(SourceProvider source)
         {
-            var rules = _fileService.ReadRulesFromFile(source.Source);
+            var rules = _fileService.ReadRulesFromFile(source.Intents);
             var data = _conversionService.ToDetectorData(rules);
             return data;
         }

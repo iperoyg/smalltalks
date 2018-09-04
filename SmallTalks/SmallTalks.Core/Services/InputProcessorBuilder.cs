@@ -6,13 +6,13 @@ using System.Text.RegularExpressions;
 
 namespace SmallTalks.Core.Services
 {
-    public static class PreProcessorBuilder
+    public static class InputProcessorBuilder
     {
+        public static Regex PunctuationRegex = new Regex("[.,\\/#!$%\\^&\\*;:{}=\\-_`~()]", RegexOptions.Compiled);
 
-
-        public static PreProcess RemoveRepeteadChars(this PreProcess preProcessor)
+        public static InputProcess RemoveRepeteadChars(this InputProcess inputProcess)
         {
-            var input = preProcessor.Input.ToCharArray();
+            var input = inputProcess.Input.ToCharArray();
             var builder = new StringBuilder();
             char firstLastChar = (char)0;
             char secondLastChar = (char)0;
@@ -29,15 +29,15 @@ namespace SmallTalks.Core.Services
                 {
                     builder.Append(currentChar);
                 }
-
-
             }
 
-            preProcessor.Output = builder.ToString();
+            inputProcess.Output = builder.ToString();
+            return inputProcess;
+        }
 
-            return preProcessor;
-            
-
+        public static InputProcess RemovePunctuation(this InputProcess inputProcess)
+        {
+            return null;
         }
 
         private static bool MatchesSingleCharRule(char currentChar)

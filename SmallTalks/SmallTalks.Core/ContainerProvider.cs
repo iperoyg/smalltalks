@@ -15,7 +15,9 @@ namespace SmallTalks.Core
                 .AddSingleton<IFileService, FileService>()
                 .AddSingleton<IConversionService, ModelConversionService>()
                 .AddSingleton<IDetectorDataProviderService, DetectorDataProviderService>()
-                .AddSingleton<ISourceProviderService, LocalSourceProviderService>();
+                .AddSingleton<ISourceProviderService, LocalSourceProviderService>()
+                .AddSingleton<IStopWordsDetector, StopWordsDetector>();
+                
             
             return serviceCollection;
         }

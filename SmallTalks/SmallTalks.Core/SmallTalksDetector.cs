@@ -12,13 +12,18 @@ namespace SmallTalks.Core
     {
         private readonly IDetectorDataProviderService _detectorDataProvider;
         private readonly ISourceProviderService _sourceProvider;
+        private readonly IStopWordsDetector _stopWordsDetector;
 
         public SmallTalksDectectorData DectectorData { get; private set; }
 
-        public SmallTalksDetector(IDetectorDataProviderService detectorDataProvider, ISourceProviderService sourceProvider)
+        public SmallTalksDetector(
+            IDetectorDataProviderService detectorDataProvider, 
+            ISourceProviderService sourceProvider,
+            IStopWordsDetector stopWordsDetector)
         {
             _detectorDataProvider = detectorDataProvider;
             _sourceProvider = sourceProvider;
+            _stopWordsDetector = stopWordsDetector;
         }
 
         public void Init()
@@ -28,7 +33,7 @@ namespace SmallTalks.Core
 
         public Analysis Detect(string input)
         {
-            var preProcess = new PreProcess
+            var preProcess = new InputProcess
             {
                 Input = input
             }.RemoveRepeteadChars();
@@ -64,6 +69,8 @@ namespace SmallTalks.Core
             }
 
             analysis.AnalysedInput = parsedInput;
+            analysis.CleanedInput = parsedInput.Replace("_", string.Empty).Trim();
+            analysis.RelevantInput = _stopWordsDetector.RemoveStopWords(analysis.CleanedInput);
 
             return analysis;
         }

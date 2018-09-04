@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using SmallTalks.Api.Services;
+using SmallTalks.Core.Services;
 
 namespace SmallTalks.Api
 {
@@ -26,6 +28,8 @@ namespace SmallTalks.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services = Core.ContainerProvider.RegisterTypes(services);
+            services.AddSingleton<ISourceProviderService, WebSourceProviderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +46,10 @@ namespace SmallTalks.Api
 
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            string baseDir = env.WebRootPath;
+            AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Path.Combine(baseDir, "App_Data"));
+
         }
     }
 }

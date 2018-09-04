@@ -16,7 +16,7 @@ namespace SmallTalks.Core.Tests.Services
         [TestCase("ooooia", "ooia")]
         public void When_PreProcess_RepeteadChar_ShouldRemoveThen(string input, string expectedOutput)
         {
-            var preprocessor = new PreProcess
+            var preprocessor = new InputProcess
             {
                 Input = input
             }

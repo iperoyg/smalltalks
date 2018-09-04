@@ -6,12 +6,14 @@ namespace SmallTalks.Core.Models
 {
     public class SourceProvider
     {
-        public string Source { get; set; }
+        public string Intents { get; set; }
+        public string StopWords { get; set; }
         public SourceProviderType SourceType { get; set; }
     }
 
     public enum SourceProviderType
     {
-        Local
+        Local,
+        Web
     }
 }

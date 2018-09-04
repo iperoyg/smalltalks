@@ -9,7 +9,12 @@ namespace SmallTalks.Core.Services
     {
         public SourceProvider GetSourceProvider()
         {
-            return new SourceProvider { Source = "intents.json" };
+            return new SourceProvider
+            {
+                Intents = "intents.json",
+                StopWords = "stopwords.txt",
+                SourceType = SourceProviderType.Local
+            };
         }
     }
 }

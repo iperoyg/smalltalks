@@ -10,5 +10,7 @@ namespace SmallTalks.Core.Models
         public int MatchesCount { get => Matches == null ? 0 : Matches.Count; }
         public List<MatchData> Matches { get; internal set; }
         public string AnalysedInput { get; set; }
+        public string CleanedInput { get; set; }
+        public string RelevantInput { get; internal set; }
     }
 }
