@@ -11,38 +11,33 @@ namespace SmallTalks.Core.Services
 {
     public class DateTimeParser
     {
-        public TextProcessor Build()
+        public void Build()
         {
-            var todaySyntax = CsdlParser.Parse("[today:LDWord(hoje,hj)]");
-            var tomorrowSyntax = CsdlParser.Parse("[tomorrow:LDWord?(amanha)]");
-            var yesterdaySyntax = CsdlParser.Parse("[yesterday:LDWord?(ontem)]");
+            var tomorrow = "amanhã";
+            var today = "hoje,hj";
+            var yesterday = "ontem";
+            var months = new List<string>
+            {
+                "janeiro,jan",
+                "fevereiro,fev",
+                "março,mar",
+                "abril,abr",
+                "maio,mai",
+                "junho,jun",
+                "julho,jul",
+                "agosto,ago",
+                "setembro,set",
+                "outubro,out",
+                "novembro,nov",
+                "dezembro,dez"
+            };
+            var date = "";
 
-            MyDateTime myDateTime = new MyDateTime();
 
-            var todayCommandProcessor = new ReflectionCommandProcessor(
-                myDateTime,
-                nameof(myDateTime.Add),
-                true,
-                outputProcessor: null,
-                syntaxes: todaySyntax);
-            // 5. Register the the processors
-            var textProcessor = new TextProcessor();
-            textProcessor.CommandProcessors.Add(todayCommandProcessor);
-
-            // 6. Add some preprocessors to normalize the input text
-            textProcessor.TextPreprocessors.Add(new TextNormalizerPreprocessor());
-            textProcessor.TextPreprocessors.Add(new ToLowerCasePreprocessor());
-            return textProcessor;
+            
         }
 
     }
-
-    public class MyDateTime
-    {
-        public Task<string> Add(string today, IRequestContext context)
-        {
-            return Task.FromResult(today);
-        }
-    }
+    
 
 }

@@ -1,0 +1,25 @@
+HORA: horas | hora | hr | h
+MINUTO: minutos | minuto | min | m
+SEGUNDO: segundos | segundo | seg | s
+DIA: dias | dia | d
+MES: meses | mes | m
+ANO: anos | ano | a
+
+UND_TEMPO: HORA | MINUTO | SEGUNDO
+UND_DATA: DIA | MES | ANO
+
+NUM: r'\w+'
+
+MANHA: de + manha | da + manha | manha | cedo
+TARDE: de + tarde | da + tarde | a tarde | tarde
+NOITE: de + noite | da + noite | a noite | noite
+
+PERIODO: MANHA | TARDE | NOITE
+
+TEMPO: NUM + UND_TEMPO | NUM + : + NUM + : + NUM | NUM + : + NUM
+TEMPO_FUTURO: em + TEMPO | daqui + TEMPO | apos + TEMPO
+TEMPO_PASSADO: a + TEMPO | TEMPO + atras
+
+TEMPO_EXATO: TEMPO + PERIODO 
+
+DATA: NUM + UND_DATA
