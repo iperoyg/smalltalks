@@ -8,7 +8,7 @@ ANO: anos | ano | a
 UND_TEMPO: HORA | MINUTO | SEGUNDO
 UND_DATA: DIA | MES | ANO
 
-NUM: r'\w'
+NUM: r'\d+'
 
 MANHA: de manha | da manha | manha | cedo
 TARDE: de tarde | da tarde | a tarde | tarde
