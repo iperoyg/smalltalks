@@ -8,6 +8,10 @@
     <DocumentationFile>bin\Debug\netcoreapp2.1\SmallTalks.Api.xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Release\netcoreapp2.1\SmallTalks.Api.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <Content Remove="wwwroot\App_Data\intents.json" />
     <Content Remove="wwwroot\App_Data\stopwords.txt" />
