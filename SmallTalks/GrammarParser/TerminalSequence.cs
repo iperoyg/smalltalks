@@ -9,6 +9,7 @@ namespace GrammarParser
     public class TerminalSequence
     {
         public IList<Terminal> Sequence { get; set; }
+        public string ReadableSequence => string.Join(" ", Sequence.Select(s => s.Pattern));
 
         public bool Evalute(string input, Grammar grammar)
         {

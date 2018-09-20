@@ -11,7 +11,7 @@ namespace GrammarParser
         {
             foreach (var startRule in grammar.StartRules)
             {
-
+                //startRule
             }
         }
 

@@ -9,9 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmallTalks.Core", "SmallTal
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmallTalks.Core.Tests", "SmallTalks.Core.Tests\SmallTalks.Core.Tests.csproj", "{35A6A766-75F6-4775-9840-B2B9A7678C98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrammarParser", "GrammarParser\GrammarParser.csproj", "{B9360F68-811D-4E66-BE79-524067AA96E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrammarParser", "GrammarParser\GrammarParser.csproj", "{B9360F68-811D-4E66-BE79-524067AA96E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrammarParser.Tests", "GrammarParser.Tests\GrammarParser.Tests.csproj", "{94E6B139-9799-43DD-B251-DAA86ABB502F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrammarParser.Tests", "GrammarParser.Tests\GrammarParser.Tests.csproj", "{94E6B139-9799-43DD-B251-DAA86ABB502F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.Core", "Entities.Core\Entities.Core.csproj", "{F02BC1C1-0836-4E4F-A0E2-8E4BC3C93149}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.Core.Tests", "Entities.Core.Tests\Entities.Core.Tests.csproj", "{7C8F39E6-EDB7-4053-B641-059F0F05DFF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{94E6B139-9799-43DD-B251-DAA86ABB502F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94E6B139-9799-43DD-B251-DAA86ABB502F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94E6B139-9799-43DD-B251-DAA86ABB502F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F02BC1C1-0836-4E4F-A0E2-8E4BC3C93149}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F02BC1C1-0836-4E4F-A0E2-8E4BC3C93149}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F02BC1C1-0836-4E4F-A0E2-8E4BC3C93149}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F02BC1C1-0836-4E4F-A0E2-8E4BC3C93149}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C8F39E6-EDB7-4053-B641-059F0F05DFF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C8F39E6-EDB7-4053-B641-059F0F05DFF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C8F39E6-EDB7-4053-B641-059F0F05DFF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C8F39E6-EDB7-4053-B641-059F0F05DFF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

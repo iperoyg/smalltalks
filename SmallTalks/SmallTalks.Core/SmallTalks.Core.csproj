@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Entities.Core\Entities.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="intents.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

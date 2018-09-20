@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SmallTalks.Core.Models
+namespace Entities.Core.Models
 {
     public class InputProcess
     {

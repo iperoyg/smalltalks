@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using Entities.Core.Models;
+using Entities.Core.Services;
+using NUnit.Framework;
 using SmallTalks.Core.Models;
 using SmallTalks.Core.Services;
 using System;
@@ -15,6 +17,9 @@ namespace SmallTalks.Core.Tests.Services
         [TestCase("olááá!!!!!         tudo beeeeeeeem?", "oláá! tudo beem?")]
         [TestCase("ooooia", "ooia")]
         [TestCase("tttuddo bbbaum ayyy? ççe tta okkkk? ffffllllaaaaa cmmgggg jjjow", "tudo bbaum ay? çe ta okk? flaa cmmg jow")]
+        [TestCase("eh, amanha de manha", "eh, amanha de manha")]
+        [TestCase("amaama ela", "amaama ela")]
+        [TestCase("aaaaamaaaaaama elaaaaa", "aamaama elaa")]
         public void When_PreProcess_RepeteadChar_ShouldRemoveThen(string input, string expectedOutput)
         {
             var preprocessor = new InputProcess

@@ -1,10 +1,12 @@
-﻿using SmallTalks.Core.Models;
+﻿using Entities.Core.Extensions;
+using Entities.Core.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace SmallTalks.Core.Services
+namespace Entities.Core.Services
 {
     public static class InputProcessorBuilder
     {
@@ -26,6 +28,10 @@ namespace SmallTalks.Core.Services
                 if (MatchesSingleCharRule(currentChar) && currentChar == firstLastChar) continue;
 
                 if (currentChar != secondLastChar)
+                {
+                    builder.Append(currentChar);
+                }
+                else if (currentChar == secondLastChar && secondLastChar != firstLastChar)
                 {
                     builder.Append(currentChar);
                 }
@@ -53,6 +59,20 @@ namespace SmallTalks.Core.Services
         {
             var input = inputProcess.Data;
             inputProcess.Output = input.Replace(InputProcess.Placeholder.ToString(), string.Empty).Trim();
+            return inputProcess;
+        }
+
+        public static InputProcess RemoveAccentuation(this InputProcess inputProcess)
+        {
+            var input = inputProcess.Data;
+            inputProcess.Output = input.RemoveDiacritics();
+            return inputProcess;
+        }
+
+        public static InputProcess TranslateTextNumberToNumeric(this InputProcess inputProcess)
+        {
+            var input = inputProcess.Data;
+            inputProcess.Output = input.ParseIntegersFromRaw();
             return inputProcess;
         }
 
