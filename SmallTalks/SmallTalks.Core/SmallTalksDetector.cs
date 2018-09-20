@@ -7,8 +7,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Entities.Domain.Extensions;
 using Entities.Domain.Models;
-using Entities.Domain.Services;
-
 namespace SmallTalks.Core
 {
     public class SmallTalksDetector : ISmallTalksDetector

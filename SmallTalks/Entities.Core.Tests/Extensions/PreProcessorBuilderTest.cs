@@ -1,11 +1,6 @@
-﻿using Entities.Domain.Models;
-using Entities.Domain.Services;
+﻿using Entities.Domain.Extensions;
+using Entities.Domain.Models;
 using NUnit.Framework;
-using SmallTalks.Core.Models;
-using SmallTalks.Core.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmallTalks.Core.Tests.Services
 {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Entities.Domain.Extensions;
 
-namespace Entities.Core.Tests
+namespace Entities.Domain.Tests
 {
     [TestFixture]
     public class ExtensionsTest

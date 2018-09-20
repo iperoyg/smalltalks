@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrammarParser.Tests", "Gram
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities.Domain", "Entities.Core\Entities.Domain.csproj", "{F02BC1C1-0836-4E4F-A0E2-8E4BC3C93149}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities.Core.Tests", "Entities.Core.Tests\Entities.Core.Tests.csproj", "{7C8F39E6-EDB7-4053-B641-059F0F05DFF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities.Domain.Tests", "Entities.Core.Tests\Entities.Domain.Tests.csproj", "{7C8F39E6-EDB7-4053-B641-059F0F05DFF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

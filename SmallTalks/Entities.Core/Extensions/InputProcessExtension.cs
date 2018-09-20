@@ -1,14 +1,11 @@
-﻿using Entities.Domain.Extensions;
-using Entities.Domain.Models;
-using System;
-using System.Collections.Generic;
+﻿using Entities.Domain.Models;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Entities.Domain.Services
+namespace Entities.Domain.Extensions
 {
-    public static class InputProcessorBuilder
+    public static class InputProcessExtension
     {
         public static Regex PunctuationRegex = new Regex("[.,\\/#!$%\\^&\\*;:{}=\\-_`~()]", RegexOptions.Compiled);
 
