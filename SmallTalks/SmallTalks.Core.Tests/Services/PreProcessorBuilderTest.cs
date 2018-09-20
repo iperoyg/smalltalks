@@ -1,5 +1,5 @@
-﻿using Entities.Core.Models;
-using Entities.Core.Services;
+﻿using Entities.Domain.Models;
+using Entities.Domain.Services;
 using NUnit.Framework;
 using SmallTalks.Core.Models;
 using SmallTalks.Core.Services;

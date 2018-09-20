@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using Entities.Core.Extensions;
-using Entities.Core.Models;
-using Entities.Core.Services;
+using Entities.Domain.Extensions;
+using Entities.Domain.Models;
+using Entities.Domain.Services;
 
 namespace SmallTalks.Core
 {

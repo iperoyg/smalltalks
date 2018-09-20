@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Entities.Core.Extensions;
+using Entities.Domain.Extensions;
 
 namespace Entities.Core.Tests
 {

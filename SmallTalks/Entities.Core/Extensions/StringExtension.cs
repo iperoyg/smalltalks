@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Entities.Core.Extensions
+namespace Entities.Domain.Extensions
 {
 
     public static class StringExtension

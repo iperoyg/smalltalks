@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Entities.Core.Models
+namespace Entities.Domain.Models
 {
     public class InputProcess
     {

@@ -9,7 +9,7 @@ using System.Text;
     * Copyrigth®: Todos os direitos reservados
 */
 
-namespace Entities.Core.Extensions
+namespace Entities.Domain.Extensions
 {
     //TODO: Remove and write a new solution
     public static class NumberToTextParserBR
