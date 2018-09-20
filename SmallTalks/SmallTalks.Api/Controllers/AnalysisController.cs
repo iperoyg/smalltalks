@@ -8,6 +8,9 @@ using SmallTalks.Core;
 
 namespace SmallTalks.Api.Controllers
 {
+    /// <summary>
+    /// Controller responsible for analysing texts
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class AnalysisController : ControllerBase
@@ -19,6 +22,11 @@ namespace SmallTalks.Api.Controllers
             _smallTalksDetector = smallTalksDetector;
         }
 
+        /// <summary>
+        /// Analyses a text to check for small talks
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Analyse(string text)
         {
