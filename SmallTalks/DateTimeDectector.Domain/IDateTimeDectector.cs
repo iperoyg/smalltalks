@@ -6,6 +6,6 @@ namespace DateTimeDectector.Domain
 {
     public interface IDateTimeDectector
     {
-        void Detect(string input);
+        List<DateTimeDectected> Detect(string input);
     }
 }

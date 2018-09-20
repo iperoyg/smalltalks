@@ -7,7 +7,7 @@ using System.Text;
 
 namespace GrammarParser.Services
 {
-    public class LocalGrammarProvider : IGrammarParseProvider
+    public class LocalGrammarProvider : IGrammarProvider
     {
         private readonly IRuleParserService _ruleParser;
 

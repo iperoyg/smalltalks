@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GrammarParser.Interfaces
 {
-    public interface IGrammarParseProvider
+    public interface IGrammarProvider
     {
         Grammar GetGrammar(GrammarSource source);
     }

@@ -12,8 +12,9 @@ namespace GrammarParser
         public static IServiceCollection RegisterDefaults(IServiceCollection serviceCollection)
         {
             return serviceCollection
+                .AddSingleton<IGrammarSourceProvider, LocalGrammarSourceProvider>()
                 .AddSingleton<IGrammarParserService, MainGrammarParser>()
-                .AddSingleton<IGrammarParseProvider, LocalGrammarProvider>()
+                .AddSingleton<IGrammarProvider, LocalGrammarProvider>()
                 .AddSingleton<IRuleParserService, RuleParserService>()
                 .AddSingleton<ITerminalParserService, TerminalParserService>();
 

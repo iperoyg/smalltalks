@@ -19,7 +19,7 @@ namespace GrammarParser.Tests
             var sc = new ServiceCollection();
             ContainerProvider.RegisterDefaults(sc);
             var serviceProvider = sc.BuildServiceProvider(true);
-            var provider = serviceProvider.GetService<IGrammarParseProvider>();
+            var provider = serviceProvider.GetService<IGrammarProvider>();
             var source = new GrammarSource { Source = "date_gramar.txt" };
             var grammar = provider.GetGrammar(source);
             var parser = serviceProvider.GetService<IGrammarParserService>();
@@ -53,7 +53,7 @@ namespace GrammarParser.Tests
             var sc = new ServiceCollection();
             ContainerProvider.RegisterDefaults(sc);
             var serviceProvider = sc.BuildServiceProvider(true);
-            var provider = serviceProvider.GetService<IGrammarParseProvider>();
+            var provider = serviceProvider.GetService<IGrammarProvider>();
             var source = new GrammarSource { Source = "date_gramar.txt" };
             var grammar = provider.GetGrammar(source);
             var parser = serviceProvider.GetService<IGrammarParserService>();
