@@ -1,4 +1,8 @@
-﻿using NUnit.Framework;
+﻿using GrammarParser.Interfaces;
+using GrammarParser.Models;
+using GrammarParser.Services;
+using Microsoft.Extensions.DependencyInjection;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +16,15 @@ namespace GrammarParser.Tests
         [Test]
         public void GetGrammarFromLocal()
         {
-            var provider = new LocalGrammarProvider();
+            var sc = new ServiceCollection();
+            ContainerProvider.RegisterDefaults(sc);
+            var serviceProvider = sc.BuildServiceProvider(true);
+            var provider = serviceProvider.GetService<IGrammarParseProvider>();
             var source = new GrammarSource { Source = "date_gramar.txt" };
             var grammar = provider.GetGrammar(source);
-            grammar.ExpandAllRules();
+            var parser = serviceProvider.GetService<IGrammarParserService>();
+            var list = parser.GetExpandedRulesList(grammar);
+            Assert.GreaterOrEqual(list.Count, 1);
         }
 
         [TestCase("quero ver esse produto amanhã", "DATA_EXATA_EXTENSO")]
@@ -41,12 +50,15 @@ namespace GrammarParser.Tests
         [TestCase("agora", "TEMPO_EXATO_EXTENSO")]
         public void When_ScanGrammar_ShouldMatch(string input, string expectedVariableRule)
         {
-            var provider = new LocalGrammarProvider();
+            var sc = new ServiceCollection();
+            ContainerProvider.RegisterDefaults(sc);
+            var serviceProvider = sc.BuildServiceProvider(true);
+            var provider = serviceProvider.GetService<IGrammarParseProvider>();
             var source = new GrammarSource { Source = "date_gramar.txt" };
             var grammar = provider.GetGrammar(source);
-            grammar.ExpandAllRules();
+            var parser = serviceProvider.GetService<IGrammarParserService>();
 
-            var matches = grammar.GetMatches(input);
+            var matches = parser.GetMatches(grammar, input);
 
             Assert.AreEqual(1, matches.Count);
             var match = matches.First();

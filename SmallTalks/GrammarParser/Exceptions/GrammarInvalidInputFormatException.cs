@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GrammarParser
+namespace GrammarParser.Exceptions
 {
     public class GrammarInvalidInputFormatException : Exception
     {

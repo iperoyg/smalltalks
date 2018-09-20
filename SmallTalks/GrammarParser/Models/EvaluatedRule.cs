@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GrammarParser
+namespace GrammarParser.Models
 {
     public class EvaluatedRule
     {

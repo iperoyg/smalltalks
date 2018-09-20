@@ -17,6 +17,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities.Domain", "Entities
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities.Domain.Tests", "Entities.Core.Tests\Entities.Domain.Tests.csproj", "{7C8F39E6-EDB7-4053-B641-059F0F05DFF4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DateTimeDectector.Core", "DateTimeDectector.Core\DateTimeDectector.Core.csproj", "{FE7A9679-6FB5-474B-B00F-0F292807C0E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DateTimeDectector.Domain", "DateTimeDectector.Domain\DateTimeDectector.Domain.csproj", "{B7D2722C-A67E-4139-AAC3-A423C0F5EE25}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{7C8F39E6-EDB7-4053-B641-059F0F05DFF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C8F39E6-EDB7-4053-B641-059F0F05DFF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C8F39E6-EDB7-4053-B641-059F0F05DFF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE7A9679-6FB5-474B-B00F-0F292807C0E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE7A9679-6FB5-474B-B00F-0F292807C0E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE7A9679-6FB5-474B-B00F-0F292807C0E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE7A9679-6FB5-474B-B00F-0F292807C0E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7D2722C-A67E-4139-AAC3-A423C0F5EE25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7D2722C-A67E-4139-AAC3-A423C0F5EE25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7D2722C-A67E-4139-AAC3-A423C0F5EE25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7D2722C-A67E-4139-AAC3-A423C0F5EE25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

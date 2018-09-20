@@ -1,18 +1,16 @@
-﻿using System;
+﻿using GrammarParser.Exceptions;
+using GrammarParser.Models;
+using GrammarParser.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace GrammarParser
+namespace GrammarParser.Services
 {
-    public class Terminal
+    public class TerminalParserService : ITerminalParserService
     {
-
-        public string Pattern { get; set; }
-        public TerminalType Type { get; set; }
-        public string Value { get; set; }
-
-        public static Terminal FromText(string input, TerminalType type = TerminalType.Simple)
+        public Terminal FromText(string input, TerminalType type = TerminalType.Simple)
         {
             var pattern = input;
 
@@ -30,7 +28,7 @@ namespace GrammarParser
             };
         }
 
-        public static Terminal ExtractVariableFromStart(string input)
+        public Terminal ExtractVariableFromStart(string input)
         {
             var match = Regex.Match(input, $"^(?<{nameof(Terminal)}>{Grammar.VariablePattern}){Grammar.RuleStartVariableTokenSeparador}");
             if (match.Success)
@@ -42,7 +40,7 @@ namespace GrammarParser
             throw new GrammarInvalidInputFormatException();
         }
 
-        public static Terminal ExtractVariableFromMiddle(string input)
+        public Terminal ExtractVariableFromMiddle(string input)
         {
             var text = input.Trim();
             var match = Regex.Match(text, $"^(?<{nameof(Terminal)}>{Grammar.VariablePattern})$");
@@ -53,14 +51,5 @@ namespace GrammarParser
             }
             return null;
         }
-    }
-
-
-
-    public enum TerminalType
-    {
-        Simple,
-        Regex,
-        Variable
     }
 }

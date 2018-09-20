@@ -1,12 +1,21 @@
-﻿using System;
+﻿using GrammarParser.Interfaces;
+using GrammarParser.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace GrammarParser
+namespace GrammarParser.Services
 {
-    public class LocalGrammarProvider
+    public class LocalGrammarProvider : IGrammarParseProvider
     {
+        private readonly IRuleParserService _ruleParser;
+
+        public LocalGrammarProvider(IRuleParserService ruleParser)
+        {
+            _ruleParser = ruleParser;
+        }
+
         public Grammar GetGrammar(GrammarSource source)
         {
             int counter = 0;
@@ -27,7 +36,7 @@ namespace GrammarParser
                     if (string.IsNullOrWhiteSpace(line))
                         continue;
 
-                    var rule = RuleParser.Parse(line, grammar.KnowTerminals, grammar.KnowVariables);
+                    var rule = _ruleParser.Parse(line, grammar.KnowTerminals, grammar.KnowVariables);
                     if(rule.Type == RuleType.Start)
                     {
                         grammar.StartRules.Add(rule);
