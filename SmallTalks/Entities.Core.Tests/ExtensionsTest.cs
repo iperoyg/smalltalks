@@ -43,6 +43,12 @@ namespace Entities.Core.Tests
         [TestCase("quero mil de um e oito mil e treze do outro", "quero 1000 de 1 e 8013 do outro")]
         [TestCase("treze de junho de mil novecentos e noventa e dois eh meu nasc", "13 de junho de 1992 eh meu nasc")]
         [TestCase("gostaria de 2 datas, daqui quatro dias e daqui oito dias", "gostaria de 2 datas, daqui 4 dias e daqui 8 dias")]
+        [TestCase("13 do 6 de 1992", "13 do 6 de 1992")]
+        [TestCase("treze do seis de mil novecentos e noventa e dois", "13 do 6 de 1992")]
+        [TestCase("dia 13 do 6 de 1992", "dia 13 do 6 de 1992")]
+        [TestCase("dia 13 do 06 de 1992", "dia 13 do 6 de 1992")]
+        [TestCase("dia 13/06/1992", "dia 13/6/1992")]
+        [TestCase("dia 04 do 12 de 1992", "dia 4 do 12 de 1992")]
         public void When_Convert_RawFull_To_Int_Should_Works(string input, string expected)
         {
             var processed = input.ParseIntegersFromRaw();

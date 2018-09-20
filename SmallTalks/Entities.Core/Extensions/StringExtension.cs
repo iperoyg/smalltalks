@@ -85,7 +85,7 @@ namespace Entities.Core.Extensions
                     token.Append(chs);
                 }
             }
-            ProcessAndInsertToken(tokens, token, " ");
+            ProcessAndInsertToken(tokens, token, string.Empty);
 
             return tokens.ToArray();
         }
@@ -103,7 +103,8 @@ namespace Entities.Core.Extensions
             var level = 1000;
             var isScaling = false;
 
-            foreach (var token in raw.SplitTokens())
+            var tokens = raw.SplitTokens();
+            foreach (var token in tokens)
             {
                 if (string.IsNullOrWhiteSpace(token) && (isAcc || isScaling))
                 {
@@ -147,7 +148,7 @@ namespace Entities.Core.Extensions
                     lastWasAndToken = false;
                     level = 10;
                 }
-                else if(token.Equals("cem"))
+                else if (token.Equals("cem"))
                 {
                     NumericHandlePreviousToken(parsedString, ref acc, ref currentGroup, isAcc, andToken, lastWasAndToken, lastWasSpace, level);
                     currentGroup = 100;
@@ -216,7 +217,7 @@ namespace Entities.Core.Extensions
                     HandlePreviousToken(parsedString, currentGroup, isAcc, andToken, lastWasAndToken, lastWasSpace, level, acc);
 
                     parsedString.Append(token);
-                    
+
                     lastWasAndToken = false;
                     isAcc = false;
                     isScaling = false;
@@ -273,11 +274,16 @@ namespace Entities.Core.Extensions
                 if (Regex.IsMatch(ts, "^[0-9]+$"))
                 {
                     ts = NumberToString(Convert.ToInt32(ts));
+                    ts = ts.Trim();
+                    tokens.AddRange(ts.SplitTokens());
                 }
-
-                tokens.Add(ts);
+                else
+                {
+                    tokens.Add(ts);
+                }
             }
-            tokens.Add(chs);
+            if(!string.IsNullOrEmpty(chs))
+                tokens.Add(chs);
             token.Clear();
         }
         private static string NumberToString(int num)

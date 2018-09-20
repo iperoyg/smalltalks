@@ -94,13 +94,16 @@ namespace Entities.Core.Extensions
                 return strCentenas[Math.DivRem(intNumero, 100, out intResto)] + " e " + ConversaoRecursiva(intNumero % 100);
 
             else if ((intNumero >= 1000) && (intNumero <= 999999))
-
-                return ConversaoRecursiva(Math.DivRem(intNumero, 1000, out intResto)) + " mil " + ConversaoRecursiva(intNumero % 1000);
-
+            {
+                var result = ConversaoRecursiva(Math.DivRem(intNumero, 1000, out intResto)) + " mil " + ConversaoRecursiva(intNumero % 1000);
+                result = result.Replace("um mil", "mil");
+                return result;
+            }
             else if ((intNumero >= 1000000) && (intNumero <= 1999999))
-
-                return ConversaoRecursiva(Math.DivRem(intNumero, 1000000, out intResto)) + " milhao " + ConversaoRecursiva(intNumero % 1000000);
-
+            {
+                var result = ConversaoRecursiva(Math.DivRem(intNumero, 1000000, out intResto)) + " milhao " + ConversaoRecursiva(intNumero % 1000000);
+                return result;
+            }
             else if ((intNumero >= 2000000) && (intNumero <= 999999999))
 
                 return ConversaoRecursiva(Math.DivRem(intNumero, 1000000, out intResto)) + " milhoes " + ConversaoRecursiva(intNumero % 1000000);

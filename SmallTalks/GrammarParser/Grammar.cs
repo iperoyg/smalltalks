@@ -5,6 +5,7 @@ using System.Text;
 using Entities.Core.Extensions;
 using Entities.Core.Models;
 using Entities.Core.Services;
+using System.Text.RegularExpressions;
 
 namespace GrammarParser
 {
@@ -99,6 +100,9 @@ namespace GrammarParser
             {
                 allSequences.AddRange(ExpandSequence(sequence));
             }
+
+            allSequences = allSequences.Select(s => Regex.Replace(s, "(\\\\b)+", "\\b")).ToList();
+
             rule.ExpandedRule = allSequences;
             return allSequences;
         }
@@ -137,7 +141,7 @@ namespace GrammarParser
                     }
                     else
                     {
-                        allTerminals.Add($"{item}");
+                        allTerminals.Add($"\\b{item}\\b");
                     }
                 }
 
