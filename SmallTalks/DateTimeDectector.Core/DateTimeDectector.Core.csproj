@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Lime.Messaging" Version="0.7.278" />
+    <PackageReference Include="Lime.Protocol" Version="0.7.278" />
+    <PackageReference Include="Lime.Protocol.Serialization" Version="0.7.278" />
+    <PackageReference Include="Takenet.Iris.Messaging" Version="2.20.128" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DateTimeDectector.Domain\DateTimeDectector.Domain.csproj" />
     <ProjectReference Include="..\GrammarParser\GrammarParser.csproj" />
   </ItemGroup>

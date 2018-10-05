@@ -31,6 +31,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Lime.Messaging" Version="0.7.278" />
+    <PackageReference Include="Lime.Protocol" Version="0.7.278" />
+    <PackageReference Include="Lime.Protocol.Serialization" Version="0.7.278" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Language" Version="2.1.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
@@ -38,11 +41,14 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="3.0.0" />
+    <PackageReference Include="Takenet.Iris.Messaging" Version="2.20.128" />
     <!--<PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />-->
     <!--<PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="3.0.0" />-->
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DateTimeDectector.Core\DateTimeDectector.Core.csproj" />
+    <ProjectReference Include="..\DateTimeDectector.Domain\DateTimeDectector.Domain.csproj" />
     <ProjectReference Include="..\SmallTalks.Core\SmallTalks.Core.csproj" />
   </ItemGroup>
 

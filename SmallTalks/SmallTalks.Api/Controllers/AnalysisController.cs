@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Threading.Tasks;
+using DateTimeDectector.Domain;
 using Microsoft.AspNetCore.Mvc;
 using SmallTalks.Core;
 
@@ -16,10 +13,13 @@ namespace SmallTalks.Api.Controllers
     public class AnalysisController : ControllerBase
     {
         private readonly ISmallTalksDetector _smallTalksDetector;
+        private readonly IDateTimeDectector _dateTimeDectector;
 
-        public AnalysisController(ISmallTalksDetector smallTalksDetector)
+        public AnalysisController(ISmallTalksDetector smallTalksDetector, IDateTimeDectector dateTimeDectector)
         {
             _smallTalksDetector = smallTalksDetector;
+            _dateTimeDectector = dateTimeDectector;
+            
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace SmallTalks.Api.Controllers
         /// <param name="text"></param>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Analyse(string text)
+        public async Task<IActionResult> Analyse(string text)
         {
             if(string.IsNullOrEmpty(text))
             {
@@ -36,6 +36,9 @@ namespace SmallTalks.Api.Controllers
             }
 
             var analysis = _smallTalksDetector.Detect(text);
+            var date = await _dateTimeDectector.DetectAsync(text);
+
+
             return Ok(analysis);
         }
 

@@ -5,6 +5,7 @@ using GrammarParser.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DateTimeDectector.Core
 {
@@ -33,6 +34,11 @@ namespace DateTimeDectector.Core
             var grammar = GetGrammar();
             var matches = _grammarService.GetMatches(grammar, input);
             return _evaluator.Evaluate(matches);
+        }
+
+        public Task<List<DateTimeDectected>> DetectAsync(string input)
+        {
+            return Task.FromResult(Detect(input));
         }
 
         private Grammar GetGrammar()
