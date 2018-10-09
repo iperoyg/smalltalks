@@ -75,8 +75,11 @@ namespace SmallTalks.Core
             analysis.CleanedInput = InputProcess.FromString(parsedInput)
                 .RemovePlaceholder()
                 .RemovePunctuation()
+                .RemoveRepeteadChars()
                 .Output;
-            analysis.RelevantInput = _stopWordsDetector.RemoveStopWords(analysis.CleanedInput);
+            analysis.RelevantInput = InputProcess.FromString(_stopWordsDetector.RemoveStopWords(analysis.CleanedInput))
+                .RemoveRepeteadChars()
+                .Output;
 
             return analysis;
         }
