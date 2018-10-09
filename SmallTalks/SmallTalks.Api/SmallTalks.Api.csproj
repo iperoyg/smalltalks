@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>C:\Users\liviab\repos\smalltalks\SmallTalks\SmallTalks.Api\SmallTalks.Api.xml</DocumentationFile>
+    <DocumentationFile>.\SmallTalks.Api.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
