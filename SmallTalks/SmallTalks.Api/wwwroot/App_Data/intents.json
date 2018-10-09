@@ -40,19 +40,31 @@
             "name": "Greeting",
             "rules": [
                 "oi\\w?",
-                "ol[aáÁ]",
-                "col[eéÉ]",
-                "qual [eéÉ]",
-                "blz\\?"
+                "ol[aá]",
+                "col[eé]",
+                "qual [eé]",
+                "blz\\?",
+				"algu.m em casa",
+				"algu.m a[ií]",
+				"al[oô]"
             ],
             "priority": 4
         },
         {
             "name": "GoodBye",
             "rules": [
-                "tchau",
+                "tchau tchau",
+				"tchau",
                 "adeus",
-                "xau"
+                "xau",
+				"abra[çc]os? e beijo?",
+				"abra[çc]os? e bjos?",
+				"abra[çc]o",
+				"um abraço",
+				"at[ée] mais(\\s+tarde)?",
+				"at[ée] logo",
+				"at[ée] a pr[óo]xima(\\s+vez)?"
+				
             ],
             "priority": 3
         },
@@ -60,15 +72,18 @@
             "name": "GoodMorning",
             "rules": [
                 "bom\\s*dia",
-                "^dia"
+                "^dia",
+				"b dia"
             ],
             "priority": 3
         },
         {
-            "name": "GoodEvening",
+            "name": "GoodAfternoon",
             "rules": [
                 "boa\\s*tarde",
-                "^tarde"
+                "^tarde",
+				"b tarde"
+
             ],
             "priority": 3
         },
@@ -76,14 +91,15 @@
             "name": "GoodNight",
             "rules": [
                 "boa\\s*noite",
-                "^noite"
+                "^noite",
+				"b noite"
             ],
             "priority": 3
         },
         {
             "name": "Negation",
             "rules": [
-                "^n[ãÃa]o$",
+                "^n[ãa]o$",
                 "nunca",
                 "jamais",
                 "naum",
@@ -100,6 +116,42 @@
                 "olha só"
             ],
             "priority": 3
+        },
+		{
+            "name": "Thank",
+            "rules": [
+                "(muito\\s+)?obrigad.",
+				"valeu(\\s+(demais|por tudo|muito))?",
+				"vlw(\\s+(demais|por tudo|muito))?",
+				
+            ],
+            "priority": 3
+        },
+		{
+            "name": "Sorry",
+            "rules": [
+                "desculp.",
+				"foi mal"
+            ],
+            "priority": 3
+        },
+		{
+            "name": "Compliment",
+            "rules": [
+                "que legal",
+				"incr[íi]vel",
+				"parabéns",
+				"muito (bom|legal|bonit.|lind.)",
+				"que bonit.",
+				"que lind.",
+				"eu amo vo?[cç]e?",
+				"eu te amo",
+				"vo?[cç]e?(\\s[ée]h?\\s)?legal|lind.|bonit.",
+				"que massa",
+				"que bacana"
+            ],
+            "priority": 3
         }
+		
     ]
 }
