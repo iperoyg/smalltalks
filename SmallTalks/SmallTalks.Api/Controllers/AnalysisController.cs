@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using DateTimeDectector.Domain;
 using Microsoft.AspNetCore.Mvc;
+using SmallTalks.Api.Models;
 using SmallTalks.Core;
 
 namespace SmallTalks.Api.Controllers
@@ -23,24 +24,27 @@ namespace SmallTalks.Api.Controllers
         }
 
         /// <summary>
-        /// Analyses a text to check for small talks
+        /// Analyses a text to check for small talks and datetimes
         /// </summary>
-        /// <param name="text"></param>
+        /// <param name="text">Text to be analysed</param>
         /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> Analyse(string text)
         {
-            if(string.IsNullOrEmpty(text))
+            if (string.IsNullOrEmpty(text))
             {
                 return BadRequest();
             }
 
-            var analysis = _smallTalksDetector.Detect(text);
-            var date = await _dateTimeDectector.DetectAsync(text);
+            var response = new AnalysisResponse
+            {
+                SmallTalksAnalysis = _smallTalksDetector.Detect(text),
+                DateTimeDectecteds = await _dateTimeDectector.DetectAsync(text)
+            };
 
-
-            return Ok(analysis);
+            return Ok(response);
         }
+
 
     }
 }

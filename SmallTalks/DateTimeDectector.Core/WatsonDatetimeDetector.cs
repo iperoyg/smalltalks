@@ -9,6 +9,8 @@ using Newtonsoft.Json;
 using Lime.Protocol.Serialization.Newtonsoft;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using System.Linq;
 
 namespace DateTimeDectector.Core
 {
@@ -17,13 +19,13 @@ namespace DateTimeDectector.Core
         private HttpClient _client = new HttpClient();
         private JsonNetSerializer _envelopeSerializer;
 
-        public WatsonDatetimeDetector()
+        public WatsonDatetimeDetector(IConfiguration configuration)
         {
             _envelopeSerializer = new JsonNetSerializer();
             _client.BaseAddress = new Uri("https://msging.net");
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Key", "aW50ZWxpZ2VuY2lhYXByZW5kaXo6bzFuOFJoTW1xUkI3VVZsRWFxeTU=");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Key", configuration["BotKey"]);
         }
 
         public List<DateTimeDectected> Detect(string input)
@@ -34,7 +36,15 @@ namespace DateTimeDectector.Core
         public async Task<List<DateTimeDectected>> DetectAsync(string input)
         {
             var response = await AnalyseAsync(input);
-            return null;
+            if (response == null || response.Entities == null)
+                return null;
+
+            var entities = response.Entities
+                .Select(e => EntityResponseToDateTimeDectected(e))
+                .Where(e => e != null)
+                .ToList();
+            
+            return entities;
         }
 
         public async Task<AnalysisResponse> AnalyseAsync(string input)
@@ -73,10 +83,27 @@ namespace DateTimeDectector.Core
             }
         }
 
-        List<DateTimeDectected> IDateTimeDectector.Detect(string input)
+        private DateTimeDectected EntityResponseToDateTimeDectected(EntityResponse entity)
         {
-            throw new NotImplementedException();
+            if (entity.Id == "sys-date")
+            {
+                return new DateTimeDectected
+                {
+                    DetectionType = DateTimeParserDetectionType.SPECIFIC_DATE,
+                    DateTime = DateTime.Parse(entity.Value)
+                };
+            }
+            else if(entity.Id == "sys-time")
+            {
+                return new DateTimeDectected
+                {
+                    DetectionType = DateTimeParserDetectionType.SPECIFIC_TIME,
+                    DateTime = DateTime.Parse(entity.Value)
+                };
+            }
+            return null;
         }
+
 
         
     }
