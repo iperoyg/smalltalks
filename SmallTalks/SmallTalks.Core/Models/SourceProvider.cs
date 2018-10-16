@@ -9,6 +9,7 @@ namespace SmallTalks.Core.Models
         public string Intents { get; set; }
         public string StopWords { get; set; }
         public SourceProviderType SourceType { get; set; }
+        public string CurseWords { get; set; }
     }
 
     public enum SourceProviderType

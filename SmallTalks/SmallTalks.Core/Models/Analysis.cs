@@ -12,5 +12,6 @@ namespace SmallTalks.Core.Models
         public string AnalysedInput { get; set; }
         public string CleanedInput { get; set; }
         public string RelevantInput { get; internal set; }
+        public bool HaveCursedWords { get; internal set; }
     }
 }

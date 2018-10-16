@@ -16,7 +16,7 @@ namespace SmallTalks.Core
                 .AddSingleton<IConversionService, ModelConversionService>()
                 .AddSingleton<IDetectorDataProviderService, DetectorDataProviderService>()
                 .AddSingleton<ISourceProviderService, LocalSourceProviderService>()
-                .AddSingleton<IStopWordsDetector, StopWordsDetector>();
+                .AddTransient<IWordsDetector, WordsDetector>();
                 
             
             return serviceCollection;

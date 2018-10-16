@@ -15,22 +15,27 @@ namespace SmallTalks.Core
     {
         private readonly IDetectorDataProviderService _detectorDataProvider;
         private readonly ISourceProviderService _sourceProvider;
-        private readonly IStopWordsDetector _stopWordsDetector;
+        private readonly IWordsDetector _stopWordsDetector;
+        private readonly IWordsDetector _curseWordsDetector;
 
         public SmallTalksDectectorData DectectorData { get; private set; }
 
         public SmallTalksDetector(
             IDetectorDataProviderService detectorDataProvider, 
             ISourceProviderService sourceProvider,
-            IStopWordsDetector stopWordsDetector)
+            IWordsDetector stopWordsDetector,
+            IWordsDetector curseWordsDetector)
         {
             _detectorDataProvider = detectorDataProvider;
             _sourceProvider = sourceProvider;
             _stopWordsDetector = stopWordsDetector;
+            _curseWordsDetector = curseWordsDetector;
         }
 
         public async Task Init()
         {
+            await _stopWordsDetector.LoadAsync(_sourceProvider.GetSourceProvider().StopWords);
+            await _curseWordsDetector.LoadAsync(_sourceProvider.GetSourceProvider().CurseWords);
             DectectorData = DectectorData ?? await _detectorDataProvider.GetSmallTalksDetectorDataFromSourceAsync(_sourceProvider.GetSourceProvider());
         }
 
@@ -53,6 +58,11 @@ namespace SmallTalks.Core
             DectectorData.SmallTalksIntents = DectectorData.SmallTalksIntents.OrderBy(i => i.Priority).ToList();
 
             var parsedInput = input;
+            var haveCursedWords = false;
+            (parsedInput, haveCursedWords) = await _curseWordsDetector.ReplaceWordsAsync(parsedInput, InputProcess.Placeholder);
+            analysis.HaveCursedWords = haveCursedWords;
+
+
             foreach (var intent in DectectorData.SmallTalksIntents)
             {
                 var matches = intent.Regex.Matches(parsedInput);
@@ -79,9 +89,9 @@ namespace SmallTalks.Core
                 .RemoveRepeteadChars()
                 .RemovePlaceholder()
                 .Output;
-            analysis.RelevantInput = InputProcess.FromString(await _stopWordsDetector.RemoveStopWordsAsync(analysis.CleanedInput))
+            
+            analysis.RelevantInput = InputProcess.FromString(await _stopWordsDetector.RemoveWordsAsync(analysis.CleanedInput))
                 .RemoveRepeteadChars()
-                .RemovePlaceholder()
                 .Output;
 
             return analysis;

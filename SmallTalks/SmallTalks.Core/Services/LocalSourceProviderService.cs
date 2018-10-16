@@ -13,6 +13,7 @@ namespace SmallTalks.Core.Services
             {
                 Intents = "Resources.intents.json",
                 StopWords = "Resources.stopwords.txt",
+                CurseWords = "Resources.cursewords.txt",
                 SourceType = SourceProviderType.Local
             };
         }
