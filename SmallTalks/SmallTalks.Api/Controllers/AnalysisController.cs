@@ -47,7 +47,7 @@ namespace SmallTalks.Api.Controllers
                 var response = new AnalysisResponse
                 {
                     SmallTalksAnalysis = await _smallTalksDetector.DetectAsync(text),
-                    //DateTimeDectecteds = await _dateTimeDectector.DetectAsync(text)
+                    DateTimeDectecteds = await _dateTimeDectector.DetectAsync(text)
                 };
 
                 _logger.Information(response.ToString());
