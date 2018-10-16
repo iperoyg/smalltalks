@@ -11,9 +11,9 @@
         </member>
         <member name="M:SmallTalks.Api.Controllers.AnalysisController.Analyse(System.String)">
             <summary>
-            Analyses a text to check for small talks
+            Analyses a text to check for small talks and datetimes
             </summary>
-            <param name="text"></param>
+            <param name="text">Text to be analysed</param>
             <returns></returns>
         </member>
     </members>

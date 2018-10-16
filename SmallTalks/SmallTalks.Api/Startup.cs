@@ -71,10 +71,6 @@ namespace SmallTalks.Api
 
             app.UseHttpsRedirection();
             app.UseMvc();
-
-            string baseDir = env.WebRootPath;
-            AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Path.Combine(baseDir, "App_Data"));
-
         }
 
         private static void RegisterBlipTypes()

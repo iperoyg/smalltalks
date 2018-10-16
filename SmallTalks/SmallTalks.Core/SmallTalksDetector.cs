@@ -62,7 +62,6 @@ namespace SmallTalks.Core
             (parsedInput, haveCursedWords) = await _curseWordsDetector.ReplaceWordsAsync(parsedInput, InputProcess.Placeholder);
             analysis.HaveCursedWords = haveCursedWords;
 
-
             foreach (var intent in DectectorData.SmallTalksIntents)
             {
                 var matches = intent.Regex.Matches(parsedInput);
