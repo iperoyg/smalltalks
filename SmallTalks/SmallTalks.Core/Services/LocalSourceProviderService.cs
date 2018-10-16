@@ -11,8 +11,8 @@ namespace SmallTalks.Core.Services
         {
             return new SourceProvider
             {
-                Intents = "intents.json",
-                StopWords = "stopwords.txt",
+                Intents = "Resources.intents.json",
+                StopWords = "Resources.stopwords.txt",
                 SourceType = SourceProviderType.Local
             };
         }

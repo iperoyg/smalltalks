@@ -1,9 +1,10 @@
 ﻿using SmallTalks.Core.Models;
+using System.Threading.Tasks;
 
 namespace SmallTalks.Core.Services
 {
     public interface IDetectorDataProviderService
     {
-        SmallTalksDectectorData GetSmallTalksDetectorDataFromSource(SourceProvider source);
+        Task<SmallTalksDectectorData> GetSmallTalksDetectorDataFromSourceAsync(SourceProvider source);
     }
 }

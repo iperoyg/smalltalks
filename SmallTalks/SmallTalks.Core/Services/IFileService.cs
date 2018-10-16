@@ -1,9 +1,10 @@
 ﻿using SmallTalks.Core.Models;
+using System.Threading.Tasks;
 
 namespace SmallTalks.Core.Services
 {
     public interface IFileService
     {
-        RulesData ReadRulesFromFile(string file);
+        Task<RulesData> ReadRulesFromSourceAsync(string file);
     }
 }

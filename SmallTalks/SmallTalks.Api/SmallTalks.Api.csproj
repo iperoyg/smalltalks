@@ -17,20 +17,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\App_Data\intents.json" />
-    <Content Remove="wwwroot\App_Data\stopwords.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\App_Data\intents.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\App_Data\stopwords.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Lime.Messaging" Version="0.7.278" />
     <PackageReference Include="Lime.Protocol" Version="0.7.278" />
     <PackageReference Include="Lime.Protocol.Serialization" Version="0.7.278" />
@@ -50,6 +36,11 @@
     <ProjectReference Include="..\DateTimeDectector.Core\DateTimeDectector.Core.csproj" />
     <ProjectReference Include="..\DateTimeDectector.Domain\DateTimeDectector.Domain.csproj" />
     <ProjectReference Include="..\SmallTalks.Core\SmallTalks.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

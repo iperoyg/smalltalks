@@ -57,7 +57,7 @@ namespace SmallTalks.Core.Tests.Features
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
             var st = serviceProvider.GetService<ISmallTalksDetector>();
-            var analysis = st.Detect(matchData.Input);
+            var analysis = st.DetectAsync(matchData.Input).Result;
 
             var count = matchData.ExpectedMatches.Sum(m => m.Count);
 
@@ -67,6 +67,19 @@ namespace SmallTalks.Core.Tests.Features
                 Assert.That(expectedMatch.Count == stMatchesCount, () => $"The phrase '{matchData.Input}' doesn't contains {expectedMatch.Count} {expectedMatch.Name} smalltalks. Found {stMatchesCount} instead.");
             }
             Assert.That(count == analysis.MatchesCount, () => $"The phrase '{matchData.Input}' doesn't contains {count} small talks. Found {analysis.MatchesCount} instead. ");
+        }
+
+        [Test]
+        public void SimpleIntentCheckTest()
+        {
+            var serviceCollection = new ServiceCollection();
+            ContainerProvider.RegisterTypes(serviceCollection);
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+
+            var st = serviceProvider.GetService<ISmallTalksDetector>();
+            var analysis = st.DetectAsync("oi!").Result;
+
+            Assert.AreEqual(1, analysis.MatchesCount);
         }
     }
 

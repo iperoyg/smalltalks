@@ -1,4 +1,5 @@
 ﻿using SmallTalks.Core.Models;
+using System.Threading.Tasks;
 
 namespace SmallTalks.Core
 {
@@ -6,6 +7,6 @@ namespace SmallTalks.Core
     {
         SmallTalksDectectorData DectectorData { get; }
 
-        Analysis Detect(string input);
+        Task<Analysis> DetectAsync(string input);
     }
 }

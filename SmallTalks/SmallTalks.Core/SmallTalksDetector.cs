@@ -7,6 +7,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Entities.Domain.Extensions;
 using Entities.Domain.Models;
+using System.Threading.Tasks;
+
 namespace SmallTalks.Core
 {
     public class SmallTalksDetector : ISmallTalksDetector
@@ -27,12 +29,12 @@ namespace SmallTalks.Core
             _stopWordsDetector = stopWordsDetector;
         }
 
-        public void Init()
+        public async Task Init()
         {
-            DectectorData = DectectorData ?? _detectorDataProvider.GetSmallTalksDetectorDataFromSource(_sourceProvider.GetSourceProvider());
+            DectectorData = DectectorData ?? await _detectorDataProvider.GetSmallTalksDetectorDataFromSourceAsync(_sourceProvider.GetSourceProvider());
         }
 
-        public Analysis Detect(string input)
+        public async Task<Analysis> DetectAsync(string input)
         {
             var preProcess = new InputProcess
             {
@@ -41,7 +43,7 @@ namespace SmallTalks.Core
             .RemoveRepeteadChars()
             .ToLower();
 
-            Init();
+            await Init();
             var analysis = new Analysis
             {
                 Input = preProcess.Output,
@@ -73,12 +75,13 @@ namespace SmallTalks.Core
 
             analysis.AnalysedInput = parsedInput;
             analysis.CleanedInput = InputProcess.FromString(parsedInput)
-                .RemovePlaceholder()
                 .RemovePunctuation()
                 .RemoveRepeteadChars()
+                .RemovePlaceholder()
                 .Output;
-            analysis.RelevantInput = InputProcess.FromString(_stopWordsDetector.RemoveStopWords(analysis.CleanedInput))
+            analysis.RelevantInput = InputProcess.FromString(await _stopWordsDetector.RemoveStopWordsAsync(analysis.CleanedInput))
                 .RemoveRepeteadChars()
+                .RemovePlaceholder()
                 .Output;
 
             return analysis;

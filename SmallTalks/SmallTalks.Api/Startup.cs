@@ -16,7 +16,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using SmallTalks.Api.Services;
 using SmallTalks.Core.Services;
 using Swashbuckle.AspNetCore.Swagger;
 using Takenet.Iris.Messaging.Resources.ArtificialIntelligence;
@@ -38,7 +37,6 @@ namespace SmallTalks.Api
             RegisterBlipTypes();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services = Core.ContainerProvider.RegisterTypes(services);
-            services.AddSingleton<ISourceProviderService, WebSourceProviderService>();
             services.AddSingleton<IDateTimeDectector, WatsonDatetimeDetector>();
 
             // Swagger
