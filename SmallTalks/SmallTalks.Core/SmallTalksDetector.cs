@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using Entities.Domain.Extensions;
 using Entities.Domain.Models;
 using System.Threading.Tasks;
+using SmallTalks.Core.Services.Interfaces;
 
 namespace SmallTalks.Core
 {
@@ -15,27 +16,27 @@ namespace SmallTalks.Core
     {
         private readonly IDetectorDataProviderService _detectorDataProvider;
         private readonly ISourceProviderService _sourceProvider;
-        private readonly IWordsDetector _stopWordsDetector;
-        private readonly IWordsDetector _curseWordsDetector;
+        private readonly IWordDetectorFactory _wordDetectorFactory;
+
+        private IWordsDetector _stopWordsDetector;
+        private IWordsDetector _curseWordsDetector;
 
         public SmallTalksDectectorData DectectorData { get; private set; }
 
         public SmallTalksDetector(
             IDetectorDataProviderService detectorDataProvider, 
             ISourceProviderService sourceProvider,
-            IWordsDetector stopWordsDetector,
-            IWordsDetector curseWordsDetector)
+            IWordDetectorFactory wordDetectorFactory)
         {
             _detectorDataProvider = detectorDataProvider;
             _sourceProvider = sourceProvider;
-            _stopWordsDetector = stopWordsDetector;
-            _curseWordsDetector = curseWordsDetector;
+            _wordDetectorFactory = wordDetectorFactory;
         }
 
         public async Task Init()
         {
-            await _stopWordsDetector.LoadAsync(_sourceProvider.GetSourceProvider().StopWords);
-            await _curseWordsDetector.LoadAsync(_sourceProvider.GetSourceProvider().CurseWords);
+            _stopWordsDetector = await _wordDetectorFactory.GetWordsDetectorAsync(WordDetectorType.Stopwords);
+            _curseWordsDetector = await _wordDetectorFactory.GetWordsDetectorAsync(WordDetectorType.Cursewords);
             DectectorData = DectectorData ?? await _detectorDataProvider.GetSmallTalksDetectorDataFromSourceAsync(_sourceProvider.GetSourceProvider());
         }
 
@@ -100,3 +101,4 @@ namespace SmallTalks.Core
 
 
 }
+

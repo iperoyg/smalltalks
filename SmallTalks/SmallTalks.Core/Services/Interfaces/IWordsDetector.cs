@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace SmallTalks.Core
+namespace SmallTalks.Core.Services.Interfaces
 {
     public interface IWordsDetector
     {

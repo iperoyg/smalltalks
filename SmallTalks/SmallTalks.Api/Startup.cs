@@ -19,6 +19,7 @@ using Microsoft.Extensions.Options;
 using SmallTalks.Core.Services;
 using Swashbuckle.AspNetCore.Swagger;
 using Takenet.Iris.Messaging.Resources.ArtificialIntelligence;
+using Serilog;
 
 namespace SmallTalks.Api
 {
@@ -27,6 +28,7 @@ namespace SmallTalks.Api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
         }
 
         public IConfiguration Configuration { get; }
@@ -38,7 +40,7 @@ namespace SmallTalks.Api
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services = Core.ContainerProvider.RegisterTypes(services);
             services.AddSingleton<IDateTimeDectector, WatsonDatetimeDetector>();
-
+            services.AddSingleton<Serilog.ILogger>(Log.Logger);
             // Swagger
             services.AddSwaggerGen(c =>
             {
@@ -50,8 +52,10 @@ namespace SmallTalks.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddSerilog();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

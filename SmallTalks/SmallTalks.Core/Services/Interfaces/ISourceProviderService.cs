@@ -1,6 +1,6 @@
 ﻿using SmallTalks.Core.Models;
 
-namespace SmallTalks.Core.Services
+namespace SmallTalks.Core.Services.Interfaces
 {
     public interface ISourceProviderService
     {

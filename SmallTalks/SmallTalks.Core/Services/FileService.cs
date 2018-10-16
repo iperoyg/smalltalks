@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SmallTalks.Core.Models;
+using SmallTalks.Core.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;

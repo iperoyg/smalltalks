@@ -1,7 +1,7 @@
 ﻿using SmallTalks.Core.Models;
 using System.Threading.Tasks;
 
-namespace SmallTalks.Core.Services
+namespace SmallTalks.Core.Services.Interfaces
 {
     public interface IFileService
     {

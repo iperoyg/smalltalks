@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using DateTimeDectector.Domain;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using SmallTalks.Api.Models;
 using SmallTalks.Core;
 
@@ -15,12 +17,16 @@ namespace SmallTalks.Api.Controllers
     {
         private readonly ISmallTalksDetector _smallTalksDetector;
         private readonly IDateTimeDectector _dateTimeDectector;
+        private readonly ILogger _logger;
 
-        public AnalysisController(ISmallTalksDetector smallTalksDetector, IDateTimeDectector dateTimeDectector)
+        public AnalysisController(
+            ISmallTalksDetector smallTalksDetector, 
+            IDateTimeDectector dateTimeDectector,
+            ILogger logger)
         {
             _smallTalksDetector = smallTalksDetector;
             _dateTimeDectector = dateTimeDectector;
-            
+            _logger = logger;
         }
 
         /// <summary>
@@ -31,18 +37,27 @@ namespace SmallTalks.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Analyse(string text)
         {
-            if (string.IsNullOrEmpty(text))
+            try
             {
-                return BadRequest();
+                if (string.IsNullOrEmpty(text))
+                {
+                    return BadRequest();
+                }
+
+                var response = new AnalysisResponse
+                {
+                    SmallTalksAnalysis = await _smallTalksDetector.DetectAsync(text),
+                    //DateTimeDectecteds = await _dateTimeDectector.DetectAsync(text)
+                };
+
+                _logger.Information(response.ToString());
+                return Ok(response);
             }
-
-            var response = new AnalysisResponse
+            catch (Exception ex)
             {
-                SmallTalksAnalysis = await _smallTalksDetector.DetectAsync(text),
-                DateTimeDectecteds = await _dateTimeDectector.DetectAsync(text)
-            };
-
-            return Ok(response);
+                _logger.Error(ex, "Unexpected fail when analysing sentence: {sentence}", text);
+                return StatusCode(500, ex);
+            }
         }
 
 
