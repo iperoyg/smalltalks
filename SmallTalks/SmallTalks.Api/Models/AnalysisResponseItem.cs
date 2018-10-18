@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace SmallTalks.Api.Models
 {
-    public class AnalysisResponse
+    public class AnalysisResponseItem
     {
+        public string Id { get; set; }
         public Core.Models.Analysis SmallTalksAnalysis { get; set; }
         public List<DateTimeDectected> DateTimeDectecteds { get; set; }
 
