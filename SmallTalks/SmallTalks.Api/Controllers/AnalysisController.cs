@@ -35,9 +35,10 @@ namespace SmallTalks.Api.Controllers
         /// Analyses a text to check for small talks and datetimes
         /// </summary>
         /// <param name="text">Text to be analysed</param>
+        /// <param name="checkDate">Optional. Default: true. Make a datetime check</param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> Analyse(string text)
+        public async Task<IActionResult> Analyse(string text, bool checkDate = true)
         {
             try
             {
@@ -49,7 +50,7 @@ namespace SmallTalks.Api.Controllers
                 var response = new AnalysisResponseItem
                 {
                     SmallTalksAnalysis = await _smallTalksDetector.DetectAsync(text),
-                    DateTimeDectecteds = await _dateTimeDectector.DetectAsync(text)
+                    DateTimeDectecteds = checkDate ? await _dateTimeDectector.DetectAsync(text) : null
                 };
 
                 _logger.Information(response.ToString());

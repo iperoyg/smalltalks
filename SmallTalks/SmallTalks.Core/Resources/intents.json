@@ -1,11 +1,20 @@
 ﻿{
     "intents": [
         {
+            "name": "Cordiality",
+            "rules": [
+                "tudo bem\\?",
+            ],
+            "priority": 2
+        },
+        {
             "name": "Confirmation",
             "rules": [
                 "sim",
                 "claro",
-                "pode ser"
+                "pode ser",
+                "tudo bem",
+                "confirmo"
             ],
             "priority": 3
         },
@@ -31,7 +40,7 @@
         {
             "name": "Disagreement",
             "rules": [
-                "não concordo",
+                "n[aã]o concordo",
                 "discordo"
             ],
             "priority": 1
@@ -44,9 +53,9 @@
                 "col[eé]",
                 "qual [eé]",
                 "blz\\?",
-				"algu.m em casa",
-				"algu.m a[ií]",
-				"al[oô]"
+                "algu.m em casa",
+                "algu.m a[ií]",
+                "al[oô]"
             ],
             "priority": 4
         },
@@ -54,17 +63,17 @@
             "name": "GoodBye",
             "rules": [
                 "tchau tchau",
-				"tchau",
+                "tchau",
                 "adeus",
                 "xau",
-				"abra[çc]os? e beijo?",
-				"abra[çc]os? e bjos?",
-				"abra[çc]o",
-				"um abraço",
-				"at[ée] mais(\\s+tarde)?",
-				"at[ée] logo",
-				"at[ée] a pr[óo]xima(\\s+vez)?"
-				
+                "abra[çc]os? e beijo?",
+                "abra[çc]os? e bjos?",
+                "abra[çc]o",
+                "um abraço",
+                "at[ée] mais(\\s+tarde)?",
+                "at[ée] logo",
+                "at[ée] a pr[óo]xima(\\s+vez)?"
+
             ],
             "priority": 3
         },
@@ -73,7 +82,7 @@
             "rules": [
                 "bom\\s*dia",
                 "^dia",
-				"b dia"
+                "b dia"
             ],
             "priority": 3
         },
@@ -82,7 +91,7 @@
             "rules": [
                 "boa\\s*tarde",
                 "^tarde",
-				"b tarde"
+                "b tarde"
 
             ],
             "priority": 3
@@ -92,14 +101,14 @@
             "rules": [
                 "boa\\s*noite",
                 "^noite",
-				"b noite"
+                "b noite"
             ],
             "priority": 3
         },
         {
             "name": "Negation",
             "rules": [
-                "^n[ãa]o$",
+                "n[ãa]o",
                 "nunca",
                 "jamais",
                 "naum",
@@ -117,41 +126,41 @@
             ],
             "priority": 3
         },
-		{
+        {
             "name": "Thank",
             "rules": [
                 "(muito\\s+)?obrigad.",
-				"valeu(\\s+(demais|por tudo|muito))?",
-				"vlw(\\s+(demais|por tudo|muito))?",
-				
+                "valeu(\\s+(demais|por tudo|muito))?",
+                "vlw(\\s+(demais|por tudo|muito))?"
+
             ],
             "priority": 3
         },
-		{
+        {
             "name": "Sorry",
             "rules": [
                 "desculp.",
-				"foi mal"
+                "foi mal"
             ],
             "priority": 3
         },
-		{
+        {
             "name": "Compliment",
             "rules": [
                 "que legal",
-				"incr[íi]vel",
-				"parabéns",
-				"muito (bom|legal|bonit.|lind.)",
-				"que bonit.",
-				"que lind.",
-				"eu amo vo?[cç]e?",
-				"eu te amo",
-				"vo?[cç]e?(\\s[ée]h?\\s)?legal|lind.|bonit.",
-				"que massa",
-				"que bacana"
+                "incr[íi]vel",
+                "parabéns",
+                "muito (bom|legal|bonit.|lind.)",
+                "que bonit.",
+                "que lind.",
+                "eu amo vo?[cç]e?",
+                "eu te amo",
+                "vo?[cç]e?(\\s[ée]h?\\s)?legal|lind.|bonit.",
+                "que massa",
+                "que bacana"
             ],
             "priority": 3
         }
-		
+
     ]
 }

@@ -10,7 +10,7 @@
 - Consent / Anuência
 - Disagreement / Discordância
 - Greeting / Saudação
-- GoodMorning, GoodEvening, GoodNight / Bom dia, Boa tarde, Boa noite
+- GoodMorning, GoodAfternoon, GoodNight / Bom dia, Boa tarde, Boa noite
 - Negation / Negação
 - Sorry / Desculpas
 - Surprise / Supresa
