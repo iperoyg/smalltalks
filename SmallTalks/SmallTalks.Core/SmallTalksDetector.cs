@@ -96,12 +96,14 @@ namespace SmallTalks.Core
                 parsedInputProcess = parsedInputProcess.RemoveAccentuation();
             }
 
-            analysis.AnalysedInput = parsedInputProcess.Output;
+            analysis.MarkedInput = parsedInputProcess.Output;
             analysis.CleanedInput = parsedInputProcess
                 .RemovePunctuation()
                 .RemoveRepeteadChars()
                 .RemovePlaceholder()
                 .Output;
+
+            analysis.CleanedInputRatio = analysis.CleanedInput.Length / (float)analysis.Input.Length;
 
             analysis.RelevantInput = InputProcess.FromString(await _stopWordsDetector.RemoveWordsAsync(analysis.CleanedInput))
                 .RemoveRepeteadChars()

@@ -105,7 +105,7 @@ namespace SmallTalks.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, "Unexpected fail when analysing sentence: {sentence}", request.Id);
+                _logger.Error(ex, "Unexpected fail when analysing sentence: {id}", request.Id);
                 return StatusCode(500, ex);
             }
         }

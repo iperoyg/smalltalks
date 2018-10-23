@@ -20,6 +20,8 @@ using SmallTalks.Core.Services;
 using Swashbuckle.AspNetCore.Swagger;
 using Takenet.Iris.Messaging.Resources.ArtificialIntelligence;
 using Serilog;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace SmallTalks.Api
 {
@@ -49,6 +51,18 @@ namespace SmallTalks.Api
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+
+            services
+                .AddMvc()
+                .AddJsonOptions(opt =>
+                {
+                    var serializer = opt.SerializerSettings;
+                    if (serializer != null)
+                    {
+                        var settings = serializer as JsonSerializerSettings;
+                        settings.NullValueHandling = NullValueHandling.Ignore;
+                    }
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -80,11 +94,9 @@ namespace SmallTalks.Api
         private static void RegisterBlipTypes()
         {
             TypeUtil.RegisterDocument<AnalysisResponse>();
-
             TypeUtil.RegisterDocument<Intention>();
             TypeUtil.RegisterDocument<Answer>();
             TypeUtil.RegisterDocument<Question>();
-
             TypeUtil.RegisterDocument<Entity>();
         }
     }
