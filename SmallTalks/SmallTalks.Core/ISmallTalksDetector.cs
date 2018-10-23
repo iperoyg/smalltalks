@@ -8,5 +8,6 @@ namespace SmallTalks.Core
         SmallTalksDectectorData DectectorData { get; }
 
         Task<Analysis> DetectAsync(string input);
+        Task<Analysis> DetectAsync(string input, SmallTalksPreProcessingConfiguration configuration);
     }
 }

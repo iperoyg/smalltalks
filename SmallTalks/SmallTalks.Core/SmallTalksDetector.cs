@@ -24,7 +24,7 @@ namespace SmallTalks.Core
         public SmallTalksDectectorData DectectorData { get; private set; }
 
         public SmallTalksDetector(
-            IDetectorDataProviderService detectorDataProvider, 
+            IDetectorDataProviderService detectorDataProvider,
             ISourceProviderService sourceProvider,
             IWordDetectorFactory wordDetectorFactory)
         {
@@ -40,14 +40,21 @@ namespace SmallTalks.Core
             DectectorData = DectectorData ?? await _detectorDataProvider.GetSmallTalksDetectorDataFromSourceAsync(_sourceProvider.GetSourceProvider());
         }
 
-        public async Task<Analysis> DetectAsync(string input)
+        public Task<Analysis> DetectAsync(string input)
+        {
+            return DetectAsync(input, new SmallTalksPreProcessingConfiguration());
+        }
+
+        public async Task<Analysis> DetectAsync(string input, SmallTalksPreProcessingConfiguration configuration)
         {
             var preProcess = new InputProcess
             {
                 Input = input
             }
-            .RemoveRepeteadChars()
-            .ToLower();
+            .RemoveRepeteadChars();
+
+            if (configuration.ToLower)
+                preProcess = preProcess.ToLower();
 
             await Init();
             var analysis = new Analysis
@@ -83,20 +90,25 @@ namespace SmallTalks.Core
                 }
             }
 
-            analysis.AnalysedInput = parsedInput;
-            analysis.CleanedInput = InputProcess.FromString(parsedInput)
+            var parsedInputProcess = InputProcess.FromString(parsedInput);
+            if(configuration.UnicodeNormalization)
+            {
+                parsedInputProcess = parsedInputProcess.RemoveAccentuation();
+            }
+
+            analysis.AnalysedInput = parsedInputProcess.Output;
+            analysis.CleanedInput = parsedInputProcess
                 .RemovePunctuation()
                 .RemoveRepeteadChars()
                 .RemovePlaceholder()
                 .Output;
-            
+
             analysis.RelevantInput = InputProcess.FromString(await _stopWordsDetector.RemoveWordsAsync(analysis.CleanedInput))
                 .RemoveRepeteadChars()
                 .Output;
 
             return analysis;
         }
-
     }
 
 
