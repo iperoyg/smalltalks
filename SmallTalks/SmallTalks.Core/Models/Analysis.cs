@@ -32,13 +32,13 @@ namespace SmallTalks.Core.Models
         /// Indicates cleaned ratio above 0.5
         /// </summary>
         [DataMember(Name = "useCleaned")]
-        public bool UseCleanedInput{ get => CleanedInputRatio >= 0.5f ;}
+        public bool? UseCleanedInput{ get; internal set; }
 
         /// <summary>
         /// CleanedInput divided by Input 
         /// </summary>
         [DataMember(Name = "cleanedRatio")]
-        public float CleanedInputRatio { get; internal set; }
+        public float? CleanedInputRatio { get; internal set; }
 
         /// <summary>
         /// Input without placeholders and stopwords (beta-feature)

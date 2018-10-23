@@ -82,32 +82,42 @@ namespace SmallTalks.Core
                         analysis.Matches.Add(new MatchData
                         {
                             SmallTalk = intent.Name,
-                            Value = m.Value,
-                            Index = m.Index,
-                            Lenght = m.Length,
+                            Value = configuration.InformationLevel >= InformationLevel.NORMAL ? m.Value : null,
+                            Index = configuration.InformationLevel >= InformationLevel.FULL ? (int?)m.Index : null,
+                            Lenght = configuration.InformationLevel >= InformationLevel.FULL ? (int?)m.Length : null,
                         });
                     }
                 }
             }
 
-            var parsedInputProcess = InputProcess.FromString(parsedInput);
-            if(configuration.UnicodeNormalization)
+            if (configuration.InformationLevel >= InformationLevel.NORMAL)
             {
-                parsedInputProcess = parsedInputProcess.RemoveAccentuation();
+
+                var parsedInputProcess = InputProcess.FromString(parsedInput);
+                if (configuration.UnicodeNormalization)
+                {
+                    parsedInputProcess = parsedInputProcess.RemoveAccentuation();
+                }
+
+                analysis.MarkedInput = parsedInputProcess.Output;
+                analysis.CleanedInput = parsedInputProcess
+                    .RemovePunctuation()
+                    .RemoveRepeteadChars()
+                    .RemovePlaceholder()
+                    .Output;
+
+                analysis.CleanedInputRatio = analysis.CleanedInput.Length / (float)analysis.Input.Length;
+                analysis.UseCleanedInput = analysis.CleanedInputRatio >= 0.5f;
+
+                if (configuration.InformationLevel >= InformationLevel.FULL)
+                {
+                    analysis.RelevantInput = InputProcess
+                        .FromString(await _stopWordsDetector.RemoveWordsAsync(analysis.CleanedInput))
+                        .RemoveRepeteadChars()
+                        .Output;
+                }
+
             }
-
-            analysis.MarkedInput = parsedInputProcess.Output;
-            analysis.CleanedInput = parsedInputProcess
-                .RemovePunctuation()
-                .RemoveRepeteadChars()
-                .RemovePlaceholder()
-                .Output;
-
-            analysis.CleanedInputRatio = analysis.CleanedInput.Length / (float)analysis.Input.Length;
-
-            analysis.RelevantInput = InputProcess.FromString(await _stopWordsDetector.RemoveWordsAsync(analysis.CleanedInput))
-                .RemoveRepeteadChars()
-                .Output;
 
             return analysis;
         }

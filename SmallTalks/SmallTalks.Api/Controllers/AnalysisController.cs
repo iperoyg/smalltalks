@@ -63,6 +63,33 @@ namespace SmallTalks.Api.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> ConfiguredAnalyse([FromBody] ConfiguredAnalysisRequestItem requestItem)
+        {
+            try
+            {
+                if (requestItem == null || string.IsNullOrEmpty(requestItem.Text))
+                {
+                    return BadRequest();
+                }
+
+                var response = new AnalysisResponseItem
+                {
+                    SmallTalksAnalysis = await _smallTalksDetector.DetectAsync(requestItem.Text, requestItem.Configuration),
+                    DateTimeDectecteds = requestItem.DateCheck ? await _dateTimeDectector.DetectAsync(requestItem.Text) : null
+                };
+
+                _logger.Information(response.ToString());
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Unexpected fail when analysing sentence: {requestItem}", requestItem);
+                return StatusCode(500, ex);
+            }
+        }
+
+
         [HttpPost, Route("batch")]
         public async Task<IActionResult> BatchAnalyse([FromBody] BatchAnalysisRequest request)
         {

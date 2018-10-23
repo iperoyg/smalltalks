@@ -8,7 +8,7 @@ namespace SmallTalks.Core.Models
     {
         public string SmallTalk { get; internal set; }
         public string Value { get; internal set; }
-        public int Index { get; internal set; }
-        public int Lenght { get; internal set; }
+        public int? Index { get; internal set; }
+        public int? Lenght { get; internal set; }
     }
 }
