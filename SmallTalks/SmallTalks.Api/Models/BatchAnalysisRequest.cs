@@ -8,11 +8,11 @@ namespace SmallTalks.Api.Models
     public class BatchAnalysisRequest
     {
         public string Id { get; set; }
-        public List<AnalysisRequestItem> Items { get; set; }
+        public List<ConfiguredAnalysisRequestItem> Items { get; set; }
 
         public BatchAnalysisRequest()
         {
-            Items = new List<AnalysisRequestItem>();
+            Items = new List<ConfiguredAnalysisRequestItem>();
         }
     }
 }

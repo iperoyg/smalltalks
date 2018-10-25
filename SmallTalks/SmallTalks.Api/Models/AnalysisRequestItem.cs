@@ -14,11 +14,11 @@ namespace SmallTalks.Api.Models
         [DataMember(Name = "text")]
         public string Text { get; set; }
         [DataMember(Name = "dateCheck")]
-        public bool DateCheck { get; set; }
+        public bool CheckDate { get; set; }
 
         public AnalysisRequestItem()
         {
-            DateCheck = false;
+            CheckDate = false;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Entities.Domain.Models
 
         public static InputProcess FromString(string input)
         {
-            return new InputProcess { Input = input };
+            return new InputProcess { Input = input, Output = input };
         }
 
     }
