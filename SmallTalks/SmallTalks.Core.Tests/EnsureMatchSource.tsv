@@ -21,8 +21,8 @@ oi, boa noite	Greeting:1, GoodNight:1
 olaáááá	Greeting:1
 ois	Greeting:1
 oiê	Greeting:1
-opa	Surprise:1
-opa, colé?	Greeting:1, Surprise:1
+opa!	Surprise:1
+opa!, colé?	Greeting:1, Surprise:1
 blz?	Greeting:1
 dia!!!	GoodMorning:1
 então, bom dia, estou com um problema	GoodMorning:1
@@ -84,3 +84,40 @@ muito legal	Compliment:1
 nossa, parabéns!	Compliment:1
 ficou incrível!	Compliment:1
 muito bom	Compliment:1
+vlw	Thank:1
+obg	Thank:1
+Muito obrigada!	Thank:1
+Muito obrigado!	Thank:1
+merci	Thank:1
+thanks	Thank:1
+Obrigada!	Thank:1
+Valeu!	Thank:1
+Obrigado!	Thank:1
+até	GoodBye:1
+flw	GoodBye:1
+adeus	GoodBye:1
+ate Mais ver	GoodBye:1
+Até a próxima	GoodBye:1
+Xau	GoodBye:1
+Beijo me liga	GoodBye:1
+Falows	GoodBye:1
+Falou	GoodBye:1
+Tchau	GoodBye:1
+Muito boa!	Compliment:1
+Muito bom!	Compliment:1
+Muito top!	Compliment:1
+Top!	Compliment:1
+Legal!	Compliment:1
+Topzeira	Compliment:1
+Curti!	Compliment:1
+gostei	Compliment:1
+hey	Greeting:1
+Olá	Greeting:1
+Eae	Greeting:1
+Oi	Greeting:1
+opa	Greeting:1
+hi	Greeting:1
+hello	Greeting:1
+Oie!	Greeting:1
+Eae	Greeting:1
+Ei!	Greeting:1
