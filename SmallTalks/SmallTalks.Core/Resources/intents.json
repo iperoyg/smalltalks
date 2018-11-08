@@ -15,7 +15,8 @@
                 "claro",
                 "pode ser",
                 "tudo bem",
-                "confirmo"
+                "confirmo",
+                "^isso+$"
             ],
             "priority": 3
         },
@@ -127,7 +128,7 @@
                 "jamais",
                 "naum",
                 "nop",
-                "$n^"
+                "^n$"
             ],
             "priority": 2
         },
