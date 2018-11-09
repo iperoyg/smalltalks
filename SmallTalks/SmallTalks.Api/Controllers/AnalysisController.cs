@@ -46,6 +46,7 @@ namespace SmallTalks.Api.Controllers
             {
                 if (string.IsNullOrEmpty(text) || infoLevel < 1 || infoLevel > 3)
                 {
+                    _logger.Warning("{@Text} or {@InfoLevel} constraints violated!", text, infoLevel);
                     return BadRequest(new { message = "Check 'text' and 'infoLevel' restrictions" });
                 }
 
@@ -61,13 +62,12 @@ namespace SmallTalks.Api.Controllers
                 };
 
                 var response = await AnalyseAsync(item);
-
-                _logger.Information(response.ToString());
+                _logger.Information("[{@SmallTalksAnalysisResult}] {@Sentence} analysed with CheckDate={@CheckDate} and InfoLevel={@InfoLevel}. Response: {@AnalysisResponse}", "Success", text, checkDate, infoLevel, response);
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, "Unexpected fail when analysing sentence: {sentence}, {checkDate}, {infoLevel}", text, checkDate, infoLevel);
+                _logger.Error(ex, "[{@SmallTalksAnalysisResult}] Unexpected fail when analysing sentence: {@Sentence}, {@CheckDate}, {@InfoLevel}", "Error", text, checkDate, infoLevel);
                 return StatusCode(500, ex);
             }
         }
@@ -148,12 +148,13 @@ namespace SmallTalks.Api.Controllers
 
         private async Task<AnalysisResponseItem> AnalyseAsync(ConfiguredAnalysisRequestItem item)
         {
-            return new AnalysisResponseItem
+            var analysisResponse = new AnalysisResponseItem
             {
                 Id = item.Id,
                 SmallTalksAnalysis = await _smallTalksDetector.DetectAsync(item.Text, item.Configuration),
                 DateTimeDectecteds = item.CheckDate ? await _dateTimeDectector.DetectAsync(item.Text) : null
             };
+            return analysisResponse;
         }
 
         private bool ValidateBatchAnalysis(BatchAnalysisRequest request)
