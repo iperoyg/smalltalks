@@ -30,6 +30,15 @@
             "priority": 0
         },
         {
+            "name": "Frustration",
+            "rules": [
+                "(não|naum)\\s+gostei",
+                "(não|naum)\\s+(está)?\\s*(me)?\\s+ajuda(ndo)?",
+                "(está|é|fica)?\\s*(horr[íi]vel|p[eé]ssimo|desgrad[aá]vel|ruim)"
+            ],
+            "priority": 0
+        },
+        {
             "name": "Consent",
             "rules": [
                 "ok",
@@ -50,13 +59,13 @@
         {
             "name": "Greeting",
             "rules": [
-                "oi\\w?",
-                "ol[aá]",
-                "col[eé]",
-                "qual [eé]",
+                "oi+\\s*(fi|meu|mano|jow|cara|meu bom|querid.)?",
+                "ol[aá]+\\s*(fi|meu|mano|jow|cara|meu bom|querid.)?",
+                "col[eé]+\\s*(meu bom|fi|meu|mano|jow|cara|querid.)?",
+                "^qual [ée]+$",
                 "blz\\?",
                 "algu.m em casa",
-                "algu.m a[ií]",
+                "algu.m a[ií]+",
                 "al[oô]",
                 "hey",
                 "eae",
@@ -171,21 +180,21 @@
                 "que incr[íi]vel",
                 "incr[íi]vel",
                 "parabéns",
-                "muito (top|boa|bom|legal|bonit.|lind.)",
+                "(muito )?(top|boa|bom|legal|bonit.|lind.)",
                 "que bonit.",
                 "que lind.",
                 "eu amo vo?[cç]e?",
                 "eu te amo",
                 "vo?[cç]e?(\\s[ée]h?\\s)?legal|lind.|bonit.",
-                "que massa",
-                "que bacana",
+                "(achei|que)\\s*(massa|bacana|d\\+|top|fant[áa]stico|legal|bom)",
                 "topster",
                 "topzei?ra",
-                "top",
                 "gostei",
-                "curti"
+                "curti",
+                "adorei",
+                "(me)?\\s*ajudou\\s*(muito)?"
             ],
-            "priority": 3
+            "priority": 5
         }
 
     ]

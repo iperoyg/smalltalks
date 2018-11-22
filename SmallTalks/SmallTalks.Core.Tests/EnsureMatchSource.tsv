@@ -123,3 +123,22 @@ Eae	Greeting:1
 Ei!	Greeting:1
 n	Negation:1
 isso	Confirmation:1
+nao é isso	Negation:1
+não era isso	Negation:1
+não gostei	Frustration:1
+naum gostei	Frustration:1
+péssimo	Frustration:1
+horrivel	Frustration:1
+está ruim	Frustration:1
+está horrivel	Frustration:1
+pessimo esse chat	Frustration:1
+muito bom	Compliment:1
+achei legal	Compliment:1
+achei bacana	Compliment:1
+achei d+	Compliment:1
+me ajudou	Compliment:1
+me ajudou muito	Compliment:1
+gostei disso	Compliment:1
+gostei muito	Compliment:1
+muito legal	Compliment:1
+adorei a conversa	Compliment:1
