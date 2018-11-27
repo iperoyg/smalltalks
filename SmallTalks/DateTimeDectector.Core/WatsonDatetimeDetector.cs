@@ -11,6 +11,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
+using System.Threading;
 
 namespace DateTimeDectector.Core
 {
@@ -30,12 +31,12 @@ namespace DateTimeDectector.Core
 
         public List<DateTimeDectected> Detect(string input)
         {
-            return DetectAsync(input).Result;
+            return DetectAsync(input, CancellationToken.None).Result;
         }
 
-        public async Task<List<DateTimeDectected>> DetectAsync(string input)
+        public async Task<List<DateTimeDectected>> DetectAsync(string input, CancellationToken cancellationToken)
         {
-            var response = await AnalyseAsync(input);
+            var response = await AnalyseAsync(input, cancellationToken);
             if (response == null || response.Entities == null)
                 return null;
 
@@ -47,7 +48,7 @@ namespace DateTimeDectector.Core
             return entities;
         }
 
-        public async Task<AnalysisResponse> AnalyseAsync(string input)
+        private async Task<AnalysisResponse> AnalyseAsync(string input, CancellationToken cancellationToken)
         {
             if (input == null) throw new ArgumentNullException(nameof(input));
 
@@ -64,19 +65,19 @@ namespace DateTimeDectector.Core
                 }
             };
 
-            var envelopeResult = await RunCommandAsync(command);
+            var envelopeResult = await RunCommandAsync(command, cancellationToken);
             return envelopeResult.Resource as AnalysisResponse;
 
         }
 
-        private async Task<Command> RunCommandAsync(Command command)
+        private async Task<Command> RunCommandAsync(Command command, CancellationToken cancellationToken)
         {
             var commandString = _envelopeSerializer.Serialize(command);
 
             using (var httpContent = new StringContent(commandString, Encoding.UTF8, "application/json"))
             {
 
-                var response = await _client.PostAsync("/commands", httpContent);
+                var response = await _client.PostAsync("/commands", httpContent, cancellationToken);
                 response.EnsureSuccessStatusCode();
                 var responseBody = await response.Content.ReadAsStringAsync();
                 return (Command)_envelopeSerializer.Deserialize(responseBody);

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using DateTimeDectector.Domain;
@@ -61,9 +63,12 @@ namespace SmallTalks.Api.Controllers
                     }
                 };
 
-                var response = await AnalyseAsync(item);
-                _logger.Information("[{@SmallTalksAnalysisResult}] {@Sentence} analysed with CheckDate={@CheckDate} and InfoLevel={@InfoLevel}. Response: {@AnalysisResponse}", "Success", text, checkDate, infoLevel, response);
-                return Ok(response);
+                using (var source = new CancellationTokenSource(TimeSpan.FromSeconds(1)))
+                {
+                    var response = await AnalyseAsync(item, source.Token);
+                    _logger.Information("[{@SmallTalksAnalysisResult}] {@Sentence} analysed with CheckDate={@CheckDate} and InfoLevel={@InfoLevel}. Response: {@AnalysisResponse}", "Success", text, checkDate, infoLevel, response);
+                    return Ok(response);
+                }
             }
             catch (Exception ex)
             {
@@ -82,14 +87,12 @@ namespace SmallTalks.Api.Controllers
                     return BadRequest();
                 }
 
-                var response = new AnalysisResponseItem
+                using (var source = new CancellationTokenSource(TimeSpan.FromSeconds(1)))
                 {
-                    SmallTalksAnalysis = await _smallTalksDetector.DetectAsync(requestItem.Text, requestItem.Configuration),
-                    DateTimeDectecteds = requestItem.CheckDate ? await _dateTimeDectector.DetectAsync(requestItem.Text) : null
-                };
-
-                _logger.Information(response.ToString());
-                return Ok(response);
+                    var response = await AnalyseAsync(requestItem, source.Token);
+                    _logger.Information(response.ToString());
+                    return Ok(response);
+                }
             }
             catch (Exception ex)
             {
@@ -98,6 +101,24 @@ namespace SmallTalks.Api.Controllers
             }
         }
 
+        private async Task<List<DateTimeDectected>> DetectDateAsync(ConfiguredAnalysisRequestItem requestItem, CancellationToken cancellationToken)
+        {
+            var sw = Stopwatch.StartNew();
+            try
+            {
+                return requestItem.CheckDate ? await _dateTimeDectector.DetectAsync(requestItem.Text, cancellationToken) : null;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Couldn't check date for {@RequestItem}", requestItem);
+                return null;
+            }
+            finally
+            {
+                sw.Stop();
+                _logger.Information("Finish date detect after {@ElapsedMillisecods} for {@RequestItem}", sw.ElapsedMilliseconds, requestItem);
+            }
+        }
 
         [HttpPost, Route("batch")]
         public async Task<IActionResult> BatchAnalyse([FromBody] BatchAnalysisRequest request)
@@ -115,7 +136,7 @@ namespace SmallTalks.Api.Controllers
                     Id = request.Id
                 };
 
-                var tranformBlock = new TransformBlock<ConfiguredAnalysisRequestItem, AnalysisResponseItem>((Func<ConfiguredAnalysisRequestItem, Task<AnalysisResponseItem>>)AnalyseAsync,
+                var tranformBlock = new TransformBlock<ConfiguredAnalysisRequestItem, AnalysisResponseItem>((Func<ConfiguredAnalysisRequestItem, Task<AnalysisResponseItem>>)UnsafeAnalyseAsync,
                     new ExecutionDataflowBlockOptions
                     {
                         BoundedCapacity = ExecutionDataflowBlockOptions.Unbounded,
@@ -146,14 +167,27 @@ namespace SmallTalks.Api.Controllers
             }
         }
 
-        private async Task<AnalysisResponseItem> AnalyseAsync(ConfiguredAnalysisRequestItem item)
+        private async Task<AnalysisResponseItem> AnalyseAsync(ConfiguredAnalysisRequestItem item, CancellationToken cancellationToken)
         {
             var analysisResponse = new AnalysisResponseItem
             {
                 Id = item.Id,
                 SmallTalksAnalysis = await _smallTalksDetector.DetectAsync(item.Text, item.Configuration),
-                DateTimeDectecteds = item.CheckDate ? await _dateTimeDectector.DetectAsync(item.Text) : null
+                DateTimeDectecteds = await DetectDateAsync(item, cancellationToken),
             };
+
+            return analysisResponse;
+        }
+
+        private async Task<AnalysisResponseItem> UnsafeAnalyseAsync(ConfiguredAnalysisRequestItem item)
+        {
+            var analysisResponse = new AnalysisResponseItem
+            {
+                Id = item.Id,
+                SmallTalksAnalysis = await _smallTalksDetector.DetectAsync(item.Text, item.Configuration),
+                DateTimeDectecteds = await DetectDateAsync(item, CancellationToken.None),
+            };
+
             return analysisResponse;
         }
 

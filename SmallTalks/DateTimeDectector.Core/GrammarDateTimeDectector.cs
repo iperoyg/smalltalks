@@ -5,6 +5,7 @@ using GrammarParser.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DateTimeDectector.Core
@@ -36,7 +37,7 @@ namespace DateTimeDectector.Core
             return _evaluator.Evaluate(matches);
         }
 
-        public Task<List<DateTimeDectected>> DetectAsync(string input)
+        public Task<List<DateTimeDectected>> DetectAsync(string input, CancellationToken cancellationToken)
         {
             return Task.FromResult(Detect(input));
         }
