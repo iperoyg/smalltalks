@@ -16,7 +16,8 @@
                 "pode ser",
                 "tudo bem",
                 "confirmo",
-                "^isso+$"
+                "^isso+$",
+
             ],
             "priority": 3
         },

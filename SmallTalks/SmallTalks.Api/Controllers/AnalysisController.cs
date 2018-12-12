@@ -7,6 +7,7 @@ using System.Threading.Tasks.Dataflow;
 using DateTimeDectector.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
+using SmallTalks.Api.Filters;
 using SmallTalks.Api.Models;
 using SmallTalks.Core;
 using SmallTalks.Core.Models;
@@ -42,6 +43,7 @@ namespace SmallTalks.Api.Controllers
         /// <param name="infoLevel">Optional. Default: 1. Controls the amount of information delivered in JSON (1 - minimum, 2 - normal, 3 - full)</param>
         /// <returns></returns>
         [HttpGet]
+        [ServiceFilter(typeof(CustomAuthenticationFilter))]
         public async Task<IActionResult> Analyse(string text, bool checkDate = true, int infoLevel = 1)
         {
             try

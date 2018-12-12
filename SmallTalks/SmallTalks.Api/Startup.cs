@@ -22,6 +22,8 @@ using Takenet.Iris.Messaging.Resources.ArtificialIntelligence;
 using Serilog;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
+using SmallTalks.Api.Filters;
+using SmallTalks.Api.Middlewares;
 
 namespace SmallTalks.Api
 {
@@ -39,10 +41,17 @@ namespace SmallTalks.Api
         public void ConfigureServices(IServiceCollection services)
         {
             RegisterBlipTypes();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services
+                .AddMvc(options =>
+                {
+                    //options.Filters.Add(new CustomAuthenticationFilter(Log.Logger));
+                })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services = Core.ContainerProvider.RegisterTypes(services);
             services.AddSingleton<IDateTimeDectector, WatsonDatetimeDetector>();
             services.AddSingleton<Serilog.ILogger>(Log.Logger);
+            services.AddScoped<CustomAuthenticationFilter>();
+
             // Swagger
             services.AddSwaggerGen(c =>
             {
@@ -86,7 +95,7 @@ namespace SmallTalks.Api
                 c.RoutePrefix = "";
                 c.SwaggerEndpoint("./swagger/v1/swagger.json", "SmallTalks V1");
             });
-
+            app.UseMiddleware<RequestLogger>();
             app.UseHttpsRedirection();
             app.UseMvc();
         }
