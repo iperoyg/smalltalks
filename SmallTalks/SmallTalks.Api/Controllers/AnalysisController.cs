@@ -80,6 +80,7 @@ namespace SmallTalks.Api.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(CustomAuthenticationFilter))]
         public async Task<IActionResult> ConfiguredAnalyse([FromBody] ConfiguredAnalysisRequestItem requestItem)
         {
             try
@@ -103,26 +104,8 @@ namespace SmallTalks.Api.Controllers
             }
         }
 
-        private async Task<List<DateTimeDectected>> DetectDateAsync(ConfiguredAnalysisRequestItem requestItem, CancellationToken cancellationToken)
-        {
-            var sw = Stopwatch.StartNew();
-            try
-            {
-                return requestItem.CheckDate ? await _dateTimeDectector.DetectAsync(requestItem.Text, cancellationToken) : null;
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "Couldn't check date for {@RequestItem}", requestItem);
-                return null;
-            }
-            finally
-            {
-                sw.Stop();
-                _logger.Information("Finish date detect after {@ElapsedMillisecods} for {@RequestItem}", sw.ElapsedMilliseconds, requestItem);
-            }
-        }
-
         [HttpPost, Route("batch")]
+        [ServiceFilter(typeof(CustomAuthenticationFilter))]
         public async Task<IActionResult> BatchAnalyse([FromBody] BatchAnalysisRequest request)
         {
             try
@@ -169,6 +152,25 @@ namespace SmallTalks.Api.Controllers
             }
         }
 
+        private async Task<List<DateTimeDectected>> DetectDateAsync(ConfiguredAnalysisRequestItem requestItem, CancellationToken cancellationToken)
+        {
+            var sw = Stopwatch.StartNew();
+            try
+            {
+                return requestItem.CheckDate ? await _dateTimeDectector.DetectAsync(requestItem.Text, cancellationToken) : null;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Couldn't check date for {@RequestItem}", requestItem);
+                return null;
+            }
+            finally
+            {
+                sw.Stop();
+                _logger.Information("Finish date detect after {@ElapsedMillisecods} for {@RequestItem}", sw.ElapsedMilliseconds, requestItem);
+            }
+        }
+
         private async Task<AnalysisResponseItem> AnalyseAsync(ConfiguredAnalysisRequestItem item, CancellationToken cancellationToken)
         {
             var analysisResponse = new AnalysisResponseItem
@@ -192,6 +194,8 @@ namespace SmallTalks.Api.Controllers
 
             return analysisResponse;
         }
+
+
 
         private bool ValidateBatchAnalysis(BatchAnalysisRequest request)
         {
