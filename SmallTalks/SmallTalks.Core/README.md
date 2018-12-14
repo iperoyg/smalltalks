@@ -1,7 +1,7 @@
 # SmallTalks Detector
 
 **_A simple regex solution for many portuguese smalltalks_**
-
+**_Uma solução simples para REGEX para várias SmallTalks em português_**
 
 ## SmallTalks types
 - Compliment / Elogio
