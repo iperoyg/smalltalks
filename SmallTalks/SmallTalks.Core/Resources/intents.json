@@ -161,7 +161,8 @@
                 "muito obg",
                 "obg",
                 "merci",
-                "thanks"
+                "thanks",
+                "^(de|por) nada"
             ],
             "priority": 3
         },

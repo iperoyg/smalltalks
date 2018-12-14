@@ -101,7 +101,7 @@ namespace SmallTalks.Core
             {
                 Input = input
             }
-                        .RemoveRepeteadChars();
+            .RemoveRepeteadChars();
 
             if (configuration.ToLower)
                 preProcess = preProcess.ToLower();
