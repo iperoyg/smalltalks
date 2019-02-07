@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -36,15 +37,35 @@ namespace SmallTalks.Api.Controllers
         }
 
         /// <summary>
-        /// Analyses a text to check for small talks and datetimes
+        /// Analyses a SINGLE input for Smalltalks types and datetimes
         /// </summary>
-        /// <param name="text">Text to be analysed (cannot be null or empty) </param>
-        /// <param name="checkDate">Optional. Default: true. Make a datetime check</param>
-        /// <param name="infoLevel">Optional. Default: 1. Controls the amount of information delivered in JSON (1 - minimum, 2 - normal, 3 - full)</param>
+        /// <param name="text">Text to be analysed *(cannot be null or empty)* </param>
+        /// <param name="checkDate">Optional. Make a datetime check. *(If date is not desired, please set to false.)*</param>
+        /// <param name="infoLevel">Optional. Controls the amount of information delivered in JSON (1 - minimum, 2 - normal, 3 - full)</param>
+        /// <remarks>
+        ///     **InfoLevel Description:**
+        ///         **Lvl 1**
+        ///             Smalltalk type identified
+        ///             Cursed ----------------- *boolean index that returns true when a crused words is found on the input*
+        ///         **Lvl 2**
+        ///             Fields from **Lvl 1** plus:
+        ///             Value ------------------- *the exact identified input*
+        ///             MarketInput --------- *input with a placeholder in the place of **Value***
+        ///             CleanedInput ------- *input without the **Value***
+        ///             UseCleaned ---------- *boolean index that tells if the **CleanedInput** should be used or not*
+        ///             CleanedRatio -------- *the ratio of how much was identified and deleted from the input*
+        ///         **Lvl 3**
+        ///             Fields from **Lvl 2** plus:
+        ///             Index ------------------- *the identified value initial position*
+        ///             Length ----------------- *the identified value length*
+        ///             Relevant input ------ *input without stopwords* (**Beta**, not recommended)
+        /// </remarks>
         /// <returns></returns>
+        /// <response code="200">Successful API call. </response>
         [HttpGet]
         [ServiceFilter(typeof(CustomAuthenticationFilter))]
-        public async Task<IActionResult> Analyse(string text, bool checkDate = true, int infoLevel = 1)
+        [ProducesResponseType(typeof(AnalysisResponseItem), 200)]
+        public async Task<IActionResult> Analyse([Required]string text, bool checkDate = true, int infoLevel = 1)
         {
             try
             {
@@ -79,8 +100,18 @@ namespace SmallTalks.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Analyses a JSON with a SINGLE input for Smalltalks types and datetimes
+        /// </summary>
+        /// <param name="requestItem">A JSON declaring the configuration parameters for the analysis, and a SINGLE input to be analysed</param>
+        /// <returns></returns>
+        /// <response code="200">Input successfully analysed. </response>
+        /// <response code="400">Input is null or empty, or there is no items to be analysed. </response>
+        /// <response code="500">Internal Error. Check exception and log.</response>"
+
         [HttpPost]
         [ServiceFilter(typeof(CustomAuthenticationFilter))]
+        [ProducesResponseType(typeof(BatchAnalysisResponse), 200)]
         public async Task<IActionResult> ConfiguredAnalyse([FromBody] ConfiguredAnalysisRequestItem requestItem)
         {
             try
@@ -104,8 +135,17 @@ namespace SmallTalks.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Analyses a BATCH of inputs for Smalltalks types and datetimes
+        /// </summary>
+        /// <param name="request">A JSON declaring the configuration parameters for the analysis, and a BATCH of inputs to be analysed</param>
+        /// <returns></returns>
+        /// <response code="200">Batch successfully analysed. </response>
+        /// <response code="400">Batch is null or empty, or there is no items to be analysed. </response>
+        /// <response code="500">Internal Error. Check exception and log.</response>"
         [HttpPost, Route("batch")]
         [ServiceFilter(typeof(CustomAuthenticationFilter))]
+        [ProducesResponseType(typeof(BatchAnalysisResponse), 200)]
         public async Task<IActionResult> BatchAnalyse([FromBody] BatchAnalysisRequest request)
         {
             try
