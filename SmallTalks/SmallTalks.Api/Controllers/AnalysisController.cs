@@ -40,8 +40,8 @@ namespace SmallTalks.Api.Controllers
         /// Analyses a SINGLE input for Smalltalks types and datetimes
         /// </summary>
         /// <param name="text">Text to be analysed *(cannot be null or empty)* </param>
-        /// <param name="checkDate">Optional. Make a datetime check. *(If date is not desired, please set to false.)*</param>
-        /// <param name="infoLevel">Optional. Controls the amount of information delivered in JSON (1 - minimum, 2 - normal, 3 - full)</param>
+        /// <param name="checkDate">Optional. Make a datetime check. *(If date is not desired, please set to false. **It generates AI provider costs**)*</param>
+        /// <param name="infoLevel">Controls the amount of information delivered in JSON (1 - Minimum, 2 - Normal, 3 - Full)</param>
         /// <remarks>
         ///     **InfoLevel Description:**
         ///         **Lvl 1**
@@ -62,10 +62,12 @@ namespace SmallTalks.Api.Controllers
         /// </remarks>
         /// <returns></returns>
         /// <response code="200">Successful API call. </response>
+        /// <response code="400">Input is null or empty.</response>
+        /// <response code="500">Internal Error. Check exception and log.</response>"
         [HttpGet]
         [ServiceFilter(typeof(CustomAuthenticationFilter))]
         [ProducesResponseType(typeof(AnalysisResponseItem), 200)]
-        public async Task<IActionResult> Analyse([Required]string text, bool checkDate = true, int infoLevel = 1)
+        public async Task<IActionResult> Analyse([Required]string text, bool checkDate = true, [Required] int infoLevel = 1)
         {
             try
             {
@@ -103,7 +105,11 @@ namespace SmallTalks.Api.Controllers
         /// <summary>
         /// Analyses a JSON with a SINGLE input for Smalltalks types and datetimes
         /// </summary>
-        /// <param name="requestItem">A JSON declaring the configuration parameters for the analysis, and a SINGLE input to be analysed</param>
+        /// <param name="requestItem">A JSON declaring the configuration parameters for the analysis, and a SINGLE input to be analysed *(Info Level: Minimum - 1, Normal - 2, Full - 3)*</param>
+        /// <remarks>
+        ///     **dateCheck Parameter**
+        ///     *If date is not desired, please set to false. **It generates AI provider costs***.
+        /// </remarks>
         /// <returns></returns>
         /// <response code="200">Input successfully analysed. </response>
         /// <response code="400">Input is null or empty, or there is no items to be analysed. </response>
@@ -138,7 +144,11 @@ namespace SmallTalks.Api.Controllers
         /// <summary>
         /// Analyses a BATCH of inputs for Smalltalks types and datetimes
         /// </summary>
-        /// <param name="request">A JSON declaring the configuration parameters for the analysis, and a BATCH of inputs to be analysed</param>
+        /// <param name="request">A JSON declaring the configuration parameters for the analysis, and a BATCH of inputs to be analysed. *(Info Level: Minimum - 1, Normal - 2; Full - 3)*</param>
+        /// <remarks>
+        ///     **dateCheck Parameter**
+        ///     *If date is not desired, please set to false. **It generates AI provider costs***.
+        /// </remarks>
         /// <returns></returns>
         /// <response code="200">Batch successfully analysed. </response>
         /// <response code="400">Batch is null or empty, or there is no items to be analysed. </response>
