@@ -17,7 +17,7 @@
                 "tudo bem",
                 "confirmo",
                 "^isso+$",
-
+                "^ss?$"
             ],
             "priority": 3
         },
