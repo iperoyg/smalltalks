@@ -4,20 +4,27 @@
             "name": "Cordiality",
             "rules": [
                 "tudo bem\\?",
-                "tudo certo\\?"
+                "tudo certo\\?",
+                "como vai\\?"
             ],
             "priority": 2
         },
         {
             "name": "Confirmation",
             "rules": [
-                "sim",
+                "si[mn]",
                 "claro",
                 "pode ser",
                 "tudo bem",
                 "confirmo",
                 "^isso+$",
-                "^ss?$"
+                "ss?",
+                "por favor",
+                "quero(\\s+(sim|por favor))?",
+                "gostaria(\\s+si[mn])?",
+                "prefiro",
+                "o(quei|kay|kei|key|ka|k)",
+                "(pode)((\\s+?)(seguir|continuar))?"
             ],
             "priority": 3
         },
@@ -132,14 +139,18 @@
         },
         {
             "name": "Negation",
-            "rules": [
-                "n[ãa]o",
-                "nunca",
-                "jamais",
-                "naum",
-                "nop",
-                "^n$"
-            ],
+          "rules": [
+            "n[ãaâ]o",
+            "nunca",
+            "jamais",
+            "naum",
+            "nop",
+            "nn?",
+            "[sd]e forma alguma",
+            "nem",
+            "n[aãâ]o\\s+(quero|precisa|(|me\\s+|mi\\s+)intere(ss|s|ç|Ç)a|tenho\\s+intere(ss|s|ç|Ç)e)"
+
+          ],
             "priority": 2
         },
         {
