@@ -4,20 +4,29 @@
             "name": "Cordiality",
             "rules": [
                 "tudo bem\\?",
-                "tudo certo\\?"
+                "tudo certo\\?",
+                "como vai\\?"
             ],
             "priority": 2
         },
         {
             "name": "Confirmation",
             "rules": [
-                "sim",
-                "claro",
-                "pode ser",
+                "^(o(quei|kay|kei|key|ka|k)+\\s?)+",
+                "^(pode)((\\s+?)(seguir|continuar))?",
+                "^(pode|pod)((\\s+?)(ser))?",
+                "quero(\\s+(sim|por favor))?",
+                "gostaria(\\s+si[mn])?",
+                "si[mn]",
+                "^claro(!+)?$",
+                "^pode ser",
                 "tudo bem",
                 "confirmo",
                 "^isso+$",
-                "^ss?$"
+                "^ss?$",
+                "^por favor",
+                "^prefiro",
+                "seguir"
             ],
             "priority": 3
         },
@@ -42,7 +51,6 @@
         {
             "name": "Consent",
             "rules": [
-                "^(ok+\\s?)+",
                 "concordo",
                 "blz",
                 "beleza"
@@ -133,12 +141,18 @@
         {
             "name": "Negation",
             "rules": [
-                "n[ãa]o",
+                "n[aãâ]o\\s+(quero|precisa|(|me\\s+|mi\\s+)intere(ss|s|ç|Ç)a|tenho\\s+intere(ss|s|ç|Ç)e)",
+                "[sd]e forma alguma",
+                "[sd]e jeito nenhum",
+                "nn?\\s+(tenho|tengo)",
+                "n[ãaâ]o",
                 "nunca",
                 "jamais",
                 "naum",
                 "nop",
-                "^n$"
+                "^nn?$",
+                "nem"
+
             ],
             "priority": 2
         },
@@ -155,7 +169,7 @@
         {
             "name": "Thank",
             "rules": [
-                "(muito\\s+)?obrigad.",
+                "^(muito\\s+)?obrigad.",
                 "valeu(\\s+(demais|por tudo|muito))?",
                 "vlw(\\s+(demais|por tudo|muito))?",
                 "muito obg",
@@ -177,24 +191,27 @@
         {
             "name": "Compliment",
             "rules": [
+                "(achei|que|muito)\\s*(massa|bacana|d\\+|top|fant[áa]stico|legal|bom|boa|bom|bonit.|lind.)",
+                "vo?[cç]e?(\\s[ée]h?\\s)?legal|lind.|bonit.",
+                "(me)?\\s*ajudou\\s*(muito)?",
                 "que legal",
                 "legal",
                 "que incr[íi]vel",
                 "incr[íi]vel",
                 "parabéns",
-                "(muito )?(top|boa|bom|legal|bonit.|lind.)",
                 "que bonit.",
                 "que lind.",
                 "eu amo vo?[cç]e?",
                 "eu te amo",
-                "vo?[cç]e?(\\s[ée]h?\\s)?legal|lind.|bonit.",
-                "(achei|que)\\s*(massa|bacana|d\\+|top|fant[áa]stico|legal|bom)",
                 "topster",
                 "topzei?ra",
                 "gostei",
                 "curti",
                 "adorei",
-                "(me)?\\s*ajudou\\s*(muito)?"
+                "top",
+                "boa",
+                "bonit.",
+                "lind."
             ],
             "priority": 5
         }

@@ -1,4 +1,11 @@
-﻿oi, bom dia	GoodMorning:1, Greeting:1
+﻿claro pode seguir	Confirmation:1
+oquei pode ser assim	Confirmation:1
+pode continuar por favor	Confirmation:1
+nao obrigada	Negation:1
+n tenho interesse	Negation:1
+ta bom mas não precisa	Negation:1
+não quero	Negation:1
+oi, bom dia	GoodMorning:1, Greeting:1
 opa! blz? To precisando falar com alguem...	Greeting:1, Surprise:1
 colé fi?	Greeting:1
 cole meu bom!	Greeting:1
@@ -9,8 +16,6 @@ não sei...	Confusion:1
 não entendi	Confusion:1
 como assim	Confusion:1
 como assim cara???	Confusion:1
-ok	Consent:1
-ok ok...	Consent:1
 concordo	Consent:1
 blz	Consent:1
 beleza	Consent:1
@@ -155,3 +160,37 @@ bom diiiia	GoodMorning:1
 bom diiiiaaaaa	GoodMorning:1
 bommmm diiiiaaaaa	GoodMorning:1
 bommmm dia	GoodMorning:1
+n	Negation:1
+nnn	Negation:0
+nao tenho interesse	Negation:1
+de forma alguma	Negation:1
+nem to afim	Negation:1
+s	Confirmation:1
+ss	Confirmation:1
+quero sim	Confirmation:1
+gostaria sim	Confirmation:1
+prefiro	Confirmation:1
+ok	Confirmation:1
+okei	Confirmation:1
+pode continuar	Confirmation:1
+pode	Confirmation:1
+pode seguir	Confirmation:1
+ok ok...	Confirmation:1
+não quero essa opção	Negation:1
+naum precisa	Negation:1
+nao quero	Negation:1
+n	Negation:1
+nnn	Negation:0
+assim naum	Negation:1
+NÃO	Negation:1
+assim nao precisa 	Negation:1
+claro	Confirmation:1
+seguir	Confirmation:1
+sin	Confirmation:1
+pode ser essa opção	Confirmation:1
+quero por favor	Confirmation:1
+eu gostaria sim	Confirmation:1
+s	Confirmation:1
+ss	Confirmation:1
+prefiro dessa forma	Confirmation:1
+de jeito nenhum	Negation:1
