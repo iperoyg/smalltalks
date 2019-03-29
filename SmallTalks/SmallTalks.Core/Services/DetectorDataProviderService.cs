@@ -24,5 +24,12 @@ namespace SmallTalks.Core.Services
             var data = _conversionService.ToDetectorData(rules);
             return data;
         }
+
+        public async Task<SmallTalksDectectorData> GetSmallTalksDetectorDataFromSourceAsyncv2(SourceProvider source)
+        {
+            var rulesv2 = await _fileService.ReadRulesFromSourceAsync(source.Intents);
+            var datav2 = _conversionService.ToDetectorDatav2(rulesv2);
+            return datav2;
+        }
     }
 }

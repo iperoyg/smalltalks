@@ -18,6 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="EnsureMatchSourcev2.tsv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="EnsureMatchSource.tsv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
@@ -13,12 +14,12 @@ using SmallTalks.Api.Models;
 using SmallTalks.Core;
 using SmallTalks.Core.Models;
 
-namespace SmallTalks.Api.Controllers
+namespace SmallTalks.Api.Controllers.v1
 {
     /// <summary>
     /// Controller responsible for analysing texts
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/[controller]"), ApiVersion("1")]
     [ApiController]
     public class AnalysisController : ControllerBase
     {
@@ -64,7 +65,7 @@ namespace SmallTalks.Api.Controllers
         /// <response code="200">Successful API call. </response>
         [HttpGet]
         [ServiceFilter(typeof(CustomAuthenticationFilter))]
-        [ProducesResponseType(typeof(AnalysisResponseItem), 200)]
+        [ProducesResponseType(typeof(AnalysisResponseItem), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Analyse([Required]string text, bool checkDate = true, int infoLevel = 1)
         {
             try
@@ -96,7 +97,7 @@ namespace SmallTalks.Api.Controllers
             catch (Exception ex)
             {
                 _logger.Error(ex, "[{@SmallTalksAnalysisResult}] Unexpected fail when analysing sentence: {@Sentence}, {@CheckDate}, {@InfoLevel}", "Error", text, checkDate, infoLevel);
-                return StatusCode(500, ex);
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex);
             }
         }
 
@@ -111,7 +112,7 @@ namespace SmallTalks.Api.Controllers
 
         [HttpPost]
         [ServiceFilter(typeof(CustomAuthenticationFilter))]
-        [ProducesResponseType(typeof(BatchAnalysisResponse), 200)]
+        [ProducesResponseType(typeof(BatchAnalysisResponse), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> ConfiguredAnalyse([FromBody] ConfiguredAnalysisRequestItem requestItem)
         {
             try
@@ -131,7 +132,7 @@ namespace SmallTalks.Api.Controllers
             catch (Exception ex)
             {
                 _logger.Error(ex, "Unexpected fail when analysing sentence: {requestItem}", requestItem);
-                return StatusCode(500, ex);
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex);
             }
         }
 
@@ -145,7 +146,7 @@ namespace SmallTalks.Api.Controllers
         /// <response code="500">Internal Error. Check exception and log.</response>"
         [HttpPost, Route("batch")]
         [ServiceFilter(typeof(CustomAuthenticationFilter))]
-        [ProducesResponseType(typeof(BatchAnalysisResponse), 200)]
+        [ProducesResponseType(typeof(BatchAnalysisResponse), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> BatchAnalyse([FromBody] BatchAnalysisRequest request)
         {
             try
@@ -188,7 +189,7 @@ namespace SmallTalks.Api.Controllers
             catch (Exception ex)
             {
                 _logger.Error(ex, "Unexpected fail when analysing sentence: {id}, {request}", request.Id, request);
-                return StatusCode(500, ex);
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex);
             }
         }
 
@@ -234,8 +235,6 @@ namespace SmallTalks.Api.Controllers
 
             return analysisResponse;
         }
-
-
 
         private bool ValidateBatchAnalysis(BatchAnalysisRequest request)
         {

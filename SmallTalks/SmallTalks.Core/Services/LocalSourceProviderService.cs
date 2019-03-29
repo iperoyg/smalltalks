@@ -12,7 +12,18 @@ namespace SmallTalks.Core.Services
         {
             return new SourceProvider
             {
-                Intents = "Resources.intents.json",
+                Intents = "Resources.v1.intents.json",
+                StopWords = "Resources.stopwords.txt",
+                CurseWords = "Resources.cursewords.txt",
+                SourceType = SourceProviderType.Local
+            };
+        }
+
+        public SourceProvider GetSourceProviderv2()
+        {
+            return new SourceProvider
+            {
+                Intents = "Resources.v2.intents.json",
                 StopWords = "Resources.stopwords.txt",
                 CurseWords = "Resources.cursewords.txt",
                 SourceType = SourceProviderType.Local

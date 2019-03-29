@@ -1,12 +1,17 @@
-﻿claro pode seguir	Confirmation:1
+﻿assim naum	Negation:1
+assim nao precisa 	Negation:1
+ok ok...	Confirmation:1
+opa!	Greeting:1
+opa	Greeting:1
+opa! blz? To precisando falar com alguem...	Greeting:1
+claro pode seguir	Confirmation:1
 oquei pode ser assim	Confirmation:1
 pode continuar por favor	Confirmation:1
 nao obrigada	Negation:1
 n tenho interesse	Negation:1
 ta bom mas não precisa	Negation:1
 não quero	Negation:1
-oi, bom dia	GoodMorning:1, Greeting:1
-opa! blz? To precisando falar com alguem...	Greeting:1, Surprise:1
+oi, bom dia	Greeting:1
 colé fi?	Greeting:1
 cole meu bom!	Greeting:1
 sim	Confirmation:1
@@ -22,15 +27,14 @@ beleza	Consent:1
 discordo	Disagreement:1
 não concordo	Disagreement:1
 oi	Greeting:1
-oi, boa noite	Greeting:1, GoodNight:1
+oi, boa noite	Greeting:1
 olaáááá	Greeting:1
 ois	Greeting:1
 oiê	Greeting:1
-opa!	Surprise:1
-opa!, colé?	Greeting:1, Surprise:1
+opa!, colé?	Greeting:1
 blz?	Greeting:1
 dia!!!	GoodMorning:1
-então, bom dia, estou com um problema	GoodMorning:1
+então, bom dia, estou com um problema	GoodMorning:0
 bomdia	GoodMorning:1
 boatarde	GoodAfternoon:1
 boa noite	GoodNight:1
@@ -41,6 +45,7 @@ naum	Negation:1
 nop	Negation:1
 oia!	Surprise:1
 eita!	Surprise:1
+eitcha!	Surprise:1
 olha só	Surprise:1
 bom dia dia! hoje estou feliz	GoodMorning:1
 oi	Greeting:1
@@ -58,22 +63,20 @@ ATE LOGO	GoodBye:1
 ATE MAIS	GoodBye:1
 ATE MAIS TARDE	GoodBye:1
 TCHAU	GoodBye:1
-Fiz um pagamento até dia 12	Goodbye:0
-até	Goodbye:1
 TCHAU TCHAU	GoodBye:1
 B NOITE	GoodNight:1
 BOA NOITE A TODOS	GoodNight:1
-OBRIGADO	Thank:1
-OBRIGADO POR	Thank:1
-OBRIGADA	Thank:1
-OBRIGADA POR	Thank:1
-Valeu!	Thank:1
-vlw por tudo!	Thank:1
-vlw demais	Thank:1
-MUITO OBRIGADO	Thank:1
-MUITO OBRIGADA	Thank:1
-MUITO OBRIGADA por isso	Thank:1
-MUITO OBRIGADA por tudo	Thank:1
+OBRIGADO	Thanks:1
+OBRIGADO POR	Thanks:1
+OBRIGADA	Thanks:1
+OBRIGADA POR	Thanks:1
+Valeu!	Thanks:1
+vlw por tudo!	Thanks:1
+vlw demais	Thanks:1
+MUITO OBRIGADO	Thanks:1
+MUITO OBRIGADA	Thanks:1
+MUITO OBRIGADA por isso	Thanks:1
+MUITO OBRIGADA por tudo	Thanks:1
 DESCULPA	Sorry:1
 DESCULPE	Sorry:1
 foi mal	Sorry:1
@@ -90,16 +93,17 @@ que massa	Compliment:1
 muito legal	Compliment:1
 nossa, parabéns!	Compliment:1
 ficou incrível!	Compliment:1
+pow, incrivel dms!	Compliment:1
 muito bom	Compliment:1
-vlw	Thank:1
-obg	Thank:1
-Muito obrigada!	Thank:1
-Muito obrigado!	Thank:1
-merci	Thank:1
-thanks	Thank:1
-Obrigada!	Thank:1
-Valeu!	Thank:1
-Obrigado!	Thank:1
+vlw	Thanks:1
+obg	Thanks:1
+Muito obrigada!	Thanks:1
+Muito obrigado!	Thanks:1
+merci	Thanks:1
+thanks	Thanks:1
+Obrigada!	Thanks:1
+Valeu!	Thanks:1
+Obrigado!	Thanks:1
 até	GoodBye:1
 flw	GoodBye:1
 adeus	GoodBye:1
@@ -122,7 +126,6 @@ hey	Greeting:1
 Olá	Greeting:1
 Eae	Greeting:1
 Oi	Greeting:1
-opa	Greeting:1
 hi	Greeting:1
 hello	Greeting:1
 Oie!	Greeting:1
@@ -149,11 +152,11 @@ gostei disso	Compliment:1
 gostei muito	Compliment:1
 muito legal	Compliment:1
 adorei a conversa	Compliment:1
-por nada	Thank:1
-de nada	Thank:1
-por nada!	Thank:1
-de nada entao	Thank:1
-por nada fi!	Thank:1
+por nada	Thanks:1
+de nada	Thanks:1
+por nada!	Thanks:1
+de nada entao	Thanks:1
+por nada fi!	Thanks:1
 boooa noite	GoodNight:1
 boooaaaaa noite	GoodNight:1
 boooaaaaa noiteeeeee	GoodNight:1
@@ -177,15 +180,12 @@ okei	Confirmation:1
 pode continuar	Confirmation:1
 pode	Confirmation:1
 pode seguir	Confirmation:1
-ok ok...	Confirmation:1
 não quero essa opção	Negation:1
 naum precisa	Negation:1
 nao quero	Negation:1
 n	Negation:1
 nnn	Negation:0
-assim naum	Negation:1
 NÃO	Negation:1
-assim nao precisa 	Negation:1
 claro	Confirmation:1
 seguir	Confirmation:1
 sin	Confirmation:1
