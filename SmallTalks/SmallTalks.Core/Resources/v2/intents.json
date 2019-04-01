@@ -1,150 +1,158 @@
 ﻿{
     "intents": [
         {
+            "name": "Compliment",
+            "rules": [
+                "((achei|que|muit.|mt.|t[ei])\\s*)?(massa|bacana|d\\+|demai?s|top|fant[áa]stico|legal|bonit.|lind.|ador[oue]i?|inteli[gj]ent[ei]|espert.|sabid.|maravilh.(s.)?|maravlih.(s.)?|amei)(\\!*)",
+                "vo?[cç][eê]?\\s*([ée]h?\\s*)?legal|lind.|bonit.",
+                "incr[íi]vel(\\!*)(\\s+)?(demais|dms)?(\\!*)",
+                "(eu)?\\s*am[uo]\\s*vo?[cç][êe]?(\\!*)",
+                "(achei|muit.|mt.)\\s*(bom|boa)\\s*",
+                "(eu)?\\s*t[ie]\\s+a+m[ou]+(\\!*)",
+                "i?\\s*l[ou]ve?\\s+(you+|u)(\\!*)",
+                "mandou?\\s*bem\\s*(perfeit.)?",
+                "(me)?\\s*ajudou\\s*(muito)?",
+                "que incr[íi]vel",
+                "parabéns(\\!*)",
+                "arra[sz]ou?",
+                "f[ãa]",
+                "topster",
+                "gosto",
+                "topzei?ra",
+                "gostei",
+                "curti",
+                "boa"
+            ],
             "position": [
                 "beginning",
                 "ending"
             ],
-            "name": "Cordiality",
-            "rules": [
-                "tudo bem\\?",
-                "tudo certo\\?",
-                "como vai\\?"
-            ],
-            "priority": 2
+            "priority": 5
         },
         {
-            "position": [
-                "alone"
-            ],
             "name": "Confirmation",
             "rules": [
                 "(o(quei|kay|kei|key|ka|k)+)(\\s*)((\\s*)(pode|pod))?((\\s*)(ser))?((\\s*)(assim|asim|açim))?",
                 "(pode|pod)(\\s+)(seguir|continuar)(\\s*)((por favor|pf|pu fav.))?",
-                "(o(quei|kay|kei|key|ka|k)+)(\\s+)(o(quei|kay|kei|key|ka|k)+)(.)?",
+                "(o(quei|kay|kei|key|ka|k)+)(\\s*)(o(quei|kay|kei|key|ka|k)+)(.)*",
                 "(pode|pod)((\\s+)(ser|c))?(\\s+)?((assim|asim|açim|.+))?",
                 "claro(\\s*)(pode)((\\s*)(seguir|continuar))?",
                 "prefiro(\\s*)((des[st]a)(\\s+)(forma))?",
                 "eu(\\s+)gostaria((\\s+)(si[mn]))?",
-                "quero(\\s+(sim|por favor))?",
+                "quero(\\s+(sim|(por\\s*favor)|pf))?",
                 "gostaria(\\s+si[mn])?",
+                "(por\\s*favor)|pf",
                 "si[mn]",
                 "claro(!+)?",
+                "respondido",
                 "tudo bem",
                 "confirmo",
                 "isso+",
                 "ss?",
-                "por favor",
                 "seguir"
+            ],
 
+            "position": [
+                "alone"
             ],
             "priority": 3
         },
         {
-            "position": [
-                "beginning"
-            ],
             "name": "Confusion",
             "rules": [
                 "como assim",
                 "não sei",
-                "não entendi"
+                "não entendi",
+                "boiei",
+                "(n[aãâ]o+|nn?|naum|nem|jamais)(\\s*)saquei",
+                "\\?+"
+            ],
+            "position": [
+                "beginning"
             ],
             "priority": 0
         },
         {
+            "name": "Consent",
+            "rules": [
+                "(beleza|blza)(\\s*)(ent[aãâ]o|ent[aãâ]um)?(\\s*)((est[aá]|t[aá])(\\s*)(bem|bm|bom))?",
+                "(tudo|td)(\\s*)(bem|bm)(\\s*)(ent[aãâ]o|ent[aãâ]um)(\\s*)(o(quei|kay|kei|key|ka|k)+)?",
+                "concordo",
+                "blz",
+                "beleza",
+                "aceito"
+            ],
             "position": [
                 "alone"
             ],
+            "priority": 5
+        },
+        {
+            "name": "Cordiality",
+            "rules": [
+                "(tenha)?(\\s*)(excelente|escelente|[oó]timo)\\s*dia\\s*(para|pra|pro|pru)\\s*(v?o?[cç][eê]?)\\s*(tamb[eé]m|tb)?",
+                "(tudo|td)\\s*bem\\?",
+                "(tudo|td)\\s*certo\\?",
+                "como vai\\?"
+            ],
+            "position": [
+                "beginning",
+                "ending"
+            ],
+            "priority": 2
+        },
+        {
+            "name": "Disagreement",
+            "rules": [
+                "n[aã]o concordo",
+                "discordo"
+            ],
+            "position": [
+                "alone"
+            ],
+            "priority": 1
+        },
+        {
             "name": "Frustration",
             "rules": [
                 "(não|naum)\\s+gostei",
                 "(não|naum)\\s+(está)?\\s*(me)?\\s+ajuda(ndo)?",
                 "(está|é|fica)?\\s*(horr[íi]vel|p[eé]ssimo|desgrad[aá]vel|ruim)(\\s*)((es[st]e))?(\\s*)(chat)?"
             ],
+
+            "position": [
+                "alone"
+            ],
             "priority": 0
         },
         {
-            "position": [
-                "alone"
-            ],
-            "name": "Consent",
+            "name": "GoodBye",
             "rules": [
-                "concordo",
-                "blz",
-                "beleza"
+                "(n[aãâ]o|nn?|naum|nem|jamais)\\s*(preciso|presiso)\\s*(\\+|mais)\\s*(d[eao])\\s*(atendiment[ou]|atendent[ei])",
+                "(tchau|xau|adeus|beij[ou]s?|bj[ou]?s?)((\\s*)(tchau|xau|adeus|beij[ou]s?|bj[ou]?s?))?",
+                "(finalizar|terminar|encerrar|acabar)\\s*([ao])?\\s*(fluxo|co[mn]ver[sç]a)\\s*(agora)?",
+                "(estou|t[oô])\\s*(saind?[ou])\\s*((d[aeo])\\s*(canal|bot))?",
+                "at[ée]\\s*a\\s*pr[óo]xima(\\s+vez)?",
+                "at[ée]\\s*(mais|\\+)(\\s+tarde)?",
+                "abra[çc]os?\\s*e\\s*beijo?",
+                "abra[çc]os?\\s*e\\s*bjos?",
+                "at[eé]\\s*mais ver",
+                "at[ée]\\s*logo",
+                "um\\s*abraço",
+                "int[eé]\\b",
+                "at[eé]\\b",
+                "abra[çc]o",
+                "flws?",
+                "falows",
+                "falou"
             ],
-            "priority": 5
-        },
-        {
-            "position": [
-                "alone"
-            ],
-            "name": "Disagreement",
-            "rules": [
-                "n[aã]o concordo",
-                "discordo"
-            ],
-            "priority": 1
-        },
-        {
-            "position": [
-                "beginning",
-                "followed"
-            ],
-            "name": "Greeting",
-            "rules": [
-                "oi+\\s*(fi|meu|mano|jow|cara|meu bom|querid.)?",
-                "ol[aá]+\\s*(fi|meu|mano|jow|cara|meu bom|querid.)?",
-                "col[eé]+\\s*(meu bom|fi|meu|mano|jow|cara|querid.)?",
-                "opa(\\!+)?",
-                "qual [ée]+",
-                "blz\\?",
-                "algu.m em casa",
-                "algu.m a[ií]+",
-                "al[oô]",
-                "hey",
-                "eae",
-                "hello",
-                "hi",
-                "ei"
-            ],
-            "priority": 4
-        },
-        {
             "position": [
                 "beginning",
                 "ending"
             ],
-            "name": "GoodBye",
-            "rules": [
-                "tchau tchau",
-                "tchau",
-                "adeus",
-                "xau",
-                "abra[çc]os? e beijo?",
-                "abra[çc]os? e bjos?",
-                "abra[çc]o",
-                "um abraço",
-                "at[eé] mais ver",
-                "at[ée] mais(\\s+tarde)?",
-                "at[ée] logo",
-                "at[ée] a pr[óo]xima(\\s+vez)?",
-                "int[eé]\\b",
-                "at[eé]\\b",
-                "flws",
-                "flw",
-                "beijos? me liga",
-                "falows",
-                "falou"
-            ],
             "priority": 3
         },
         {
-            "position": [
-                "alone",
-                "beginning"
-            ],
             "name": "GoodMorning",
             "rules": [
                 "(tenha\\s+)(um\\s+)(bo+m+\\s*di+a+)?",
@@ -152,13 +160,13 @@
                 "dia",
                 "b dia"
             ],
-            "priority": 3
-        },
-        {
             "position": [
                 "alone",
                 "beginning"
             ],
+            "priority": 3
+        },
+        {
             "name": "GoodAfternoon",
             "rules": [
                 "bo+a+\\s*ta+rde+",
@@ -166,112 +174,116 @@
                 "b tarde"
 
             ],
-            "priority": 3
-        },
-        {
             "position": [
                 "alone",
                 "beginning"
             ],
+            "priority": 3
+        },
+        {
             "name": "GoodNight",
             "rules": [
                 "bo+a+\\s*no+i+te+",
                 "noite",
                 "b noite"
             ],
+            "position": [
+                "alone",
+                "beginning"
+            ],
             "priority": 3
         },
         {
-            "position": [
-                "alone"
+            "name": "Greeting",
+            "rules": [
+                "oi+\\s*(fi|meu|mano|jow|cara|meu bom|querid.)?",
+                "ol[aá]+\\s*(fi|meu|mano|jow|cara|meu bom|querid.)?",
+                "[kc]ol[eé]+\\s*(meu bom|fi|meu|mano|jow|cara|querid.)?",
+                "opa(\\!+)?",
+                "qual\\s*[ée]+",
+                "algu.m\\s*em casa",
+                "algu.m\\s*a[ií]+",
+                "al[oô]",
+                "blz\\?",
+                "hey",
+                "eae",
+                "e\\s*a[ií]",
+                "hello",
+                "hi",
+                "ei"
             ],
+            "position": [
+                "beginning",
+                "followed"
+            ],
+            "priority": 4
+        },
+        {
             "name": "Negation",
             "rules": [
-                "(n[aãâ]o|nn?|naum|nem|jamais)(\\s+)?(obrigad.|obg|valeu|vlw|precisa|quer[ou](\\s+(es[st]a)\\s+(op[cç][aã]o))?|(|me\\s+|mi\\s+)intere(ss|s|ç|Ç)a|tenho\\s+intere(ss|s|ç|Ç)e|(é|eh|era)\\s+(isso|iço))?",
-                "(n[aãâ]o|nn?|naum|nem|jamais)(\\s+)?(tenho|tengo|t[oô])?(\\s+)?(interesse|intere[sç]e|afim)?",
+                "(n[aãâ]o|nn?|naum|nem|jamais)(\\s*)(obrigad.|obg|valeu|vlw|precisa|quer[ou](\\s+(es[st]a)\\s+(op[cç][aã]o))?|(|me\\s+|mi\\s+)intere(ss|s|ç|Ç)a|tenho\\s+intere(ss|s|ç|Ç)e|(é|eh|era)\\s+(isso|iço))?",
+                "(n[aãâ]o|nn?|naum|nem|jamais)(\\s*)(tenho|tengo|t[oô])?(\\s*)(interesse|intere[sç]e|afim)?",
                 "(ta\\s+)(bom\\s+)(mas\\s+)(n[aãâ]o|nn?|naum|nem)(\\s+)(precisa|presisa)?",
-                "(assim(\\s+))?(n[aãâ]o|nn?|naum|nem)(\\s+)(precisa|presisa)?",
+                "assim(\\s+)(n[aãâ]o|nn?|naum|nem)((\\s+)(precisa|presisa))?(\\s*)",
                 "[sd]e forma alguma",
                 "[sd]e jeito nenhum",
                 "nunca",
                 "jamais",
                 "nop"
             ],
-            "priority": 2
-        },
-        {
             "position": [
                 "alone"
             ],
+            "priority": 2
+        },
+        {
+            "name": "Sorry",
+            "rules": [
+                "desculp.",
+                "foi mal"
+            ],
+            "position": [
+                "beginning",
+                "ending"
+            ],
+            "priority": 3
+        },
+        {
             "name": "Surprise",
             "rules": [
                 "oia(\\!*)",
                 "olha só",
                 "(eita|eitcha)(\\!*)"
             ],
+            "position": [
+                "alone"
+            ],
             "priority": 3
         },
         {
-            "position": [
-                "beginning",
-                "ending"
-            ],
             "name": "Thanks",
             "rules": [
-                "(muito\\s+)?obrigad.",
-                "valeu(\\s+(demais|por tudo|muito))?",
-                "vlw(\\!*)(\\s+(demais|por tudo|muito))?",
+                "(v?o?[cç][eê]?i?s?)\\s*(m[ei])?\\s*(ajudam|ajudar[ãa][mo]|responder[ãa][mo])(\\s*o\\s*(qu[ei]|q)\\s*(eu)?\\s*queria|keria)?",
+                "^(estou?|t[oô])\\s*(muito|mto|totalmente|bastante)?\\s*(feliz|satisfeit.|contente)(\\s*e\\s*(feliz|satisfeit.|contente))?",
+                "(t[ou]d[ou]|td|td[ou]|j[áa]h?)\\s*([cs]ert[ou]|resolver[aã][om])\\s*(com)?\\s*o?\\s*(meu|minha)?\\s*(prob[lr]ema)",
+                "j[aá]h?\\s*(falei|fui|me)\\s*(co?m)?\\s*[ao]?\\s*(a[td]en[dt]ent[ei]|atendid.|atender[aã][om])",
+                "(valeu|vlw)(\\!*)\\s*(demais|por\\s*tudo|muito|mto|d\\+)?(\\s*)(o?briga[dg].|obg)?",
+                "(eu|mim)?\\s*(conseguiu?)\\s*(ter)?\\s*ajuda\\s*(o?briga[dg].)?",
+                "o?\\s*(a[td]en[dt]ent[ei])\\s*(resolveu|arrumou)\\s*(j[aá]h?)?",
+                "(v?o?[cç][eê]?i?s?)\\s*(m[ei])?\\s*(ajudam|ajudar[ãa][mo])",
+                "(o?briga[dg].|obg)\\s+(demais|por\\s*tudo|muito|mto|d\\+)",
+                "(a[jg]udou?)?\\s*(muito|mto)?\\s*(o?briga[dg].|obg)",
                 "(de|por) nada",
                 "muito obg",
                 "obg",
                 "merci",
                 "thanks"
             ],
-            "priority": 3
-        },
-        {
             "position": [
                 "beginning",
                 "ending"
             ],
-            "name": "Sorry",
-            "rules": [ 
-                "desculp.",
-                "foi mal"
-            ],
             "priority": 3
-        },
-        {
-            "position": [
-                "beginning",
-                "ending"
-            ],
-            "name": "Compliment",
-            "rules": [
-                "(achei|que|muito)\\s*(massa|bacana|d\\+|top|fant[áa]stico|legal|bom|boa|bom|bonit.|lind.)",
-                "vo?[cç]e?(\\s[ée]h?\\s)?legal|lind.|bonit.",
-                "(me)?\\s*ajudou\\s*(muito)?",
-                "que legal",
-                "legal",
-                "que incr[íi]vel",
-                "incr[íi]vel(\\!*)(\\s+)?(demais|dms)?(\\!*)",
-                "parabéns(\\!+)?",
-                "que bonit.",
-                "que lind.",
-                "eu amo vo?[cç]e?",
-                "eu te amo",
-                "topster",
-                "topzei?ra",
-                "gostei",
-                "curti",
-                "adorei",
-                "top",
-                "boa",
-                "bonit.",
-                "lind."
-            ],
-            "priority": 5
         }
-
     ]
 }

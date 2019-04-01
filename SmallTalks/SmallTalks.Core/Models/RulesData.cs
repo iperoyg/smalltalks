@@ -15,14 +15,14 @@ namespace SmallTalks.Core.Models
     [DataContract]
     public class Rule
     {
-        [DataMember(Name = "position")]
-        public List<string> Position { get; set; }
-
         [DataMember(Name = "name")]
         public string Name { get; set; }
 
         [DataMember(Name = "rules")]
         public List<string> Patterns { get; set; }
+
+        [DataMember(Name = "position")]
+        public List<string> Position { get; set; }
 
         [DataMember(Name = "priority")]
         public int Priority { get; set; }

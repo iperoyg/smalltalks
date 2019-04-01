@@ -168,6 +168,10 @@ namespace SmallTalks.Core
 
             parsedInput = ParseInputSearchingForSmallTalksv2(configuration, analysis, parsedInput);
 
+            if (analysis.MatchesCount > 1)
+            {
+                analysis.Matches.RemoveRange(1, analysis.MatchesCount - 1);
+            }
             await FillHigherInformationLevel(configuration, analysis, parsedInput);
 
             return analysis;

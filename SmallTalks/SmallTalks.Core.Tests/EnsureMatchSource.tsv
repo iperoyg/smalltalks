@@ -6,7 +6,7 @@ n tenho interesse	Negation:1
 ta bom mas não precisa	Negation:1
 não quero	Negation:1
 oi, bom dia	GoodMorning:1, Greeting:1
-opa! blz? To precisando falar com alguem...	Greeting:1, Surprise:1
+opa! blz? To precisando falar com alguem...	Greeting:1,Surprise:1
 colé fi?	Greeting:1
 cole meu bom!	Greeting:1
 sim	Confirmation:1
