@@ -6,5 +6,7 @@ namespace SmallTalks.Core.Services.Interfaces
     public interface IDetectorDataProviderService
     {
         Task<SmallTalksDectectorData> GetSmallTalksDetectorDataFromSourceAsync(SourceProvider source);
+
+        Task<SmallTalksDectectorData> GetSmallTalksDetectorDataFromSourceAsyncv2(SourceProvider source);
     }
 }

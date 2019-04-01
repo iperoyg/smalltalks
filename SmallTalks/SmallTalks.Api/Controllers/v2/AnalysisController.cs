@@ -1,0 +1,246 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
+using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Threading.Tasks.Dataflow;
+using DateTimeDectector.Domain;
+using Microsoft.AspNetCore.Mvc;
+using Serilog;
+using SmallTalks.Api.Filters;
+using SmallTalks.Api.Models;
+using SmallTalks.Core;
+using SmallTalks.Core.Models;
+
+namespace SmallTalks.Api.Controllers.v2
+{
+    /// <summary>
+    /// Controller responsible for analysing texts
+    /// </summary>
+    [Route("v2/api/[controller]"), ApiVersion("2")]
+    [ApiController]
+    public class AnalysisController : ControllerBase
+    {
+        private readonly ISmallTalksDetector _smallTalksDetector;
+        private readonly IDateTimeDectector _dateTimeDectector;
+        private readonly ILogger _logger;
+
+        public AnalysisController(
+            ISmallTalksDetector smallTalksDetector,
+            IDateTimeDectector dateTimeDectector,
+            ILogger logger)
+        {
+            _smallTalksDetector = smallTalksDetector;
+            _dateTimeDectector = dateTimeDectector;
+            _logger = logger;
+        }
+
+        /// <summary>
+        /// Analyses a SINGLE input for Smalltalks types and datetimes
+        /// </summary>
+        /// <param name="text">Text to be analysed *(cannot be null or empty)* </param>
+        /// <param name="checkDate">Optional. Make a datetime check. *(If date is not desired, please set to false.)*</param>
+        /// <param name="infoLevel">Optional. Controls the amount of information delivered in JSON (1 - minimum, 2 - normal, 3 - full)</param>
+        /// <remarks>
+        ///     **InfoLevel Description:**
+        ///         **Lvl 1**
+        ///             Smalltalk type identified
+        ///             Cursed ----------------- *boolean index that returns true when a crused words is found on the input*
+        ///         **Lvl 2**
+        ///             Fields from **Lvl 1** plus:
+        ///             Value ------------------- *the exact identified input*
+        ///             MarketInput --------- *input with a placeholder in the place of **Value***
+        ///             CleanedInput ------- *input without the **Value***
+        ///             UseCleaned ---------- *boolean index that tells if the **CleanedInput** should be used or not*
+        ///             CleanedRatio -------- *the ratio of how much was identified and deleted from the input*
+        ///         **Lvl 3**
+        ///             Fields from **Lvl 2** plus:
+        ///             Index ------------------- *the identified value initial position*
+        ///             Length ----------------- *the identified value length*
+        ///             Relevant input ------ *input without stopwords* (**Beta**, not recommended)
+        /// </remarks>
+        /// <returns></returns>
+        /// <response code="200">Successful API call. </response>
+        [HttpGet]
+        [ServiceFilter(typeof(CustomAuthenticationFilter))]
+        [ProducesResponseType(typeof(AnalysisResponseItem), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Analyse([Required]string text, bool checkDate = true, int infoLevel = 1)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(text) || infoLevel < 1 || infoLevel > 3)
+                {
+                    _logger.Warning("{@Text} or {@InfoLevel} constraints violated!", text, infoLevel);
+                    return BadRequest(new { message = "Check 'text' and 'infoLevel' restrictions" });
+                }
+
+                var item = new ConfiguredAnalysisRequestItem
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Text = text,
+                    CheckDate = checkDate,
+                    Configuration = new SmallTalksPreProcessingConfiguration()
+                    {
+                        InformationLevel = (InformationLevel)infoLevel
+                    }
+                };
+
+                using (var source = new CancellationTokenSource(TimeSpan.FromSeconds(1)))
+                {
+                    var response = await AnalyseAsync(item, source.Token);
+                    _logger.Information("[{@SmallTalksAnalysisResult}] {@Sentence} analysed with CheckDate={@CheckDate} and InfoLevel={@InfoLevel}. Response: {@AnalysisResponse}", "Success", text, checkDate, infoLevel, response);
+                    return Ok(response);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "[{@SmallTalksAnalysisResult}] Unexpected fail when analysing sentence: {@Sentence}, {@CheckDate}, {@InfoLevel}", "Error", text, checkDate, infoLevel);
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex);
+            }
+        }
+
+        /// <summary>
+        /// Analyses a JSON with a SINGLE input for Smalltalks types and datetimes
+        /// </summary>
+        /// <param name="requestItem">A JSON declaring the configuration parameters for the analysis, and a SINGLE input to be analysed</param>
+        /// <returns></returns>
+        /// <response code="200">Input successfully analysed. </response>
+        /// <response code="400">Input is null or empty, or there is no items to be analysed. </response>
+        /// <response code="500">Internal Error. Check exception and log.</response>"
+
+        [HttpPost]
+        [ServiceFilter(typeof(CustomAuthenticationFilter))]
+        [ProducesResponseType(typeof(BatchAnalysisResponse), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> ConfiguredAnalyse([FromBody] ConfiguredAnalysisRequestItem requestItem)
+        {
+            try
+            {
+                if (requestItem == null || string.IsNullOrEmpty(requestItem.Text))
+                {
+                    return BadRequest();
+                }
+
+                using (var source = new CancellationTokenSource(TimeSpan.FromSeconds(1)))
+                {
+                    var response = await AnalyseAsync(requestItem, source.Token);
+                    _logger.Information(response.ToString());
+                    return Ok(response);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Unexpected fail when analysing sentence: {requestItem}", requestItem);
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex);
+            }
+        }
+
+        /// <summary>
+        /// Analyses a BATCH of inputs for Smalltalks types and datetimes
+        /// </summary>
+        /// <param name="request">A JSON declaring the configuration parameters for the analysis, and a BATCH of inputs to be analysed</param>
+        /// <returns></returns>
+        /// <response code="200">Batch successfully analysed. </response>
+        /// <response code="400">Batch is null or empty, or there is no items to be analysed. </response>
+        /// <response code="500">Internal Error. Check exception and log.</response>"
+        [HttpPost, Route("batch")]
+        [ServiceFilter(typeof(CustomAuthenticationFilter))]
+        [ProducesResponseType(typeof(BatchAnalysisResponse), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> BatchAnalyse([FromBody] BatchAnalysisRequest request)
+        {
+            try
+            {
+                if (!ValidateBatchAnalysis(request))
+                {
+                    return BadRequest();
+                }
+
+                var response = new BatchAnalysisResponse
+                {
+                    Items = new List<AnalysisResponseItem>(),
+                    Id = request.Id
+                };
+
+                var tranformBlock = new TransformBlock<ConfiguredAnalysisRequestItem, AnalysisResponseItem>((Func<ConfiguredAnalysisRequestItem, Task<AnalysisResponseItem>>)UnsafeAnalyseAsync,
+                    new ExecutionDataflowBlockOptions
+                    {
+                        BoundedCapacity = ExecutionDataflowBlockOptions.Unbounded,
+                        MaxDegreeOfParallelism = 100
+                    });
+                var actionBlock = new ActionBlock<AnalysisResponseItem>(i =>
+                {
+                    response.Items.Add(i);
+                }, new ExecutionDataflowBlockOptions
+                {
+                    BoundedCapacity = ExecutionDataflowBlockOptions.Unbounded,
+                });
+                tranformBlock.LinkTo(actionBlock, new DataflowLinkOptions { PropagateCompletion = true, });
+
+                foreach (var item in request.Items)
+                {
+                    await tranformBlock.SendAsync(item);
+                }
+                tranformBlock.Complete();
+                await actionBlock.Completion;
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Unexpected fail when analysing sentence: {id}, {request}", request.Id, request);
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex);
+            }
+        }
+
+        private async Task<List<DateTimeDectected>> DetectDateAsync(ConfiguredAnalysisRequestItem requestItem, CancellationToken cancellationToken)
+        {
+            var sw = Stopwatch.StartNew();
+            try
+            {
+                return requestItem.CheckDate ? await _dateTimeDectector.DetectAsync(requestItem.Text, cancellationToken) : null;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Couldn't check date for {@RequestItem}", requestItem);
+                return null;
+            }
+            finally
+            {
+                sw.Stop();
+                _logger.Information("Finish date detect after {@ElapsedMillisecods} for {@RequestItem}", sw.ElapsedMilliseconds, requestItem);
+            }
+        }
+
+        private async Task<AnalysisResponseItem> AnalyseAsync(ConfiguredAnalysisRequestItem item, CancellationToken cancellationToken)
+        {
+            var analysisResponse = new AnalysisResponseItem
+            {
+                Id = item.Id,
+                SmallTalksAnalysis = await _smallTalksDetector.DetectAsyncv2(item.Text, item.Configuration),
+                DateTimeDectecteds = await DetectDateAsync(item, cancellationToken),
+            };
+
+            return analysisResponse;
+        }
+
+        private async Task<AnalysisResponseItem> UnsafeAnalyseAsync(ConfiguredAnalysisRequestItem item)
+        {
+            var analysisResponse = new AnalysisResponseItem
+            {
+                Id = item.Id,
+                SmallTalksAnalysis = await _smallTalksDetector.DetectAsyncv2(item.Text, item.Configuration),
+                DateTimeDectecteds = await DetectDateAsync(item, CancellationToken.None),
+            };
+
+            return analysisResponse;
+        }
+
+        private bool ValidateBatchAnalysis(BatchAnalysisRequest request)
+        {
+            return request != null && request.Items != null && request.Items.Count > 0 && !string.IsNullOrEmpty(request.Id);
+        }
+
+
+    }
+}

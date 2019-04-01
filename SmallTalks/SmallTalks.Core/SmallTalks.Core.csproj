@@ -6,13 +6,17 @@
 
   <ItemGroup>
     <None Remove="Resources\cursewords.txt" />
+    <None Remove="Resources\v1\intents.json" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\cursewords.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\intents.json">
+    <EmbeddedResource Include="Resources\v1\intents.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\v2\intents.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\stopwords.txt">

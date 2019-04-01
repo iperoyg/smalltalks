@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -24,7 +25,8 @@ using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using SmallTalks.Api.Filters;
 using SmallTalks.Api.Middlewares;
-
+using SmallTalks.Api.Extensions;
+using SmallTalks.Api.Filters;
 namespace SmallTalks.Api
 {
     public class Startup
@@ -52,18 +54,39 @@ namespace SmallTalks.Api
             services.AddSingleton<Serilog.ILogger>(Log.Logger);
             services.AddScoped<CustomAuthenticationFilter>();
 
+            // Adds versioning, defaults to v1
+            services.AddApiVersioning(o =>
+            {
+                o.DefaultApiVersion = new ApiVersion(1, 0);
+                o.AssumeDefaultVersionWhenUnspecified = true;
+                o.ApiVersionReader = new MediaTypeApiVersionReader();
+            });
+
             // Swagger
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info
+                c.SwaggerDoc("v2", new Info { Title = "Smalltalks", Version = "v2" });
+                c.SwaggerDoc("v1", new Info { Title = "Smalltalks", Version = "v1" });
+                c.DocInclusionPredicate((version, apiDescription) =>
                 {
-                    Title = "SmallTalks",
-                    Version = "v1"
+                    // Swagger is dumb and uses {version} instead of number on Swagger Doc
+                    var actionApiVersionModel = apiDescription.ActionDescriptor?.GetApiVersion();
+                    // would mean this action is unversioned and should be included everywhere
+                    if (actionApiVersionModel == null)
+                    {
+                        return true;
+                    }
+                    if (actionApiVersionModel.DeclaredApiVersions.Any())
+                    {
+                        return actionApiVersionModel.DeclaredApiVersions.Any(v => $"v{v.ToString()}" == version);
+                    }
+                    return actionApiVersionModel.ImplementedApiVersions.Any(v => $"v{v.ToString()}" == version);
                 });
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
                 c.DescribeAllEnumsAsStrings();
+                c.OperationFilter<ApiVersionOperationFilter>();
             });
 
             services
@@ -93,15 +116,20 @@ namespace SmallTalks.Api
                 app.UseHsts();
             }
 
-            // Swagger
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+            // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
                 c.RoutePrefix = "";
-                c.SwaggerEndpoint("./swagger/v1/swagger.json", "SmallTalks V1");
+                c.SwaggerEndpoint("./swagger/v2/swagger.json", "Smalltalks v2");
+                c.SwaggerEndpoint("./swagger/v1/swagger.json", "Smalltalks v1");
             });
+
             app.UseMiddleware<RequestLogger>();
-            app.UseHttpsRedirection();
+            app.UseCors("AllowAll");
             app.UseMvc();
         }
 
