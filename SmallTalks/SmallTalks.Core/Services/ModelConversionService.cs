@@ -75,15 +75,15 @@ namespace SmallTalks.Core.Services
                 switch (position)
                 {
                     case "alone":
-                        finalPatterns.Add(string.Concat("^", pattern, "$"));
+                        finalPatterns.Add(string.Concat("^\\s*", pattern, "\\s*$"));
                         break;
 
                     case "beginning":
-                        finalPatterns.Add(string.Concat("^", pattern));
+                        finalPatterns.Add(string.Concat("^\\s*", pattern));
                         break;
 
                     case "ending":
-                        finalPatterns.Add(string.Concat(pattern, "$"));
+                        finalPatterns.Add(string.Concat(pattern, "\\s*$"));
                         break;
 
                     default:
