@@ -21,7 +21,7 @@ namespace SmallTalks.Core.Services
                 .Select(p => Regex.IsMatch(p, "^\\w") ? $"\\b{p}" : p)
                 .Select(p => Regex.IsMatch(p, "\\w$") ? $"{p}\\b" : p)
                 .ToList();
-            var regexPattern = string.Join('|', patters);
+            var regexPattern = string.Join("|", patters);
 
             stIntent.Regex = new Regex(regexPattern, Configuration.ST_REGEX_OPTIONS);
             stIntent.Priority = rule.Priority;
@@ -42,7 +42,7 @@ namespace SmallTalks.Core.Services
                 .Select(p => RegexAdd(rule.Position, p))
                 .ToList();
             var finalPatterns = patterns.SelectMany(x => x).ToList();
-            var regexPattern = string.Join('|', finalPatterns);
+            var regexPattern = string.Join("|", finalPatterns);
 
             stIntent.Regex = new Regex(regexPattern, Configuration.ST_REGEX_OPTIONS);
             stIntent.Priority = rule.Priority;
