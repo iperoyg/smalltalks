@@ -44,10 +44,7 @@ namespace SmallTalks.Api
         {
             RegisterBlipTypes();
             services
-                .AddMvc(options =>
-                {
-                    //options.Filters.Add(new CustomAuthenticationFilter(Log.Logger));
-                })
+                .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services = Core.ContainerProvider.RegisterTypes(services);
             services.AddSingleton<IDateTimeDectector, WatsonDatetimeDetector>();

@@ -19,6 +19,7 @@ namespace SmallTalks.Api.Controllers.v1
     /// <summary>
     /// Controller responsible for analysing texts
     /// </summary>
+    [Produces("application/json")]
     [Route("api/[controller]"), ApiVersion("1")]
     [ApiController]
     public class AnalysisController : ControllerBase
