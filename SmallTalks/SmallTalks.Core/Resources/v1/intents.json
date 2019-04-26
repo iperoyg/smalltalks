@@ -170,7 +170,7 @@
             "name": "Thank",
             "rules": [
                 "^(muito\\s+)?obrigad.",
-                "obrigad.(\\s+|\\.)?",
+                "^obrigad.(\\s+|\\.)?",
                 "valeu(\\s+(demais|por tudo|muito))?",
                 "vlw(\\s+(demais|por tudo|muito))?",
                 "muito obg",
