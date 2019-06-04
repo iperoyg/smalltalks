@@ -91,9 +91,9 @@
             "name": "Cordiality",
             "rules": [
                 "(tenha)?(\\s*)(excelente|escelente|[oó]timo)\\s*dia\\s*(para|pra|pro|pru)\\s*(v?o?[cç][eê]?)\\s*(tamb[eé]m|tb)?\\b",
-                "(tudo|td)\\s*bem\\?",
-                "(tudo|td)\\s*certo\\?",
-                "como vai\\?"
+                "(tudo|td)\\s*bem\\??",
+                "(tudo|td)\\s*certo\\??",
+                "como vai\\??"
             ],
             "position": [
                 "beginning",
