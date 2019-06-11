@@ -91,7 +91,10 @@
             "name": "Cordiality",
             "rules": [
                 "(tenha)?(\\s*)(excelente|escelente|[oó]timo)\\s*dia\\s*(para|pra|pro|pru)\\s*(v?o?[cç][eê]?)\\s*(tamb[eé]m|tb)?\\b",
-                "(tudo|td)\\s*bem\\?",
+                "(tudo|td)\\s+(bem|bm)\\s+(com|cm)\\s+(vo?[cç][eê]?\\??)",
+                "como\\s+(vo?[cç][eê]?\\??)\\s+est[aá]\\??",
+                "como\\s+vai\\s+(vo?[cç][eê]?\\??)?",
+                "(tudo|td)\\s*(bem|bm)\\?",
                 "(tudo|td)\\s*certo\\?",
                 "como vai\\?"
             ],

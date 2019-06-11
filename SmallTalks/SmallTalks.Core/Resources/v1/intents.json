@@ -3,8 +3,11 @@
         {
             "name": "Cordiality",
             "rules": [
-                "tudo bem\\?",
-                "tudo certo\\?",
+                "(tudo|td)\\s+(bem|bm)\\s+(com|cm)\\s+(vo?[cç][eê]?\\??)",
+                "como\\s+(vo?[cç][eê]?\\??)\\s+est[aá]\\??",
+                "como\\s+vai\\s+(vo?[cç][eê]?\\??)?",
+                "(tudo|td)\\s*(bem|bm)\\?",
+                "(tudo|td)\\s*certo\\?",
                 "como vai\\?"
             ],
             "priority": 2
