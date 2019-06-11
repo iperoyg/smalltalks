@@ -1,4 +1,8 @@
-﻿eu amo voce	Compliment:1
+﻿tudo bem então ok	Consent:1
+tudo certo obrigada e tchau	Goodbye:1
+tudo certo com o meu problema	Thanks:1
+tudo certo obrigada	Thanks:1
+eu amo voce	Compliment:1
 eu te amo	Compliment:1
 vc e linda	Compliment:1
 voce e linda	Compliment:1
@@ -89,7 +93,6 @@ concordo	Consent:1
 blz	Consent:1
 beleza	Consent:1
 aceito	Consent:1
-tudo bem então ok	Consent:1
 beleza então está bom	Consent:1
 td certo?	Cordiality:1
 td bem?	Cordiality:1
@@ -132,7 +135,6 @@ bjs	Goodbye:1
 bjos	Goodbye:1
 obrigada e até mais	GoodBye:1
 tchau e até a próxima	Goodbye:1
-tudo certo obrigada e tchau	Goodbye:1
 finalizar o fluxo agora	Goodbye:1
 esta bem então até a próxima	Goodbye:1
 estou saindo do canal	Goodbye:1
@@ -178,6 +180,7 @@ alô	Greeting:1
 hey	Greeting:1
 Olá	Greeting:1
 Eae	Greeting:1
+e ae	Greeting:1
 Oi	Greeting:1
 hi	Greeting:1
 hello	Greeting:1
@@ -256,8 +259,6 @@ brigado	Thanks:1
 brigaga	Thanks:1
 ajudou muito obrigada	Thanks:1
 ta bom obrigada demais	Thanks:1
-tudo certo com o meu problema	Thanks:1
-tudo certo obrigada	Thanks:1
 valeu demais obrigada	Thanks:1
 o atendente resolveu já	Thanks:1
 vocês me ajudaram	Thanks:1

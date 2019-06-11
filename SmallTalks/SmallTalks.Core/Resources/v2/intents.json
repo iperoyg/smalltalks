@@ -91,9 +91,9 @@
             "name": "Cordiality",
             "rules": [
                 "(tenha)?(\\s*)(excelente|escelente|[oó]timo)\\s*dia\\s*(para|pra|pro|pru)\\s*(v?o?[cç][eê]?)\\s*(tamb[eé]m|tb)?\\b",
-                "(tudo|td)\\s*bem\\??",
-                "(tudo|td)\\s*certo\\??",
-                "como vai\\??"
+                "(tudo|td)\\s*bem\\?",
+                "(tudo|td)\\s*certo\\?",
+                "como vai\\?"
             ],
             "position": [
                 "beginning",
@@ -144,7 +144,9 @@
                 "abra[çc]o",
                 "flws?",
                 "falows",
-                "falou"
+                "falou",
+                "sair*"
+
             ],
             "position": [
                 "beginning",
@@ -206,7 +208,7 @@
                 "al[oô]",
                 "blz\\?",
                 "hey",
-                "ea(e|[ií])",
+                "e\\s*a(e|[ií])",
                 "e\\s*a[ií]",
                 "hello",
                 "hi",
