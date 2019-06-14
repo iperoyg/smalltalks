@@ -37,7 +37,8 @@
         {
             "name": "Confusion",
             "rules": [
-                "como assim",
+                "(o\\s*)?(qu[eê]|q)\\?",
+                "como a(ss|s|ç)im",
                 "não sei",
                 "não entendi"
             ],

@@ -1,8 +1,4 @@
-﻿tudo bem então ok	Consent:1
-tudo certo obrigada e tchau	Goodbye:1
-tudo certo com o meu problema	Thanks:1
-tudo certo obrigada	Thanks:1
-eu amo voce	Compliment:1
+﻿eu amo voce	Compliment:1
 eu te amo	Compliment:1
 vc e linda	Compliment:1
 voce e linda	Compliment:1
@@ -89,8 +85,12 @@ boiei	Confusion:1
 não saquei	Confusion:1
 ?????	Confusion:1
 ?	Confusion:1
+o que?	Confusion:1
+que?	Confusion:1
+que	Confusion:0
 concordo	Consent:1
 blz	Consent:1
+tudo bem então ok	Consent:1
 beleza	Consent:1
 aceito	Consent:1
 beleza então está bom	Consent:1
@@ -136,8 +136,8 @@ beijo	Goodbye:1
 beijos	Goodbye:1
 bjs	Goodbye:1
 bjos	Goodbye:1
-obrigada e até mais	GoodBye:1
-tchau e até a próxima	Goodbye:1
+tchau e até a próxima	Goodbye:2
+tudo certo obrigada e tchau	Goodbye:1
 finalizar o fluxo agora	Goodbye:1
 esta bem então até a próxima	Goodbye:1
 estou saindo do canal	Goodbye:1
@@ -164,6 +164,8 @@ boooaaaaa noiteeeeee	GoodNight:1
 boooaaaaa noiiiteeeeee	GoodNight:1
 opa!	Greeting:1
 opa	Greeting:1
+blz?	Greeting:1
+hello	Greeting:1
 opa! blz? To precisando falar com alguem...	Greeting:1
 oi, bom dia	Greeting:1
 colé fi?	Greeting:1
@@ -174,7 +176,6 @@ olaáááá	Greeting:1
 ois	Greeting:1
 oiê	Greeting:1
 opa!, colé?	Greeting:1
-blz?	Greeting:1
 oi	Greeting:1
 alguém em casa?	Greeting:1
 alguem em casa?	Greeting:1
@@ -186,7 +187,6 @@ Eae	Greeting:1
 e ae	Greeting:1
 Oi	Greeting:1
 hi	Greeting:1
-hello	Greeting:1
 Oie!	Greeting:1
 Eae	Greeting:1
 Ei!	Greeting:1
@@ -197,8 +197,6 @@ cole	Greeting:1
 e ai	Greeting:1
 e aí	Greeting:1
 qualé	Greeting:1
-nnn	Negation:0
-nnn	Negation:0
 assim naum	Negation:1
 assim nao precisa 	Negation:1
 nao obrigada	Negation:1
@@ -206,6 +204,7 @@ n tenho interesse	Negation:1
 ta bom mas não precisa	Negation:1
 não quero	Negation:1
 não	Negation:1
+nnnnnnnnnnnnnnnnn	Negation:1
 nunca	Negation:1
 jamais	Negation:1
 naum	Negation:1
@@ -260,11 +259,15 @@ Obrigado você	Thanks:1
 Obrigada você	Thanks:1
 brigado	Thanks:1
 brigaga	Thanks:1
+tudo certo com o meu problema	Thanks:1
 ajudou muito obrigada	Thanks:1
 ta bom obrigada demais	Thanks:1
 valeu demais obrigada	Thanks:1
 o atendente resolveu já	Thanks:1
 vocês me ajudaram	Thanks:1
+obrigada e tchau valeu	Thanks:2
+obrigada e até mais	Thanks:1,GoodBye:1
+tudo certo obrigada	Thanks:1
 vocês me responderam o que queria	Thanks:1
 então até mais e obrigada	Thanks:1
 estou feliz e satisfeita	Thanks:1
@@ -275,7 +278,6 @@ já falei com atendente	Thanks:1
 já fui atendido	Thanks:1
 já me atenderam	Thanks:1
 já resolveram o meu problema	Thanks:1
-obrigada e tchau valeu	Thanks:1
 Obrigado para você também	Thanks:1
 oitenta	Greeting:0
 poderia receber valores de vendas no CNOJ?	Confirmation:0
