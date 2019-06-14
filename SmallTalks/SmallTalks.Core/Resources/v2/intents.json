@@ -60,11 +60,12 @@
         {
             "name": "Confusion",
             "rules": [
-                "como assim",
-                "não sei",
-                "não entendi",
-                "boiei",
                 "(n[aãâ]o+|nn?|naum|nem|jamais)(\\s*)saquei\\b",
+                "(o\\s*)?(qu[eê]|q)\\?",
+                "(n[ãaâ]o|naum) entendi?",
+                "(n[ãaâ]o|naum) sei",
+                "como a(ss|ç|s)im",
+                "boiei",
                 "\\?+"
             ],
             "position": [
@@ -78,7 +79,7 @@
                 "(beleza|blza)(\\s*)(ent[aãâ]o|ent[aãâ]um)?\\b(\\s*)((est[aá]|t[aá])(\\s*)(bem|bm|bom))?\\b",
                 "(tudo|td)(\\s*)(bem|bm)(\\s*)(ent[aãâ]o|ent[aãâ]um)(\\s*)(o(quei|kay|kei|key|ka|k)+)?\\b",
                 "concordo",
-                "blz",
+                "blz?",
                 "beleza",
                 "aceito"
             ],
@@ -136,17 +137,14 @@
                 "(finalizar|terminar|encerrar|acabar)\\s*([ao])?\\s*(fluxo|co[mn]ver[sç]a)\\s*(agora)?\\b",
                 "(estou|t[oô])\\s*(saind?[ou])\\s*((d[aeo])\\s*(canal|bot))?\\b",
                 "at[ée]\\s*a\\s*pr[óo]xima(\\s+vez)?\\b",
-                "at[ée]\\s*(mais|\\+)(\\s+tarde)?\\b",
+                "at[ée]\\s*(mais|\\+|logo)(\\s+(tarde|ver))?\\b",
                 "abra[çc]os?\\s*e\\s*beijo?\\b",
                 "abra[çc]os?\\s*e\\s*bjos?",
-                "at[eé]\\s*mais ver",
-                "at[ée]\\s*logo",
                 "um\\s*abraço",
                 "int[eé]\\b",
                 "at[eé]\\b",
                 "abra[çc]o",
-                "flws?",
-                "falows",
+                "fa?lo?ws?",
                 "falou",
                 "sair*"
 
@@ -213,7 +211,7 @@
                 "hey",
                 "e\\s*a(e|[ií])",
                 "e\\s*a[ií]",
-                "hello",
+                "hell?o",
                 "hi",
                 "ei"
             ],

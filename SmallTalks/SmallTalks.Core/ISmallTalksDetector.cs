@@ -5,9 +5,9 @@ namespace SmallTalks.Core
 {
     public interface ISmallTalksDetector
     {
-        SmallTalksDectectorData DectectorData { get; }
+        SmallTalksDectectorData DetectorData { get; }
 
-        SmallTalksDectectorData DectectorDatav2 { get; }
+        SmallTalksDectectorData DetectorDatav2 { get; }
 
         Task<Analysis> DetectAsync(string input);
 

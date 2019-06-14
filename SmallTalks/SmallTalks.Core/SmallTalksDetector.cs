@@ -30,9 +30,9 @@ namespace SmallTalks.Core
         //private IWordsDetector _stopWordsDetectorv2;
         //private IWordsDetector _curseWordsDetectorv2;
 
-        public SmallTalksDectectorData DectectorData { get; private set; }
+        public SmallTalksDectectorData DetectorData { get; private set; }
 
-        public SmallTalksDectectorData DectectorDatav2 { get; private set; }
+        public SmallTalksDectectorData DetectorDatav2 { get; private set; }
         public SmallTalksDetector(
             IDetectorDataProviderService detectorDataProvider,
             ISourceProviderService sourceProvider,
@@ -61,14 +61,14 @@ namespace SmallTalks.Core
         {
             _stopWordsDetector = await _wordDetectorFactory.GetWordsDetectorAsync(WordDetectorType.Stopwords);
             _curseWordsDetector = await _wordDetectorFactory.GetWordsDetectorAsync(WordDetectorType.Cursewords);
-            DectectorData = DectectorData ?? await _detectorDataProvider.GetSmallTalksDetectorDataFromSourceAsync(_sourceProvider.GetSourceProvider());
+            DetectorData = DetectorData ?? await _detectorDataProvider.GetSmallTalksDetectorDataFromSourceAsync(_sourceProvider.GetSourceProvider());
         }
 
         public async Task Initv2()
         {
             _stopWordsDetector = await _wordDetectorFactory.GetWordsDetectorAsync(WordDetectorType.Stopwords);
             _curseWordsDetector = await _wordDetectorFactory.GetWordsDetectorAsync(WordDetectorType.Cursewords);
-            DectectorDatav2 = DectectorDatav2 ?? await _detectorDataProvider.GetSmallTalksDetectorDataFromSourceAsyncv2(_sourceProvider.GetSourceProviderv2());
+            DetectorDatav2 = DetectorDatav2 ?? await _detectorDataProvider.GetSmallTalksDetectorDataFromSourceAsyncv2(_sourceProvider.GetSourceProviderv2());
         }
 
         public Task<Analysis> DetectAsync(string input)
@@ -134,7 +134,7 @@ namespace SmallTalks.Core
                 Matches = new List<MatchData>()
             };
 
-            DectectorData.SmallTalksIntents = DectectorData.SmallTalksIntents.OrderBy(i => i.Priority).ToList();
+            DetectorData.SmallTalksIntents = DetectorData.SmallTalksIntents.OrderBy(i => i.Priority).ToList();
 
             var parsedInput = input;
             var haveCursedWords = false;
@@ -155,23 +155,23 @@ namespace SmallTalks.Core
             await Initv2();
             var analysis = new Analysis
             {
-                Input = preProcess.Output,
+                Input = preProcess.Input,
                 Matches = new List<MatchData>()
             };
 
-            DectectorDatav2.SmallTalksIntents = DectectorDatav2.SmallTalksIntents.OrderBy(i => i.Priority).ToList();
+            DetectorDatav2.SmallTalksIntents = DetectorDatav2.SmallTalksIntents.OrderBy(i => i.Priority).ToList();
 
-            var parsedInput = input;
+            var parsedInput = preProcess.Output;
             var haveCursedWords = false;
             (parsedInput, haveCursedWords) = await _curseWordsDetector.ReplaceWordsAsync(parsedInput, InputProcess.Placeholder);
             analysis.HaveCursedWords = haveCursedWords;
 
             parsedInput = ParseInputSearchingForSmallTalksv2(configuration, analysis, parsedInput);
 
-            if (analysis.MatchesCount > 1)
-            {
-                analysis.Matches.RemoveRange(1, analysis.MatchesCount - 1);
-            }
+            //if (analysis.MatchesCount > 1)
+            //{
+            //    analysis.Matches.RemoveRange(1, analysis.MatchesCount - 1);
+            //}
             await FillHigherInformationLevel(configuration, analysis, parsedInput);
 
             return analysis;
@@ -183,7 +183,8 @@ namespace SmallTalks.Core
             {
                 Input = input
             }
-            .RemoveRepeteadChars();
+            .RemoveRepeteadChars()
+            .RemovePunctuation();
 
             if (configuration.ToLower)
                 preProcess = preProcess.ToLower();
@@ -224,7 +225,7 @@ namespace SmallTalks.Core
 
         private string ParseInputSearchingForSmallTalks(SmallTalksPreProcessingConfiguration configuration, Analysis analysis, string parsedInput)
         {
-            foreach (var intent in DectectorData.SmallTalksIntents)
+            foreach (var intent in DetectorData.SmallTalksIntents)
             {
                 var matches = intent.Regex.Matches(parsedInput);
 
@@ -238,7 +239,7 @@ namespace SmallTalks.Core
                             SmallTalk = intent.Name,
                             Value = configuration.InformationLevel >= InformationLevel.NORMAL ? m.Value : null,
                             Index = configuration.InformationLevel >= InformationLevel.FULL ? (int?)m.Index : null,
-                            Lenght = configuration.InformationLevel >= InformationLevel.FULL ? (int?)m.Length : null,
+                            Length = configuration.InformationLevel >= InformationLevel.FULL ? (int?)m.Length : null,
                         });
                     }
                 }
@@ -248,7 +249,7 @@ namespace SmallTalks.Core
         }
         private string ParseInputSearchingForSmallTalksv2(SmallTalksPreProcessingConfiguration configuration, Analysis analysis, string parsedInput)
         {
-            foreach (var intent in DectectorDatav2.SmallTalksIntents)
+            foreach (var intent in DetectorDatav2.SmallTalksIntents)
             {
                 var matches = intent.Regex.Matches(parsedInput);
 
@@ -262,7 +263,7 @@ namespace SmallTalks.Core
                             SmallTalk = intent.Name,
                             Value = configuration.InformationLevel >= InformationLevel.NORMAL ? m.Value : null,
                             Index = configuration.InformationLevel >= InformationLevel.FULL ? (int?)m.Index : null,
-                            Lenght = configuration.InformationLevel >= InformationLevel.FULL ? (int?)m.Length : null,
+                            Length = configuration.InformationLevel >= InformationLevel.FULL ? (int?)m.Length : null,
                         });
                     }
                 }
