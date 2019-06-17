@@ -7,7 +7,7 @@ namespace Entities.Domain.Extensions
 {
     public static class InputProcessExtension
     {
-        public static Regex PunctuationRegex = new Regex("[\\.,\\/#!\\$%\\^&\\*;:{}=\\-_`~()\\?\\\\]", RegexOptions.Compiled);
+        public static Regex PunctuationRegex = new Regex("[\\.,\\/#!\\$%\\^&\\*;:{}=\\-_`~()\\\\]", RegexOptions.Compiled);
 
         public static InputProcess RemoveRepeteadChars(this InputProcess inputProcess)
         {
