@@ -97,6 +97,7 @@
                 "tchau",
                 "adeus",
                 "xau",
+                "bye(\\s+bye)?",
                 "abra[çc]os? e beijo?",
                 "abra[çc]os? e bjos?",
                 "abra[çc]o",

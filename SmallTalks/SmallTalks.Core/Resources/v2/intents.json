@@ -15,6 +15,7 @@
                 "que incr[íi]vel",
                 "parabéns(\\!*)",
                 "arra[sz]ou?",
+                "sen[scç]a[scç]ional",
                 "f[ãa]\\b",
                 "topster",
                 "gosto",
@@ -141,6 +142,7 @@
                 "abra[çc]os?\\s*e\\s*beijo?\\b",
                 "abra[çc]os?\\s*e\\s*bjos?",
                 "um\\s*abraço",
+                "bye(\\s+bye)?", 
                 "int[eé]\\b",
                 "at[eé]\\b",
                 "abra[çc]o",
@@ -158,10 +160,10 @@
         {
             "name": "GoodMorning",
             "rules": [
-                "(tenha\\s+)(um\\s+)(bo+m+\\s*di+a+)?",
-                "bo+m+\\s*di+a+",
-                "dia",
-                "b dia"
+                    "(tenha\\s+)(um\\s+)(bo+m+\\s*di+a+)?",
+                    "bo+m+\\s*di+a+",
+                    "dia",
+                    "b dia"
             ],
             "position": [
                 "alone",

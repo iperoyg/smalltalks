@@ -3,17 +3,16 @@ bostas?
 caralh.s?
 casa do caralho
 safad. do caralho
-p+o+r+[a@]+
-v+a+d+i+.s?
+o*p+o+u*r*[a@]+s*
 b+.c+e+t+a+s?
 escrot.s?
 arrombad.s?
 cus?
 cuzonas?
 cuzões?
-putas?
+p+u+t+a+s*
 FDP
-putas? que pariu
+p+u+t+a+s*? que pariu
 PQP
 Idiota
 Est[uúÚ]pid.s?
@@ -27,13 +26,13 @@ vai tomar no toba
 vai se f.der
 VSF
 f.da-?s?s?e?
-V.ad.s?
+v+ad.+s*
 V.ad([aãÃ]o|ona)s?
 Tosc.s?
 Peidos?
 Babacas?
 Corn.s?
-(peg[a@]|l[a@]mb[ei]|xup[a@]|chup[a@])\s*(([ou]|n[ou])\s*)?(me[uo]\s*)?p[a@][ul]?
+(peg.|l[a@]mb.|x[ou]p.|ch[ou]p.)\s*(([ou]|n[ou])\s*)?(me[uo]\s*)?p[a@][ul]?
 Pica
 Cacete
 Toba
