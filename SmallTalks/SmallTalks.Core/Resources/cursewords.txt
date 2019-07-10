@@ -32,7 +32,7 @@ Tosc.s?
 Peidos?
 Babacas?
 Corn.s?
-(peg.|l[a@]mb.|x[ou]p.|ch[ou]p.)\s*(([ou]|n[ou])\s*)?(me[uo]\s*)?p[a@][ul]?
+(peg.|l[a@]mb.|x[ou]p.|ch[ou]p..?.?.?)\s*(([ou]|n[ou])\s*)?(me[uo]\s*)?p[a@][ul]?
 Pica
 Cacete
 Toba
