@@ -205,7 +205,7 @@
                 "ol[aá]+\\s*(fi|meu|mano|jow|cara|meu bom|querid.)?\\b",
                 "[kc]ol[eé]+\\s*(meu bom|fi|meu|mano|jow|cara|querid.)?\\b",
                 "opa(\\!+)?",
-                "qual\\s*[ée]+",
+                "qual\\s*[ée]+$",
                 "algu.m\\s*em casa",
                 "algu.m\\s*a[ií]+",
                 "al[oô]",
