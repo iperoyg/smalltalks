@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2006
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29318.209
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmallTalks.Api", "SmallTalks.Api\SmallTalks.Api.csproj", "{AE62D127-236F-40F7-92C6-31E59A893200}"
 EndProject
@@ -17,9 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities.Domain", "Entities
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities.Domain.Tests", "Entities.Core.Tests\Entities.Domain.Tests.csproj", "{7C8F39E6-EDB7-4053-B641-059F0F05DFF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DateTimeDectector.Core", "DateTimeDectector.Core\DateTimeDectector.Core.csproj", "{FE7A9679-6FB5-474B-B00F-0F292807C0E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DateTimeDectector.Core", "DateTimeDectector.Core\DateTimeDectector.Core.csproj", "{FE7A9679-6FB5-474B-B00F-0F292807C0E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DateTimeDectector.Domain", "DateTimeDectector.Domain\DateTimeDectector.Domain.csproj", "{B7D2722C-A67E-4139-AAC3-A423C0F5EE25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DateTimeDectector.Domain", "DateTimeDectector.Domain\DateTimeDectector.Domain.csproj", "{B7D2722C-A67E-4139-AAC3-A423C0F5EE25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
