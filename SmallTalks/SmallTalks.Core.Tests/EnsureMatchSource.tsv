@@ -1,5 +1,12 @@
-﻿oi, bom dia	GoodMorning:1, Greeting:1
-opa! blz? To precisando falar com alguem...	Greeting:1, Surprise:1
+﻿claro pode seguir	Confirmation:1
+oquei pode ser assim	Confirmation:1
+pode continuar por favor	Confirmation:1
+nao obrigada	Negation:1
+n tenho interesse	Negation:1
+ta bom mas não precisa	Negation:1
+não quero	Negation:1
+oi, bom dia	GoodMorning:1, Greeting:1
+opa! blz? To precisando falar com alguem...	Greeting:1,Surprise:1
 colé fi?	Greeting:1
 cole meu bom!	Greeting:1
 sim	Confirmation:1
@@ -9,8 +16,9 @@ não sei...	Confusion:1
 não entendi	Confusion:1
 como assim	Confusion:1
 como assim cara???	Confusion:1
-ok	Consent:1
-ok ok...	Consent:2
+o que?	Confusion:1
+que?	Confusion:1
+que	Confusion:0
 concordo	Consent:1
 blz	Consent:1
 beleza	Consent:1
@@ -21,8 +29,8 @@ oi, boa noite	Greeting:1, GoodNight:1
 olaáááá	Greeting:1
 ois	Greeting:1
 oiê	Greeting:1
-opa	Surprise:1
-opa, colé?	Greeting:1, Surprise:1
+opa!	Surprise:1
+opa!, colé?	Greeting:1, Surprise:1
 blz?	Greeting:1
 dia!!!	GoodMorning:1
 então, bom dia, estou com um problema	GoodMorning:1
@@ -52,7 +60,11 @@ ATE A PROXIMA VEZ	GoodBye:1
 ATE LOGO	GoodBye:1
 ATE MAIS	GoodBye:1
 ATE MAIS TARDE	GoodBye:1
+Fiz um pagamento até dia 12	Goodbye:0
+até	Goodbye:1
 TCHAU	GoodBye:1
+Fiz um pagamento até dia 12	Goodbye:0
+até	Goodbye:1
 TCHAU TCHAU	GoodBye:1
 B NOITE	GoodNight:1
 BOA NOITE A TODOS	GoodNight:1
@@ -84,3 +96,115 @@ muito legal	Compliment:1
 nossa, parabéns!	Compliment:1
 ficou incrível!	Compliment:1
 muito bom	Compliment:1
+vlw	Thank:1
+obg	Thank:1
+Muito obrigada!	Thank:1
+Muito obrigado!	Thank:1
+merci	Thank:1
+thanks	Thank:1
+Obrigada!	Thank:1
+Valeu!	Thank:1
+Obrigado!	Thank:1
+até	GoodBye:1
+flw	GoodBye:1
+adeus	GoodBye:1
+ate Mais ver	GoodBye:1
+Até a próxima	GoodBye:1
+Xau	GoodBye:1
+Beijo me liga	GoodBye:1
+Falows	GoodBye:1
+Falou	GoodBye:1
+Tchau	GoodBye:1
+Muito boa!	Compliment:1
+Muito bom!	Compliment:1
+Muito top!	Compliment:1
+Top!	Compliment:1
+Legal!	Compliment:1
+Topzeira	Compliment:1
+Curti!	Compliment:1
+gostei	Compliment:1
+hey	Greeting:1
+Olá	Greeting:1
+Eae	Greeting:1
+Oi	Greeting:1
+opa	Greeting:1
+hi	Greeting:1
+hello	Greeting:1
+Oie!	Greeting:1
+Eae	Greeting:1
+Ei!	Greeting:1
+n	Negation:1
+isso	Confirmation:1
+nao é isso	Negation:1
+não era isso	Negation:1
+não gostei	Frustration:1
+naum gostei	Frustration:1
+péssimo	Frustration:1
+horrivel	Frustration:1
+está ruim	Frustration:1
+está horrivel	Frustration:1
+pessimo esse chat	Frustration:1
+muito bom	Compliment:1
+achei legal	Compliment:1
+achei bacana	Compliment:1
+achei d+	Compliment:1
+me ajudou	Compliment:1
+me ajudou muito	Compliment:1
+gostei disso	Compliment:1
+gostei muito	Compliment:1
+muito legal	Compliment:1
+adorei a conversa	Compliment:1
+por nada	Thank:1
+de nada	Thank:1
+por nada!	Thank:1
+de nada entao	Thank:1
+por nada fi!	Thank:1
+boooa noite	GoodNight:1
+boooaaaaa noite	GoodNight:1
+boooaaaaa noiteeeeee	GoodNight:1
+boooaaaaa noiiiteeeeee	GoodNight:1
+bom diiiia	GoodMorning:1
+bom diiiiaaaaa	GoodMorning:1
+bommmm diiiiaaaaa	GoodMorning:1
+bommmm dia	GoodMorning:1
+n	Negation:1
+nnn	Negation:0
+nao tenho interesse	Negation:1
+de forma alguma	Negation:1
+nem to afim	Negation:1
+s	Confirmation:1
+ss	Confirmation:1
+quero sim	Confirmation:1
+gostaria sim	Confirmation:1
+prefiro	Confirmation:1
+ok	Confirmation:1
+okei	Confirmation:1
+pode continuar	Confirmation:1
+pode	Confirmation:1
+pode seguir	Confirmation:1
+ok ok...	Confirmation:1
+não quero essa opção	Negation:1
+naum precisa	Negation:1
+nao quero	Negation:1
+n	Negation:1
+nnn	Negation:0
+assim naum	Negation:1
+NÃO	Negation:1
+assim nao precisa 	Negation:1
+claro	Confirmation:1
+seguir	Confirmation:1
+sin	Confirmation:1
+pode ser essa opção	Confirmation:1
+quero por favor	Confirmation:1
+eu gostaria sim	Confirmation:1
+s	Confirmation:1
+ss	Confirmation:1
+prefiro dessa forma	Confirmation:1
+de jeito nenhum	Negation:1
+oitenta	Greeting:0
+poderia receber valores de vendas no CNOJ?	Confirmation:0
+Fazer simulação	Compliment:0
+         bom dia!	GoodMorning:1
+Tudo bem com você?	Cordiality:1
+como vai você	Cordiality:1
+como você está?	Cordiality:1

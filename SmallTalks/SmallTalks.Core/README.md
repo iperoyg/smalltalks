@@ -1,16 +1,17 @@
 # SmallTalks Detector
 
 **_A simple regex solution for many portuguese smalltalks_**
-
+**_Uma solução simples para REGEX para várias SmallTalks em português_**
 
 ## SmallTalks types
 - Compliment / Elogio
 - Confirmation / Confirmação
-- Confusion / Confus
+- Confusion / Confusão
 - Consent / Anuência
 - Disagreement / Discordância
+- Frutration / Frustração
 - Greeting / Saudação
-- GoodMorning, GoodEvening, GoodNight / Bom dia, Boa tarde, Boa noite
+- GoodMorning, GoodAfternoon, GoodNight / Bom dia, Boa tarde, Boa noite
 - Negation / Negação
 - Sorry / Desculpas
 - Surprise / Supresa

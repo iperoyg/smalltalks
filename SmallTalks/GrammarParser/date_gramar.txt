@@ -1,0 +1,53 @@
+HORA: horas | hora | hr | h
+MINUTO: minutos | minuto | min | m
+SEGUNDO: segundos | segundo | seg | s
+DIA: dias | dia | d
+MES: meses | mes | m
+ANO: anos | ano | a
+
+JAN: janeiro | jan
+FEV: fevereiro | fev
+MAR: março | marco | mar
+ABR: abril | abr
+MAI: maio | mai
+JUN: junho | jun
+JUL: julho | jul
+AGO: agosto | ago
+SET: setembro | set
+OUT: outubro | out
+NOV: novembro | nov
+DEZ: dezembro | dez
+
+MESES_DO_ANO: JAN | FEV | MAR | ABR | MAI | JUN | JUL | AGO | SET | OUT | NOV | DEZ
+
+UND_TEMPO: HORA | MINUTO | SEGUNDO
+UND_DATA: DIA | MES | ANO
+
+NUM: r'\d+'
+DESSE_REF: r'd?es[st][ea]'
+
+MANHA: de manha | da manha | manha | cedo
+TARDE: de tarde | da tarde | a tarde | tarde
+NOITE: de noite | da noite | a noite | noite
+AGORA_TEMPO: agora | DESSE_REF momento | DESSE_REF UND_TEMPO
+AGORA_DATA: DESSE_REF UND_DATA
+
+HOJE: hoje
+AMANHA: amanha
+ONTEM: ontem
+
+PERIODO_TEMPO: MANHA | TARDE | NOITE
+PERIODO_DATA: HOJE | AMANHA | ONTEM
+
+TEMPO: NUM UND_TEMPO
+DATA: NUM UND_DATA 
+
+>TEMPO_FUTURO: em TEMPO | daqui TEMPO | apos TEMPO | ate TEMPO
+>TEMPO_PASSADO: a TEMPO | TEMPO atras | tem TEMPO | fazem TEMPO | faz TEMPO
+>TEMPO_EXATO_NUMERICO: NUM : NUM : NUM | NUM : NUM
+>TEMPO_EXATO_EXTENSO: TEMPO PERIODO_TEMPO | PERIODO_TEMPO | AGORA_TEMPO | as TEMPO
+
+>DATA_FUTURA: em DATA | daqui DATA | apos DATA | ate DATA
+>DATA_PASSADA: a DATA | DATA atras | tem DATA | fazem DATA | faz DATA
+>DATA_EXATA_NUMERICA: NUM / NUM / NUM | NUM / NUM | NUM \ NUM \ NUM | NUM \ NUM | NUM - NUM - NUM | NUM - NUM | NUM de NUM de NUM | NUM de MESES_DO_ANO de NUM | NUM de MESES_DO_ANO
+>DATA_EXATA_EXTENSO: DATA | PERIODO_DATA | AGORA_DATA

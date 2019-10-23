@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using SmallTalks.Core.Services;
+using SmallTalks.Core.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,7 +18,10 @@ namespace SmallTalks.Core
                 .AddSingleton<IConversionService, ModelConversionService>()
                 .AddSingleton<IDetectorDataProviderService, DetectorDataProviderService>()
                 .AddSingleton<ISourceProviderService, LocalSourceProviderService>()
-                .AddSingleton<IStopWordsDetector, StopWordsDetector>();
+                .AddSingleton<IWordDetectorFactory, WordDetectorFactory>()
+                .AddSingleton<ILogger>((new LoggerConfiguration()).CreateLogger())
+                .AddTransient<IWordsDetector, WordsDetectorBase>();
+
                 
             
             return serviceCollection;

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SmallTalks.Api</name>
+    </assembly>
+    <members>
+        <member name="T:SmallTalks.Api.Controllers.AnalysisController">
+            <summary>
+            Controller responsible for analysing texts
+            </summary>
+        </member>
+        <member name="M:SmallTalks.Api.Controllers.AnalysisController.Analyse(System.String)">
+            <summary>
+            Analyses a text to check for small talks and datetimes
+            </summary>
+            <param name="text">Text to be analysed</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

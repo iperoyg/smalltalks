@@ -1,13 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27703.2035
+VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallTalks.Api", "SmallTalks.Api\SmallTalks.Api.csproj", "{AE62D127-236F-40F7-92C6-31E59A893200}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmallTalks.Api", "SmallTalks.Api\SmallTalks.Api.csproj", "{AE62D127-236F-40F7-92C6-31E59A893200}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallTalks.Core", "SmallTalks.Core\SmallTalks.Core.csproj", "{CC3206FE-29C5-4E79-A05A-01CAFDD0BAE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmallTalks.Core", "SmallTalks.Core\SmallTalks.Core.csproj", "{CC3206FE-29C5-4E79-A05A-01CAFDD0BAE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallTalks.Core.Tests", "SmallTalks.Core.Tests\SmallTalks.Core.Tests.csproj", "{35A6A766-75F6-4775-9840-B2B9A7678C98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmallTalks.Core.Tests", "SmallTalks.Core.Tests\SmallTalks.Core.Tests.csproj", "{35A6A766-75F6-4775-9840-B2B9A7678C98}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrammarParser", "GrammarParser\GrammarParser.csproj", "{B9360F68-811D-4E66-BE79-524067AA96E7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrammarParser.Tests", "GrammarParser.Tests\GrammarParser.Tests.csproj", "{94E6B139-9799-43DD-B251-DAA86ABB502F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities.Domain", "Entities.Core\Entities.Domain.csproj", "{F02BC1C1-0836-4E4F-A0E2-8E4BC3C93149}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities.Domain.Tests", "Entities.Core.Tests\Entities.Domain.Tests.csproj", "{7C8F39E6-EDB7-4053-B641-059F0F05DFF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DateTimeDectector.Core", "DateTimeDectector.Core\DateTimeDectector.Core.csproj", "{FE7A9679-6FB5-474B-B00F-0F292807C0E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DateTimeDectector.Domain", "DateTimeDectector.Domain\DateTimeDectector.Domain.csproj", "{B7D2722C-A67E-4139-AAC3-A423C0F5EE25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +39,30 @@ Global
 		{35A6A766-75F6-4775-9840-B2B9A7678C98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35A6A766-75F6-4775-9840-B2B9A7678C98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35A6A766-75F6-4775-9840-B2B9A7678C98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9360F68-811D-4E66-BE79-524067AA96E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9360F68-811D-4E66-BE79-524067AA96E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9360F68-811D-4E66-BE79-524067AA96E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9360F68-811D-4E66-BE79-524067AA96E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94E6B139-9799-43DD-B251-DAA86ABB502F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94E6B139-9799-43DD-B251-DAA86ABB502F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94E6B139-9799-43DD-B251-DAA86ABB502F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94E6B139-9799-43DD-B251-DAA86ABB502F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F02BC1C1-0836-4E4F-A0E2-8E4BC3C93149}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F02BC1C1-0836-4E4F-A0E2-8E4BC3C93149}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F02BC1C1-0836-4E4F-A0E2-8E4BC3C93149}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F02BC1C1-0836-4E4F-A0E2-8E4BC3C93149}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C8F39E6-EDB7-4053-B641-059F0F05DFF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C8F39E6-EDB7-4053-B641-059F0F05DFF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C8F39E6-EDB7-4053-B641-059F0F05DFF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C8F39E6-EDB7-4053-B641-059F0F05DFF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE7A9679-6FB5-474B-B00F-0F292807C0E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE7A9679-6FB5-474B-B00F-0F292807C0E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE7A9679-6FB5-474B-B00F-0F292807C0E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE7A9679-6FB5-474B-B00F-0F292807C0E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7D2722C-A67E-4139-AAC3-A423C0F5EE25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7D2722C-A67E-4139-AAC3-A423C0F5EE25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7D2722C-A67E-4139-AAC3-A423C0F5EE25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7D2722C-A67E-4139-AAC3-A423C0F5EE25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

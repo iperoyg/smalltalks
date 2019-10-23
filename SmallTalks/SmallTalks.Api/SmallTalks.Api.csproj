@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -9,34 +9,49 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netcoreapp2.1\SmallTalks.Api.xml</DocumentationFile>
+    <WarningLevel>0</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netcoreapp2.1\SmallTalks.Api.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\App_Data\intents.json" />
-    <Content Remove="wwwroot\App_Data\stopwords.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\App_Data\intents.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\App_Data\stopwords.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Lime.Messaging" Version="0.7.278" />
+    <PackageReference Include="Lime.Protocol" Version="0.7.278" />
+    <PackageReference Include="Lime.Protocol.Serialization" Version="0.7.278" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="2.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Language" Version="2.1.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Tpl.Dataflow" Version="4.5.24" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="Serilog" Version="2.7.1" />
+    <PackageReference Include="Serilog.AspNetCore" Version="2.1.1" />
+    <PackageReference Include="Serilog.Enrichers.Environment" Version="2.1.2" />
+    <PackageReference Include="Serilog.Exceptions" Version="4.1.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+    <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
+    <PackageReference Include="Serilog.Sinks.Seq" Version="4.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="3.0.0" />
+    <PackageReference Include="Takenet.Iris.Messaging" Version="2.20.128" />
     <!--<PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />-->
     <!--<PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="3.0.0" />-->
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DateTimeDectector.Core\DateTimeDectector.Core.csproj" />
+    <ProjectReference Include="..\DateTimeDectector.Domain\DateTimeDectector.Domain.csproj" />
     <ProjectReference Include="..\SmallTalks.Core\SmallTalks.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>
