@@ -214,17 +214,13 @@ namespace SmallTalks.Api.Controllers.v1
         {
             try
             {
-                if (requestItem == null || string.IsNullOrEmpty(requestItem.Text))
-                {
-                    return BadRequest();
-                }
+                var response = await _analysisFacade.ConfiguredAnalyseAsyncV2(requestItem);
 
-                using (var source = new CancellationTokenSource(TimeSpan.FromSeconds(1)))
-                {
-                    var response = await AnalyseAsync(requestItem, source.Token, '2');
-                    _logger.Information(response.ToString());
-                    return Ok(response);
-                }
+                return Ok(response);
+            }
+            catch (ArgumentException aex)
+            {
+                return BadRequest(new { message = aex.Message });
             }
             catch (Exception ex)
             {

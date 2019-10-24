@@ -11,6 +11,7 @@ namespace SmallTalks.Api.Facades.Interfaces
         Task<AnalysisResponseItem> AnalyseAsync(string text, bool checkDate = true, int infoLevel = 1);
         Task<AnalysisResponseItem> AnalyseAsyncV2(string text, bool checkDate = true, int infoLevel = 1);
         Task<AnalysisResponseItem> ConfiguredAnalyseAsync(ConfiguredAnalysisRequestItem requestItem);
+        Task<AnalysisResponseItem> ConfiguredAnalyseAsyncV2(ConfiguredAnalysisRequestItem requestItem);
         Task<BatchAnalysisResponse> BatchAnalyse(BatchAnalysisRequest request);
     }
 }

@@ -46,12 +46,16 @@ namespace SmallTalks.Api.Facades
 
         public async Task<AnalysisResponseItem> ConfiguredAnalyseAsync(ConfiguredAnalysisRequestItem requestItem)
         {
-            if (requestItem == null || string.IsNullOrEmpty(requestItem.Text))
-            {
-                throw new ArgumentException("Invalid request item or content!");
-            }
+            CheckIfConfiguredAnalysisRequestIsValid(requestItem);
 
             return await GetAnalysisResponseAsync(requestItem, ApiVersion.V1);
+        }
+
+        public async Task<AnalysisResponseItem> ConfiguredAnalyseAsyncV2(ConfiguredAnalysisRequestItem requestItem)
+        {
+            CheckIfConfiguredAnalysisRequestIsValid(requestItem);
+
+            return await GetAnalysisResponseAsync(requestItem, ApiVersion.V2);
         }
 
         public async Task<BatchAnalysisResponse> BatchAnalyse(BatchAnalysisRequest request)
@@ -106,6 +110,14 @@ namespace SmallTalks.Api.Facades
                 var param = isTextInvalid ? nameof(text) : nameof(infoLevel);
                 _logger.Warning("{@Text} or {@InfoLevel} constraints violated!", text, infoLevel);
                 throw new ArgumentException("Invalid Text or InfoLevel. Check restrictions.", param);
+            }
+        }
+
+        private static void CheckIfConfiguredAnalysisRequestIsValid(ConfiguredAnalysisRequestItem requestItem)
+        {
+            if (requestItem == null || string.IsNullOrEmpty(requestItem.Text))
+            {
+                throw new ArgumentException("Invalid request item or content!");
             }
         }
 
