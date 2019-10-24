@@ -25,19 +25,13 @@ namespace SmallTalks.Api.Controllers.v1
     [ApiController]
     public class AnalysisController : ControllerBase
     {
-        private readonly ISmallTalksDetector _smallTalksDetector;
-        private readonly IDateTimeDectector _dateTimeDectector;
         private readonly ILogger _logger;
         private readonly IAnalysisFacade _analysisFacade;
 
         public AnalysisController(
-            ISmallTalksDetector smallTalksDetector,
-            IDateTimeDectector dateTimeDectector,
             ILogger logger,
             IAnalysisFacade analysisFacade)
         {
-            _smallTalksDetector = smallTalksDetector;
-            _dateTimeDectector = dateTimeDectector;
             _logger = logger;
             _analysisFacade = analysisFacade;
         }
