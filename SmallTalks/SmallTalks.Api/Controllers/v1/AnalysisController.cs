@@ -177,7 +177,7 @@ namespace SmallTalks.Api.Controllers.v1
         {
             try
             {
-                var response = await _analysisFacade.AnalyseAsyncV2(text, checkDate, infoLevel);
+                var response = await _analysisFacade.AnalyseAsync(text, checkDate, infoLevel, Models.ApiVersion.V2);
 
                 return Ok(response);
             }
@@ -208,7 +208,7 @@ namespace SmallTalks.Api.Controllers.v1
         {
             try
             {
-                var response = await _analysisFacade.ConfiguredAnalyseAsyncV2(requestItem);
+                var response = await _analysisFacade.ConfiguredAnalyseAsync(requestItem, Models.ApiVersion.V2);
 
                 return Ok(response);
             }

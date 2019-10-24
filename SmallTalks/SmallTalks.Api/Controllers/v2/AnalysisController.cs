@@ -9,6 +9,7 @@ using System.Threading.Tasks.Dataflow;
 using DateTimeDectector.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
+using SmallTalks.Api.Facades.Interfaces;
 using SmallTalks.Api.Filters;
 using SmallTalks.Api.Models;
 using SmallTalks.Core;
@@ -24,18 +25,15 @@ namespace SmallTalks.Api.Controllers.v2
     [ApiController]
     public class AnalysisController : ControllerBase
     {
-        private readonly ISmallTalksDetector _smallTalksDetector;
-        private readonly IDateTimeDectector _dateTimeDectector;
         private readonly ILogger _logger;
+        private readonly IAnalysisFacade _analysisFacade;
 
         public AnalysisController(
-            ISmallTalksDetector smallTalksDetector,
-            IDateTimeDectector dateTimeDectector,
+            IAnalysisFacade analysisFacade,
             ILogger logger)
         {
-            _smallTalksDetector = smallTalksDetector;
-            _dateTimeDectector = dateTimeDectector;
             _logger = logger;
+            _analysisFacade = analysisFacade;
         }
 
         /// <summary>
@@ -71,29 +69,13 @@ namespace SmallTalks.Api.Controllers.v2
         {
             try
             {
-                if (string.IsNullOrEmpty(text) || infoLevel < 1 || infoLevel > 3)
-                {
-                    _logger.Warning("{@Text} or {@InfoLevel} constraints violated!", text, infoLevel);
-                    return BadRequest(new { message = "Check 'text' and 'infoLevel' restrictions" });
-                }
+                var response = await _analysisFacade.AnalyseAsync(text, checkDate, infoLevel, Models.ApiVersion.V2);
 
-                var item = new ConfiguredAnalysisRequestItem
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Text = text,
-                    CheckDate = checkDate,
-                    Configuration = new SmallTalksPreProcessingConfiguration()
-                    {
-                        InformationLevel = (InformationLevel)infoLevel
-                    }
-                };
-
-                using (var source = new CancellationTokenSource(TimeSpan.FromSeconds(1)))
-                {
-                    var response = await AnalyseAsync(item, source.Token);
-                    _logger.Information("[{@SmallTalksAnalysisResult}] {@Sentence} analysed with CheckDate={@CheckDate} and InfoLevel={@InfoLevel}. Response: {@AnalysisResponse}", "Success", text, checkDate, infoLevel, response);
-                    return Ok(response);
-                }
+                return Ok(response);
+            }
+            catch (ArgumentException aex)
+            {
+                return BadRequest(new { message = aex.Message });
             }
             catch (Exception ex)
             {
@@ -118,17 +100,13 @@ namespace SmallTalks.Api.Controllers.v2
         {
             try
             {
-                if (requestItem == null || string.IsNullOrEmpty(requestItem.Text))
-                {
-                    return BadRequest();
-                }
+                var response = await _analysisFacade.ConfiguredAnalyseAsync(requestItem, Models.ApiVersion.V2);
 
-                using (var source = new CancellationTokenSource(TimeSpan.FromSeconds(1)))
-                {
-                    var response = await AnalyseAsync(requestItem, source.Token);
-                    _logger.Information(response.ToString());
-                    return Ok(response);
-                }
+                return Ok(response);
+            }
+            catch (ArgumentException aex)
+            {
+                return BadRequest(new { message = aex.Message });
             }
             catch (Exception ex)
             {
@@ -152,40 +130,13 @@ namespace SmallTalks.Api.Controllers.v2
         {
             try
             {
-                if (!ValidateBatchAnalysis(request))
-                {
-                    return BadRequest();
-                }
-
-                var response = new BatchAnalysisResponse
-                {
-                    Items = new List<AnalysisResponseItem>(),
-                    Id = request.Id
-                };
-
-                var tranformBlock = new TransformBlock<ConfiguredAnalysisRequestItem, AnalysisResponseItem>((Func<ConfiguredAnalysisRequestItem, Task<AnalysisResponseItem>>)UnsafeAnalyseAsync,
-                    new ExecutionDataflowBlockOptions
-                    {
-                        BoundedCapacity = ExecutionDataflowBlockOptions.Unbounded,
-                        MaxDegreeOfParallelism = 100
-                    });
-                var actionBlock = new ActionBlock<AnalysisResponseItem>(i =>
-                {
-                    response.Items.Add(i);
-                }, new ExecutionDataflowBlockOptions
-                {
-                    BoundedCapacity = ExecutionDataflowBlockOptions.Unbounded,
-                });
-                tranformBlock.LinkTo(actionBlock, new DataflowLinkOptions { PropagateCompletion = true, });
-
-                foreach (var item in request.Items)
-                {
-                    await tranformBlock.SendAsync(item);
-                }
-                tranformBlock.Complete();
-                await actionBlock.Completion;
+                var response = await _analysisFacade.BatchAnalyseV2(request);
 
                 return Ok(response);
+            }
+            catch (ArgumentException aex)
+            {
+                return BadRequest(new { message = aex.Message });
             }
             catch (Exception ex)
             {
@@ -193,55 +144,5 @@ namespace SmallTalks.Api.Controllers.v2
                 return StatusCode((int)HttpStatusCode.InternalServerError, ex);
             }
         }
-
-        private async Task<List<DateTimeDectected>> DetectDateAsync(ConfiguredAnalysisRequestItem requestItem, CancellationToken cancellationToken)
-        {
-            var sw = Stopwatch.StartNew();
-            try
-            {
-                return requestItem.CheckDate ? await _dateTimeDectector.DetectAsync(requestItem.Text, cancellationToken) : null;
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "Couldn't check date for {@RequestItem}", requestItem);
-                return null;
-            }
-            finally
-            {
-                sw.Stop();
-                _logger.Information("Finish date detect after {@ElapsedMillisecods} for {@RequestItem}", sw.ElapsedMilliseconds, requestItem);
-            }
-        }
-
-        private async Task<AnalysisResponseItem> AnalyseAsync(ConfiguredAnalysisRequestItem item, CancellationToken cancellationToken)
-        {
-            var analysisResponse = new AnalysisResponseItem
-            {
-                Id = item.Id,
-                SmallTalksAnalysis = await _smallTalksDetector.DetectAsyncv2(item.Text, item.Configuration),
-                DateTimeDectecteds = await DetectDateAsync(item, cancellationToken),
-            };
-
-            return analysisResponse;
-        }
-
-        private async Task<AnalysisResponseItem> UnsafeAnalyseAsync(ConfiguredAnalysisRequestItem item)
-        {
-            var analysisResponse = new AnalysisResponseItem
-            {
-                Id = item.Id,
-                SmallTalksAnalysis = await _smallTalksDetector.DetectAsyncv2(item.Text, item.Configuration),
-                DateTimeDectecteds = await DetectDateAsync(item, CancellationToken.None),
-            };
-
-            return analysisResponse;
-        }
-
-        private bool ValidateBatchAnalysis(BatchAnalysisRequest request)
-        {
-            return request != null && request.Items != null && request.Items.Count > 0 && !string.IsNullOrEmpty(request.Id);
-        }
-
-
     }
 }

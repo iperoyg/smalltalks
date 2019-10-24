@@ -30,32 +30,18 @@ namespace SmallTalks.Api.Facades
             _dateTimeDectector = dateTimeDectector;
         }
 
-        public async Task<AnalysisResponseItem> AnalyseAsync(string text, bool checkDate = true, int infoLevel = 1)
+        public async Task<AnalysisResponseItem> AnalyseAsync(string text, bool checkDate = true, int infoLevel = 1, ApiVersion apiVersion = ApiVersion.V1)
         {
             var item = BuildAnalysisRequestItem(text, checkDate, infoLevel);
 
-            return await GetAnalysisResponseAsync(item, ApiVersion.V1);
+            return await GetAnalysisResponseAsync(item, apiVersion);
         }
 
-        public async Task<AnalysisResponseItem> AnalyseAsyncV2(string text, bool checkDate = true, int infoLevel = 1)
-        {
-            var item = BuildAnalysisRequestItem(text, checkDate, infoLevel);
-
-            return await GetAnalysisResponseAsync(item, ApiVersion.V2);
-        }
-
-        public async Task<AnalysisResponseItem> ConfiguredAnalyseAsync(ConfiguredAnalysisRequestItem requestItem)
+        public async Task<AnalysisResponseItem> ConfiguredAnalyseAsync(ConfiguredAnalysisRequestItem requestItem, ApiVersion apiVersion = ApiVersion.V1)
         {
             CheckIfConfiguredAnalysisRequestIsValid(requestItem);
 
-            return await GetAnalysisResponseAsync(requestItem, ApiVersion.V1);
-        }
-
-        public async Task<AnalysisResponseItem> ConfiguredAnalyseAsyncV2(ConfiguredAnalysisRequestItem requestItem)
-        {
-            CheckIfConfiguredAnalysisRequestIsValid(requestItem);
-
-            return await GetAnalysisResponseAsync(requestItem, ApiVersion.V2);
+            return await GetAnalysisResponseAsync(requestItem, apiVersion);
         }
 
         public async Task<BatchAnalysisResponse> BatchAnalyse(BatchAnalysisRequest request)
