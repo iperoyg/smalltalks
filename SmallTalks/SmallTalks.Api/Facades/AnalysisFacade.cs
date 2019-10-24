@@ -60,9 +60,7 @@ namespace SmallTalks.Api.Facades
 
         public async Task<BatchAnalysisResponse> BatchAnalyse(BatchAnalysisRequest request)
         {
-            CheckIfBatchAnalysisRequestIsValid(request);
-
-            var response = new BatchAnalysisResponse(request.Id);
+            var response = BuildBatchAnalysisResponse(request);
 
             var tranformBlock = new TransformBlock<ConfiguredAnalysisRequestItem, AnalysisResponseItem>((Func<ConfiguredAnalysisRequestItem, Task<AnalysisResponseItem>>)UnsafeAnalyseAsync,
                 new ExecutionDataflowBlockOptions
@@ -78,9 +76,7 @@ namespace SmallTalks.Api.Facades
 
         public async Task<BatchAnalysisResponse> BatchAnalyseV2(BatchAnalysisRequest request)
         {
-            CheckIfBatchAnalysisRequestIsValid(request);
-
-            var response = new BatchAnalysisResponse(request.Id);
+            var response = BuildBatchAnalysisResponse(request);
 
             var tranformBlock = new TransformBlock<ConfiguredAnalysisRequestItem, AnalysisResponseItem>((Func<ConfiguredAnalysisRequestItem, Task<AnalysisResponseItem>>)UnsafeAnalyseAsyncv2,
                 new ExecutionDataflowBlockOptions
@@ -124,6 +120,14 @@ namespace SmallTalks.Api.Facades
             {
                 BoundedCapacity = ExecutionDataflowBlockOptions.Unbounded,
             });
+        }
+
+        private static BatchAnalysisResponse BuildBatchAnalysisResponse(BatchAnalysisRequest request)
+        {
+            CheckIfBatchAnalysisRequestIsValid(request);
+
+            var response = new BatchAnalysisResponse(request.Id);
+            return response;
         }
 
         private void CheckIfAnalysisRequestIsValid(string text, int infoLevel)
