@@ -9,6 +9,7 @@ namespace SmallTalks.Api.Facades.Interfaces
     public interface IAnalysisFacade
     {
         Task<AnalysisResponseItem> AnalyseAsync(string text, bool checkDate = true, int infoLevel = 1);
+        Task<AnalysisResponseItem> AnalyseAsyncV2(string text, bool checkDate = true, int infoLevel = 1);
         Task<AnalysisResponseItem> ConfiguredAnalyseAsync(ConfiguredAnalysisRequestItem requestItem);
         Task<BatchAnalysisResponse> BatchAnalyse(BatchAnalysisRequest request);
     }

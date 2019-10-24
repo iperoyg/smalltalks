@@ -32,27 +32,16 @@ namespace SmallTalks.Api.Facades
 
         public async Task<AnalysisResponseItem> AnalyseAsync(string text, bool checkDate = true, int infoLevel = 1)
         {
-            var isTextInvalid = string.IsNullOrEmpty(text);
-            var isInfoLevelInvalid = !Enum.IsDefined(typeof(InformationLevel), infoLevel);
+            var item = BuildAnalysisRequestItem(text, checkDate, infoLevel);
 
-            if (isTextInvalid || isInfoLevelInvalid)
-            {
-                var param = isTextInvalid ? nameof(text) : nameof(infoLevel);
-                _logger.Warning("{@Text} or {@InfoLevel} constraints violated!", text, infoLevel);
-                throw new ArgumentException("Invalid Text or InfoLevel. Check restrictions.", param);
-            }
+            return await GetAnalysisResponseAsync(item, ApiVersion.V1);
+        }
 
-            var item = new ConfiguredAnalysisRequestItem
-            {
-                Text = text,
-                CheckDate = checkDate,
-                Configuration = new SmallTalksPreProcessingConfiguration()
-                {
-                    InformationLevel = (InformationLevel)infoLevel
-                }
-            };
+        public async Task<AnalysisResponseItem> AnalyseAsyncV2(string text, bool checkDate = true, int infoLevel = 1)
+        {
+            var item = BuildAnalysisRequestItem(text, checkDate, infoLevel);
 
-            return await GetAnalysisResponseAsync(item);
+            return await GetAnalysisResponseAsync(item, ApiVersion.V2);
         }
 
         public async Task<AnalysisResponseItem> ConfiguredAnalyseAsync(ConfiguredAnalysisRequestItem requestItem)
@@ -62,7 +51,7 @@ namespace SmallTalks.Api.Facades
                 throw new ArgumentException("Invalid request item or content!");
             }
 
-            return await GetAnalysisResponseAsync(requestItem);
+            return await GetAnalysisResponseAsync(requestItem, ApiVersion.V1);
         }
 
         public async Task<BatchAnalysisResponse> BatchAnalyse(BatchAnalysisRequest request)
@@ -107,6 +96,35 @@ namespace SmallTalks.Api.Facades
             return response;
         }
 
+        private void CheckIfAnalysisRequestIsValid(string text, int infoLevel)
+        {
+            var isTextInvalid = string.IsNullOrEmpty(text);
+            var isInfoLevelInvalid = !Enum.IsDefined(typeof(InformationLevel), infoLevel);
+
+            if (isTextInvalid || isInfoLevelInvalid)
+            {
+                var param = isTextInvalid ? nameof(text) : nameof(infoLevel);
+                _logger.Warning("{@Text} or {@InfoLevel} constraints violated!", text, infoLevel);
+                throw new ArgumentException("Invalid Text or InfoLevel. Check restrictions.", param);
+            }
+        }
+
+        private ConfiguredAnalysisRequestItem BuildAnalysisRequestItem(string text, bool checkDate, int infoLevel)
+        {
+            CheckIfAnalysisRequestIsValid(text, infoLevel);
+
+            return new ConfiguredAnalysisRequestItem
+            {
+                Id = Guid.NewGuid().ToString(),
+                Text = text,
+                CheckDate = checkDate,
+                Configuration = new SmallTalksPreProcessingConfiguration()
+                {
+                    InformationLevel = (InformationLevel)infoLevel
+                }
+            };
+        }
+
         private async Task<AnalysisResponseItem> UnsafeAnalyseAsync(ConfiguredAnalysisRequestItem item)
         {
             var analysisResponse = new AnalysisResponseItem
@@ -119,11 +137,11 @@ namespace SmallTalks.Api.Facades
             return analysisResponse;
         }
 
-        private async Task<AnalysisResponseItem> GetAnalysisResponseAsync(ConfiguredAnalysisRequestItem requestItem)
+        private async Task<AnalysisResponseItem> GetAnalysisResponseAsync(ConfiguredAnalysisRequestItem requestItem, ApiVersion apiVersion)
         {
             using (var source = new CancellationTokenSource(TimeSpan.FromSeconds(1)))
             {
-                var response = await AnalyseAsync(requestItem, source.Token, ApiVersion.V1);
+                var response = await AnalyseAsync(requestItem, source.Token, apiVersion);
                 _logger.Information(response.ToString());
                 return response;
             }

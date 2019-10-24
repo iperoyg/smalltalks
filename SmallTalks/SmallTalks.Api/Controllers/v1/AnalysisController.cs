@@ -178,35 +178,18 @@ namespace SmallTalks.Api.Controllers.v1
         /// <response code="200">Successful API call. </response>
         [HttpGet, Route("v2")]
         [ServiceFilter(typeof(CustomAuthenticationFilter))]
-        //[ApiExplorerSettings(IgnoreApi = true)]
         [ProducesResponseType(typeof(AnalysisResponseItem), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Analysev2([Required]string text, bool checkDate = true, int infoLevel = 1)
         {
             try
             {
-                if (string.IsNullOrEmpty(text) || infoLevel < 1 || infoLevel > 3)
-                {
-                    _logger.Warning("{@Text} or {@InfoLevel} constraints violated!", text, infoLevel);
-                    return BadRequest(new { message = "Check 'text' and 'infoLevel' restrictions" });
-                }
+                var response = await _analysisFacade.AnalyseAsyncV2(text, checkDate, infoLevel);
 
-                var item = new ConfiguredAnalysisRequestItem
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Text = text,
-                    CheckDate = checkDate,
-                    Configuration = new SmallTalksPreProcessingConfiguration()
-                    {
-                        InformationLevel = (InformationLevel)infoLevel
-                    }
-                };
-
-                using (var source = new CancellationTokenSource(TimeSpan.FromSeconds(1)))
-                {
-                    var response = await AnalyseAsync(item, source.Token, '2');
-                    _logger.Information("[{@SmallTalksAnalysisResult}] {@Sentence} analysed with CheckDate={@CheckDate} and InfoLevel={@InfoLevel}. Response: {@AnalysisResponse}", "Success", text, checkDate, infoLevel, response);
-                    return Ok(response);
-                }
+                return Ok(response);
+            }
+            catch (ArgumentException aex)
+            {
+                return BadRequest(new { message = aex.Message });
             }
             catch (Exception ex)
             {
