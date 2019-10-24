@@ -14,5 +14,10 @@ namespace SmallTalks.Api.Models
         {
             Items = new List<ConfiguredAnalysisRequestItem>();
         }
+
+        public bool IsValid()
+        {
+            return Items != null && Items.Count > 0 && !string.IsNullOrEmpty(Id);
+        }
     }
 }

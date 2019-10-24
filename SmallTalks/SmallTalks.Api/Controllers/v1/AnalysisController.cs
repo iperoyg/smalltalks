@@ -105,17 +105,13 @@ namespace SmallTalks.Api.Controllers.v1
         {
             try
             {
-                if (requestItem == null || string.IsNullOrEmpty(requestItem.Text))
-                {
-                    return BadRequest();
-                }
+                var response = await _analysisFacade.ConfiguredAnalyseAsync(requestItem);
 
-                using (var source = new CancellationTokenSource(TimeSpan.FromSeconds(1)))
-                {
-                    var response = await AnalyseAsync(requestItem, source.Token, '1');
-                    _logger.Information(response.ToString());
-                    return Ok(response);
-                }
+                return Ok(response);
+            }
+            catch (ArgumentException aex)
+            {
+                return BadRequest(new { message = aex.Message });
             }
             catch (Exception ex)
             {
@@ -139,40 +135,13 @@ namespace SmallTalks.Api.Controllers.v1
         {
             try
             {
-                if (!ValidateBatchAnalysis(request))
-                {
-                    return BadRequest();
-                }
-
-                var response = new BatchAnalysisResponse
-                {
-                    Items = new List<AnalysisResponseItem>(),
-                    Id = request.Id
-                };
-
-                var tranformBlock = new TransformBlock<ConfiguredAnalysisRequestItem, AnalysisResponseItem>((Func<ConfiguredAnalysisRequestItem, Task<AnalysisResponseItem>>)UnsafeAnalyseAsync,
-                    new ExecutionDataflowBlockOptions
-                    {
-                        BoundedCapacity = ExecutionDataflowBlockOptions.Unbounded,
-                        MaxDegreeOfParallelism = 100
-                    });
-                var actionBlock = new ActionBlock<AnalysisResponseItem>(i =>
-                {
-                    response.Items.Add(i);
-                }, new ExecutionDataflowBlockOptions
-                {
-                    BoundedCapacity = ExecutionDataflowBlockOptions.Unbounded,
-                });
-                tranformBlock.LinkTo(actionBlock, new DataflowLinkOptions { PropagateCompletion = true, });
-
-                foreach (var item in request.Items)
-                {
-                    await tranformBlock.SendAsync(item);
-                }
-                tranformBlock.Complete();
-                await actionBlock.Completion;
+                var response = await _analysisFacade.BatchAnalyse(request);
 
                 return Ok(response);
+            }
+            catch (ArgumentException aex)
+            {
+                return BadRequest(new { message = aex.Message });
             }
             catch (Exception ex)
             {
