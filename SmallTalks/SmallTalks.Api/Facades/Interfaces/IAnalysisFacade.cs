@@ -13,5 +13,6 @@ namespace SmallTalks.Api.Facades.Interfaces
         Task<AnalysisResponseItem> ConfiguredAnalyseAsync(ConfiguredAnalysisRequestItem requestItem);
         Task<AnalysisResponseItem> ConfiguredAnalyseAsyncV2(ConfiguredAnalysisRequestItem requestItem);
         Task<BatchAnalysisResponse> BatchAnalyse(BatchAnalysisRequest request);
+        Task<BatchAnalysisResponse> BatchAnalyseV2(BatchAnalysisRequest request);
     }
 }

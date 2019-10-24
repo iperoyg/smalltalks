@@ -179,7 +179,7 @@ namespace SmallTalks.Api.Controllers.v1
         [HttpGet, Route("v2")]
         [ServiceFilter(typeof(CustomAuthenticationFilter))]
         [ProducesResponseType(typeof(AnalysisResponseItem), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Analysev2([Required]string text, bool checkDate = true, int infoLevel = 1)
+        public async Task<IActionResult> AnalyseV2([Required]string text, bool checkDate = true, int infoLevel = 1)
         {
             try
             {
@@ -210,7 +210,7 @@ namespace SmallTalks.Api.Controllers.v1
         [HttpPost, Route("v2")]
         [ServiceFilter(typeof(CustomAuthenticationFilter))]
         [ProducesResponseType(typeof(BatchAnalysisResponse), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> ConfiguredAnalysev2([FromBody] ConfiguredAnalysisRequestItem requestItem)
+        public async Task<IActionResult> ConfiguredAnalyseV2([FromBody] ConfiguredAnalysisRequestItem requestItem)
         {
             try
             {
@@ -240,44 +240,17 @@ namespace SmallTalks.Api.Controllers.v1
         [HttpPost, Route("v2/batch")]
         [ServiceFilter(typeof(CustomAuthenticationFilter))]
         [ProducesResponseType(typeof(BatchAnalysisResponse), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> BatchAnalysev2([FromBody] BatchAnalysisRequest request)
+        public async Task<IActionResult> BatchAnalyseV2([FromBody] BatchAnalysisRequest request)
         {
             try
             {
-                if (!ValidateBatchAnalysis(request))
-                {
-                    return BadRequest();
-                }
-
-                var response = new BatchAnalysisResponse
-                {
-                    Items = new List<AnalysisResponseItem>(),
-                    Id = request.Id
-                };
-
-                var tranformBlock = new TransformBlock<ConfiguredAnalysisRequestItem, AnalysisResponseItem>((Func<ConfiguredAnalysisRequestItem, Task<AnalysisResponseItem>>)UnsafeAnalyseAsyncv2,
-                    new ExecutionDataflowBlockOptions
-                    {
-                        BoundedCapacity = ExecutionDataflowBlockOptions.Unbounded,
-                        MaxDegreeOfParallelism = 100
-                    });
-                var actionBlock = new ActionBlock<AnalysisResponseItem>(i =>
-                {
-                    response.Items.Add(i);
-                }, new ExecutionDataflowBlockOptions
-                {
-                    BoundedCapacity = ExecutionDataflowBlockOptions.Unbounded,
-                });
-                tranformBlock.LinkTo(actionBlock, new DataflowLinkOptions { PropagateCompletion = true, });
-
-                foreach (var item in request.Items)
-                {
-                    await tranformBlock.SendAsync(item);
-                }
-                tranformBlock.Complete();
-                await actionBlock.Completion;
+                var response = await _analysisFacade.BatchAnalyseV2(request);
 
                 return Ok(response);
+            }
+            catch (ArgumentException aex)
+            {
+                return BadRequest(new { message = aex.Message });
             }
             catch (Exception ex)
             {
@@ -285,82 +258,5 @@ namespace SmallTalks.Api.Controllers.v1
                 return StatusCode((int)HttpStatusCode.InternalServerError, ex);
             }
         }
-
-        private async Task<List<DateTimeDectected>> DetectDateAsync(ConfiguredAnalysisRequestItem requestItem, CancellationToken cancellationToken)
-        {
-            var sw = Stopwatch.StartNew();
-            try
-            {
-                return requestItem.CheckDate ? await _dateTimeDectector.DetectAsync(requestItem.Text, cancellationToken) : null;
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "Couldn't check date for {@RequestItem}", requestItem);
-                return null;
-            }
-            finally
-            {
-                sw.Stop();
-                _logger.Information("Finish date detect after {@ElapsedMillisecods} for {@RequestItem}", sw.ElapsedMilliseconds, requestItem);
-            }
-        }
-
-        private async Task<AnalysisResponseItem> AnalyseAsync(ConfiguredAnalysisRequestItem item, CancellationToken cancellationToken, char apiVersion)
-        {
-            var analysisResponse = new AnalysisResponseItem
-            {
-                Id = item.Id,
-                SmallTalksAnalysis = apiVersion == '1' ? await _smallTalksDetector.DetectAsync(item.Text, item.Configuration) :
-                                     apiVersion == '2' ? await _smallTalksDetector.DetectAsyncv2(item.Text, item.Configuration) : await _smallTalksDetector.DetectAsync(item.Text, item.Configuration),
-                DateTimeDectecteds = await DetectDateAsync(item, cancellationToken),
-            };
-
-            return analysisResponse;
-        }
-
-        private async Task<AnalysisResponseItem> AnalyseAsyncv2(ConfiguredAnalysisRequestItem item, CancellationToken cancellationToken)
-        {
-            var analysisResponse = new AnalysisResponseItem
-            {
-                Id = item.Id,
-                SmallTalksAnalysis = await _smallTalksDetector.DetectAsyncv2(item.Text, item.Configuration),
-                DateTimeDectecteds = await DetectDateAsync(item, cancellationToken),
-            };
-
-            return analysisResponse;
-        }
-
-        private async Task<AnalysisResponseItem> UnsafeAnalyseAsync(ConfiguredAnalysisRequestItem item)
-        {
-            var analysisResponse = new AnalysisResponseItem
-            {
-                Id = item.Id,
-            //    SmallTalksAnalysis = apiVersion == '1' ? await _smallTalksDetector.DetectAsync(item.Text, item.Configuration) :
-            //                         apiVersion == '2' ? await _smallTalksDetector.DetectAsyncv2(item.Text, item.Configuration) : await _smallTalksDetector.DetectAsync(item.Text, item.Configuration),
-                SmallTalksAnalysis = await _smallTalksDetector.DetectAsync(item.Text, item.Configuration),
-                DateTimeDectecteds = await DetectDateAsync(item, CancellationToken.None),
-            };
-
-            return analysisResponse;
-        }
-
-        private async Task<AnalysisResponseItem> UnsafeAnalyseAsyncv2(ConfiguredAnalysisRequestItem item)
-        {
-            var analysisResponse = new AnalysisResponseItem
-            {
-                Id = item.Id,
-                SmallTalksAnalysis = await _smallTalksDetector.DetectAsyncv2(item.Text, item.Configuration),
-                DateTimeDectecteds = await DetectDateAsync(item, CancellationToken.None),
-            };
-
-            return analysisResponse;
-        }
-
-        private bool ValidateBatchAnalysis(BatchAnalysisRequest request)
-        {
-            return request != null && request.Items != null && request.Items.Count > 0 && !string.IsNullOrEmpty(request.Id);
-        }
-
-
     }
 }

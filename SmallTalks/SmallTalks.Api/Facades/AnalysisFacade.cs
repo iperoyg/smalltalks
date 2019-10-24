@@ -60,17 +60,9 @@ namespace SmallTalks.Api.Facades
 
         public async Task<BatchAnalysisResponse> BatchAnalyse(BatchAnalysisRequest request)
         {
+            CheckIfBatchAnalysisRequestIsValid(request);
 
-            if (request == null || !request.IsValid())
-            {
-                throw new ArgumentException("Batch Analysis request object not valid");
-            }
-
-            var response = new BatchAnalysisResponse
-            {
-                Items = new List<AnalysisResponseItem>(),
-                Id = request.Id
-            };
+            var response = new BatchAnalysisResponse(request.Id);
 
             var tranformBlock = new TransformBlock<ConfiguredAnalysisRequestItem, AnalysisResponseItem>((Func<ConfiguredAnalysisRequestItem, Task<AnalysisResponseItem>>)UnsafeAnalyseAsync,
                 new ExecutionDataflowBlockOptions
@@ -79,25 +71,59 @@ namespace SmallTalks.Api.Facades
                     MaxDegreeOfParallelism = 100
                 });
 
-            var actionBlock = new ActionBlock<AnalysisResponseItem>(i =>
-                {
-                    response.Items.Add(i);
-                }, new ExecutionDataflowBlockOptions
+            await SendAnalysis(request, response, tranformBlock);
+
+            return response;
+        }
+
+        public async Task<BatchAnalysisResponse> BatchAnalyseV2(BatchAnalysisRequest request)
+        {
+            CheckIfBatchAnalysisRequestIsValid(request);
+
+            var response = new BatchAnalysisResponse(request.Id);
+
+            var tranformBlock = new TransformBlock<ConfiguredAnalysisRequestItem, AnalysisResponseItem>((Func<ConfiguredAnalysisRequestItem, Task<AnalysisResponseItem>>)UnsafeAnalyseAsyncv2,
+                new ExecutionDataflowBlockOptions
                 {
                     BoundedCapacity = ExecutionDataflowBlockOptions.Unbounded,
+                    MaxDegreeOfParallelism = 100
                 });
 
-            tranformBlock.LinkTo(actionBlock, new DataflowLinkOptions { PropagateCompletion = true });
+            await SendAnalysis(request, response, tranformBlock);
 
+            return response;
+        }
+
+        private static async Task SendAnalysis(BatchAnalysisRequest request, BatchAnalysisResponse response, TransformBlock<ConfiguredAnalysisRequestItem, AnalysisResponseItem> tranformBlock)
+        {
+            var actionBlock = BuildBatchAnalysisActionBlock(response);
+
+            tranformBlock.LinkTo(actionBlock, new DataflowLinkOptions { PropagateCompletion = true, });
+
+            await SendBlocks(request, tranformBlock);
+
+            tranformBlock.Complete();
+
+            await actionBlock.Completion;
+        }
+
+        private static async Task SendBlocks(BatchAnalysisRequest request, TransformBlock<ConfiguredAnalysisRequestItem, AnalysisResponseItem> tranformBlock)
+        {
             foreach (var item in request.Items)
             {
                 await tranformBlock.SendAsync(item);
             }
+        }
 
-            tranformBlock.Complete();
-            await actionBlock.Completion;
-
-            return response;
+        private static ActionBlock<AnalysisResponseItem> BuildBatchAnalysisActionBlock(BatchAnalysisResponse response)
+        {
+            return new ActionBlock<AnalysisResponseItem>(i =>
+            {
+                response.Items.Add(i);
+            }, new ExecutionDataflowBlockOptions
+            {
+                BoundedCapacity = ExecutionDataflowBlockOptions.Unbounded,
+            });
         }
 
         private void CheckIfAnalysisRequestIsValid(string text, int infoLevel)
@@ -118,6 +144,14 @@ namespace SmallTalks.Api.Facades
             if (requestItem == null || string.IsNullOrEmpty(requestItem.Text))
             {
                 throw new ArgumentException("Invalid request item or content!");
+            }
+        }
+
+        private static void CheckIfBatchAnalysisRequestIsValid(BatchAnalysisRequest request)
+        {
+            if (request == null || !request.IsValid())
+            {
+                throw new ArgumentException("Batch Analysis request object not valid");
             }
         }
 
@@ -143,6 +177,18 @@ namespace SmallTalks.Api.Facades
             {
                 Id = item.Id,
                 SmallTalksAnalysis = await _smallTalksDetector.DetectAsync(item.Text, item.Configuration),
+                DateTimeDectecteds = await DetectDateAsync(item, CancellationToken.None),
+            };
+
+            return analysisResponse;
+        }
+
+        private async Task<AnalysisResponseItem> UnsafeAnalyseAsyncv2(ConfiguredAnalysisRequestItem item)
+        {
+            var analysisResponse = new AnalysisResponseItem
+            {
+                Id = item.Id,
+                SmallTalksAnalysis = await _smallTalksDetector.DetectAsyncv2(item.Text, item.Configuration),
                 DateTimeDectecteds = await DetectDateAsync(item, CancellationToken.None),
             };
 
