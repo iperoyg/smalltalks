@@ -27,6 +27,9 @@ using SmallTalks.Api.Filters;
 using SmallTalks.Api.Middlewares;
 using SmallTalks.Api.Extensions;
 using SmallTalks.Api.Filters;
+using SmallTalks.Api.Facades;
+using SmallTalks.Api.Facades.Interfaces;
+
 namespace SmallTalks.Api
 {
     public class Startup
@@ -46,10 +49,14 @@ namespace SmallTalks.Api
             services
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
             services = Core.ContainerProvider.RegisterTypes(services);
-            services.AddSingleton<IDateTimeDectector, WatsonDatetimeDetector>();
-            services.AddSingleton<Serilog.ILogger>(Log.Logger);
-            services.AddScoped<CustomAuthenticationFilter>();
+
+            services
+                .AddSingleton<IDateTimeDectector, WatsonDatetimeDetector>()
+                .AddSingleton<Serilog.ILogger>(Log.Logger)
+                .AddSingleton<IAnalysisFacade, AnalysisFacade>()
+                .AddScoped<CustomAuthenticationFilter>();
 
             // Adds versioning, defaults to v1
             services.AddApiVersioning(o =>

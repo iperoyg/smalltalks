@@ -19,6 +19,7 @@ namespace SmallTalks.Api.Models
         public AnalysisRequestItem()
         {
             CheckDate = false;
+            Id = Guid.NewGuid().ToString();
         }
     }
 }

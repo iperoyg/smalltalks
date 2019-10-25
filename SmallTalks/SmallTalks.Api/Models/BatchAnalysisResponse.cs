@@ -14,7 +14,12 @@ namespace SmallTalks.Api.Models
         {
             Id = string.Empty;
             Items = new List<AnalysisResponseItem>();
-            
+        }
+
+        public BatchAnalysisResponse(string id)
+        {
+            Id = id;
+            Items = new List<AnalysisResponseItem>();
         }
     }
 }
